@@ -126,8 +126,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\BinnacleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -138,6 +143,24 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\imgs\core-img\arrow-down.svg" />
+    <Content Include="Content\imgs\core-img\arrow-left.svg" />
+    <Content Include="Content\imgs\core-img\arrow-right.svg" />
+    <Content Include="Content\imgs\core-img\arrow-up.svg" />
+    <Content Include="Content\imgs\core-img\bag.svg" />
+    <Content Include="Content\imgs\core-img\cancel.svg" />
+    <Content Include="Content\imgs\core-img\favicon.png" />
+    <Content Include="Content\imgs\core-img\heart-fill.svg" />
+    <Content Include="Content\imgs\core-img\heart.svg" />
+    <Content Include="Content\imgs\core-img\logo.jpg" />
+    <Content Include="Content\imgs\core-img\logo.png" />
+    <Content Include="Content\imgs\core-img\long-arrow-left.svg" />
+    <Content Include="Content\imgs\core-img\long-arrow-right.svg" />
+    <Content Include="Content\imgs\core-img\search.svg" />
+    <Content Include="Content\imgs\core-img\user.svg" />
+    <Content Include="Content\imgs\core-img\view.svg" />
+    <Content Include="Content\imgs\proyecto\facebook.jpg" />
+    <Content Include="Content\imgs\proyecto\insta.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -171,6 +194,15 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
     <Content Include="Views\LogIn\Juanito.cshtml" />
+    <Content Include="Views\User\Admin.cshtml" />
+    <Content Include="Views\User\AssignRole.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Binnacle\CheckBinnacle.cshtml" />
+    <Content Include="Views\Binnacle\CheckErrors.cshtml" />
+    <Content Include="Views\Reservation\Detail.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Room\Edit.cshtml" />
+    <Content Include="Views\Room\EditPrices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
