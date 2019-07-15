@@ -1,0 +1,27 @@
+﻿<section class="welcome_area bg-img background-overlay">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="hero-content">
+                    <form action="#">
+                        <h2>Crear Nuevo Precio</h2>
+                        <h4>Consecutivo:</h4>
+                        <input class="input" type="text" name="consecutivo" id="consecutivo" value="PRC6"
+                               disabled><br>
+                        <h4>Tipo:</h4>
+                        <input class="input" type="text" name="tipo" id="tipo"><br>
+                        <h4>Precio:</h4>
+                        <input class="input" type="text" name="precio" id="precio"><br><br>
+
+                        <td>@Html.ActionLink("Crear", "ListPrice", "Room", null, new { @class = "btn essence-btn" })</td>
+                        <td>@Html.ActionLink("Cancelar", "ListPrice", "Room", null, new { @class = "btn essence-btn" })</td>
+
+                        <br />
+                        <br />
+                        <input type="reset" value="Restablecer" class="reset-form">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

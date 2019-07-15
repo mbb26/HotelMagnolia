@@ -6,11 +6,8 @@ using System.Web.Mvc;
 
 namespace HotelMagnolia.UI.Controllers
 {
-    public class HomeController : Controller
+    public class ClientController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public ActionResult ListClient() => View();
     }
 }

@@ -7,5 +7,9 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult CheckBinnacle() => View();
 
         public ActionResult CheckErrors() => View();
+
+        public ActionResult ResultBinnacle() => View();
+
+        public ActionResult ResultlError() => View();
     }
 }

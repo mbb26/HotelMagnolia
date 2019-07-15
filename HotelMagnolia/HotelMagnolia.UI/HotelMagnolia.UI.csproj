@@ -128,6 +128,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\BinnacleController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ConsecutiveController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
@@ -165,14 +167,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -189,11 +195,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\LogIn\Index.cshtml" />
-    <Content Include="Views\LogIn\Juanito.cshtml" />
     <Content Include="Views\User\Admin.cshtml" />
     <Content Include="Views\User\AssignRole.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
@@ -203,6 +205,22 @@
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Room\Edit.cshtml" />
     <Content Include="Views\Room\EditPrices.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Activities\ListActivities.cshtml" />
+    <Content Include="Views\Client\ListClient.cshtml" />
+    <Content Include="Views\Consecutive\ListConsecutive.cshtml" />
+    <Content Include="Views\Room\ListRoom.cshtml" />
+    <Content Include="Views\Room\ListPrice.cshtml" />
+    <Content Include="Views\User\ListRoles.cshtml" />
+    <Content Include="Views\User\ListUser.cshtml" />
+    <Content Include="Views\Activities\NewActivities.cshtml" />
+    <Content Include="Views\Room\NewRoom.cshtml" />
+    <Content Include="Views\Consecutive\NewConsecutive.cshtml" />
+    <Content Include="Views\Room\NewPrice.cshtml" />
+    <Content Include="Views\User\NewUser.cshtml" />
+    <Content Include="Views\Binnacle\ResultBinnacle.cshtml" />
+    <Content Include="Views\Binnacle\ErrorsResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

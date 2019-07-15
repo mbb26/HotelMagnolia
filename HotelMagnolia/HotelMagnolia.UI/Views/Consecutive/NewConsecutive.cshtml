@@ -1,0 +1,46 @@
+﻿<section class="welcome_area bg-img background-overlay">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="hero-content">
+                    <form action="#">
+                        <h2>Información del Consecutivo</h2>
+                        <h4>Descripcion:</h4>
+                        <select name="Descripcion" id="Descripcion">
+                            <option>Habitaciones</option>
+                            <option>Actividades</option>
+                            <option>Precios</option>
+                            <option>Activos</option>
+                            <option>Reservaciones</option>
+                            <option>Cientes</option>
+                            <option>Bitácora</option>
+                        </select>
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <h6>Núemro de Consecutivo:</h6>
+                        <input class="input" type="number" name="num_consecutivo" id="num_consecutivo">
+                        <h4>Posee Prefijo:</h4>
+                        <input class="input" type="checkbox" name="checkbox_pre" id="checkbox_pre" data-action="toggleEnable" data-target="#prefijo_consecutivo">
+                        <h4>Prefijo:</h4>
+                        <input class="input" type="text" name="prefijo_consecutivo" id="prefijo_consecutivo" disabled>
+                        <h4>Posee Rango:</h4>
+                        <input class="input" type="checkbox" name="checkbox_range" id="checkbox_range" data-action="toggleEnable" data-target="#start_range, #end_range">
+                        <h4>Inicio del Rango:</h4>
+                        <input class="input" type="number" name="start_range" id="start_range" disabled>
+                        <h4>Limite final del rango:</h4>
+                        <input class="input" type="number" name="end_range" id="end_range" disabled>
+
+                        <br><br>
+                        @Html.ActionLink("Aceptar", "ListConsecutive", "Consecutive", null, new { @class = "btn essence-btn" })
+                        @Html.ActionLink("Cancelar", "ListConsecutive", "Consecutive", null, new { @class = "btn essence-btn" })
+
+                        <br /><input type="reset" value="Restablecer" class="btn btn-secondary reset-form">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

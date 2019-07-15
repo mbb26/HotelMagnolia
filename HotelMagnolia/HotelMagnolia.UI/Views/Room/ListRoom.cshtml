@@ -1,0 +1,44 @@
+﻿<section class="welcome_area bg-img background-overlay">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+
+                <div>
+                    <h1>Lista de Habitaciones</h1>
+                    <br>
+                    <br>
+                    <table align="justify-content-end,align-items-center">
+                        <tr>
+                            <th>Consecutivo</th>
+                            <th>Número</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                        <tr>
+                            <td>HAB1</td>
+                            <td>101</td>
+                            <td>Room 101</td>
+                            <td>@Html.ActionLink("Editar", "Edit", "Room", null, new { })</td>
+                        </tr>
+                        <tr>
+                            <td>HAB2</td>
+                            <td>501</td>
+                            <td>Suite Presidencial</td>
+                            <td>@Html.ActionLink("Editar", "Edit", "Room", null, new { })</td>
+                        </tr>
+                        <tr>
+                            <td>HAB3</td>
+                            <td>502</td>
+                            <td>Room 502</td>
+                            <td>@Html.ActionLink("Editar", "Edit", "Room", null, new { })</td>
+                        </tr>
+                    </table>
+                    <br>
+                    @Html.ActionLink("Nuevo", "NewRoom", "Room", null, new { @class = "btn essence-btn" })
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>

@@ -18,9 +18,8 @@
                     </select><br><br>
                     <h4>Imagen:</h4>
                     <input class="input" type="file" name="imagen" id="imagen"><br><br>
-
-                    <a href="lista_habitaciones.html" class="btn essence-btn">Guardar Cambios</a>
-                    <a href="lista_habitaciones.html" class="btn">Cancelar</a>
+                    @Html.ActionLink("Guardar Cambios", "ListRoom", "Room", null, new { @class = "btn essence-btn" })
+                    @Html.ActionLink("Cancelar", "ListRoom", "Room", null, new { @class = "btn essence-btn" })
                 </div>
             </div>
         </div>

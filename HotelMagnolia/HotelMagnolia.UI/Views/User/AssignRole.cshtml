@@ -20,8 +20,10 @@
                     <input type="checkbox" name="rol_consulta" id="rol_consulta">
                     <label for="rol_consulta">Consulta</label><br><br>
 
-                    <a href="lista_usuarios.html" class="btn essence-btn">Guardar Cambios</a>
-                    <a href="lista_usuarios.html" class="btn">Cancelar</a>
+                    <td>@Html.ActionLink("Guardar Cambios", "ListUser", "User", null, new { @class = "btn essence-btn" })</td>
+                    <td>@Html.ActionLink("Cancelar", "ListUser", "User", null, new { @class = "btn essence-btn" })</td>
+
+                    <
                 </div>
             </div>
         </div>

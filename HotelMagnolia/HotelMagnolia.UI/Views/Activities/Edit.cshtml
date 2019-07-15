@@ -13,8 +13,8 @@
                     <h4>Imagen:</h4>
                     <input class="input" type="file" name="imagen" id="imagen"><br><br>
 
-                    <a href="lista_actividades.html" class="btn essence-btn">Guardar Cambios</a>
-                    <a href="lista_actividades.html" class="btn">Cancelar</a>
+                    @Html.ActionLink("Guardar Cambios", "ListActivities", "Activities", null, new { @class = "btn essence-btn" })
+                    @Html.ActionLink("Cancelar", "ListActivities", "Activities", null, new { @class = "btn essence-btn" })
                 </div>
             </div>
         </div>

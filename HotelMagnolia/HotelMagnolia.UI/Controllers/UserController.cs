@@ -9,5 +9,15 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult AssignRole() => View();
 
         public ActionResult ChangePassword() => View();
+
+        public ActionResult EditUser() => View();
+
+        public ActionResult Index() => View();
+
+        public ActionResult ListRoles() => View();
+
+        public ActionResult ListUser() => View();
+
+        public ActionResult NewUser() => View();
     }
 }

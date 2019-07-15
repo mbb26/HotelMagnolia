@@ -10,9 +10,8 @@
                     <input class="input" type="text" name="tipo" id="tipo" value="Habitacion Deluxe"><br>
                     <h4>Precio:</h4>
                     <input class="input" type="text" name="precio" id="precio" value="50000"><br><br>
-
-                    <a href="lista_precios.html" class="btn essence-btn">Guardar Cambios</a>
-                    <a href="lista_precios.html" class="btn">Cancelar</a>
+                    @Html.ActionLink("Guardar Cambios", "ListPrice", "Room", null, new { @class = "btn essence-btn" })
+                    @Html.ActionLink("Cancelar", "ListPrice", "Room", null, new { @class = "btn essence-btn" })
                 </div>
             </div>
         </div>

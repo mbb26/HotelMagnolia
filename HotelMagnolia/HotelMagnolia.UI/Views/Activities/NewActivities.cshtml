@@ -1,0 +1,30 @@
+﻿<section class="welcome_area bg-img background-overlay">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="hero-content">
+                    <form action="#">
+                        <h2>Agregar Actividad</h2>
+                        <h4>Consecutivo:</h4>
+                        <input class="input" type="text" name="txtConsecutivo" id="txtConsecutivo" value="ACT4"
+                               disabled="disabled"><br>
+                        <h4>Nombre:</h4>
+                        <input class="input" type="text" name="txtUser" id="txtUser" value=""><br>
+                        <h4>Descripción:</h4>
+                        <textarea class="form-control" cols="20" name="descripcion" rows="5"></textarea><br>
+                        <h4>Imagen:</h4>
+                        <input class="input" type="file" name="imagen" id="imagen"
+                               value="images/actividades/zumba.jpg"><br><br>
+
+                        @Html.ActionLink("Guardar", "ListActivities", "Activities", null, new { @class = "btn essence-btn" })
+                        @Html.ActionLink("Cancelar", "ListActivities", "Activities", null, new { @class = "btn essence-btn" })
+
+                        <br />
+                        <br />
+                        <input type="reset" value="Restablecer" class="reset-form">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -11,36 +11,55 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+
     <header class="header_area">
         <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand" href="/"><img src="~/Content/imgs/core-img/logo.png" alt="Hotel Mandiola Logo"></a>
+            <a class="navbar-brand" href="admin.html"><img src="../img/core-img/logo.png" alt="Hotel Mandiola Logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuClientes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Clientes
+                        <a class="nav-link dropdown-toggle" href="#" id="menuSeguridad" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Seguridad
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="menuClientes">
-                            <a class="dropdown-item" href="cambiar_password.html">Cambiar Contraseña</a>
-                            <a class="dropdown-item" href="login.html">Cerrar Sesi&oacute;n</a>
+                        <div class="dropdown-menu" aria-labelledby="menuSeguridad">
+                            @Html.ActionLink("Roles", "ListRoles", "User", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Usuarios", "ListUser", "User", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Cambio de Contraseña", "ChangePassword", "User", null, new { @class = "dropdown-item" })
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuBusqueda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            B&uacute;squeda
+                        <a class="nav-link dropdown-toggle" href="#" id="menuAdministracion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administracion
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="menuBusqueda">
-                            <a class="dropdown-item" href="busqueda_habitaciones.html">Buscar Habitaciones</a>
-                            <a class="dropdown-item" href="busqueda_productos.html">Buscar Productos</a>
+                        <div class="dropdown-menu" aria-labelledby="menuAdministracion">
+                            @Html.ActionLink("Consecutivos", "ListConsecutive", "Consecutive", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Actividades", "ListActivities", "Activities", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Habitaciones", "ListRoom", "Room", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Precios", "ListPrice", "Room", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Clientes", "ListClient", "Client", null, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuConsulta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Consulta
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="menuConsulta">
+                            @Html.ActionLink("Bitacora", "CheckBinnacle", "Binnacle", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Errores", "CheckErrors", "Binnacle", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Clientes Activos", "#", "#", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Habitaciones Listas", "#", "#", null, new { @class = "dropdown-item" })
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
+    @Html.ActionLink("Cambiar Contraseña", "ChangePassword", "User", null, new { @class = "dropdown-item" })
+
     @RenderBody()
     <div class="container body-content">
         <hr />
@@ -56,8 +75,10 @@
             </div>
         </footer>
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/functions.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
