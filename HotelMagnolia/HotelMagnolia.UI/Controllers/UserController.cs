@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using HotelMagnolia.Biz;
+using System.Web.Mvc;
 
 namespace HotelMagnolia.UI.Controllers
 {
@@ -19,5 +20,7 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult ListUser() => View();
 
         public ActionResult NewUser() => View();
+
+        public void Juanito() => new UserManagement().juanito();
     }
 }

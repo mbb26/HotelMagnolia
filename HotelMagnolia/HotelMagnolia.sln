@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelMagnolia.UI", "HotelMagnolia.UI\HotelMagnolia.UI.csproj", "{709061FC-0908-49C0-B77A-80177EE12A60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelMagnolia.DB", "HotelMagnolia.DB\HotelMagnolia.DB.csproj", "{4C28D158-AA0C-4872-B5EC-8AE6DA1AF461}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelMagnolia.Biz", "HotelMagnolia.Biz\HotelMagnolia.Biz.csproj", "{B8B17DD2-4791-4FD4-965F-2641A6A49286}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{709061FC-0908-49C0-B77A-80177EE12A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{709061FC-0908-49C0-B77A-80177EE12A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{709061FC-0908-49C0-B77A-80177EE12A60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C28D158-AA0C-4872-B5EC-8AE6DA1AF461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C28D158-AA0C-4872-B5EC-8AE6DA1AF461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C28D158-AA0C-4872-B5EC-8AE6DA1AF461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C28D158-AA0C-4872-B5EC-8AE6DA1AF461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B17DD2-4791-4FD4-965F-2641A6A49286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B17DD2-4791-4FD4-965F-2641A6A49286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B17DD2-4791-4FD4-965F-2641A6A49286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B17DD2-4791-4FD4-965F-2641A6A49286}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
