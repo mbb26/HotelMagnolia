@@ -13,10 +13,5 @@ namespace HotelMagnolia.UI.Controllers
         {
             return View();
         }
-
-        public ActionResult Juanito()
-        {
-            return View();
-        }
     }
 }

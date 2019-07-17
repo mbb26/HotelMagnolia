@@ -55,6 +55,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -132,17 +134,61 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ActivitiesController.cs" />
-    <Compile Include="Controllers\BinnacleController.cs" />
-    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ActividadesController.cs" />
+    <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\ConsecutiveController.cs" />
+    <Compile Include="Controllers\HabitacionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\ReservacionesController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ACTIVIDAD.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ARTICULO.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BITACORA.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CONSECUTIVO.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HABITACION.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PRECIO.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RESERVACION.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ROL.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USUARIO.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -173,10 +219,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ModelDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+      <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+      <LastGenOutput>ModelDB.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\ModelDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelDB.edmx.diagram">
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -202,35 +265,54 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\User\Admin.cshtml" />
-    <Content Include="Views\User\AssignRole.cshtml" />
-    <Content Include="Views\User\ChangePassword.cshtml" />
-    <Content Include="Views\Binnacle\CheckBinnacle.cshtml" />
-    <Content Include="Views\Binnacle\CheckErrors.cshtml" />
+    <Content Include="Views\Usuarios\Admin.cshtml" />
+    <Content Include="Views\Usuarios\AssignRole.cshtml" />
+    <Content Include="Views\Usuarios\ChangePassword.cshtml" />
+    <Content Include="Views\Bitacora\CheckBinnacle.cshtml" />
+    <Content Include="Views\Bitacora\CheckErrors.cshtml" />
     <Content Include="Views\Reservation\Detail.cshtml" />
-    <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Room\Edit.cshtml" />
     <Content Include="Views\Room\EditPrices.cshtml" />
-    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\Usuarios\EditUser.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Activities\ListActivities.cshtml" />
-    <Content Include="Views\Client\ListClient.cshtml" />
-    <Content Include="Views\Consecutive\ListConsecutive.cshtml" />
     <Content Include="Views\Room\ListRoom.cshtml" />
     <Content Include="Views\Room\ListPrice.cshtml" />
-    <Content Include="Views\User\ListRoles.cshtml" />
-    <Content Include="Views\User\ListUser.cshtml" />
-    <Content Include="Views\Activities\NewActivities.cshtml" />
+    <Content Include="Views\Usuarios\ListRoles.cshtml" />
     <Content Include="Views\Room\NewRoom.cshtml" />
-    <Content Include="Views\Consecutive\NewConsecutive.cshtml" />
     <Content Include="Views\Room\NewPrice.cshtml" />
-    <Content Include="Views\User\NewUser.cshtml" />
-    <Content Include="Views\Binnacle\ResultBinnacle.cshtml" />
-    <Content Include="Views\Binnacle\ErrorsResult.cshtml" />
+    <Content Include="Views\Actividades\Create.cshtml" />
+    <Content Include="Views\Actividades\Delete.cshtml" />
+    <Content Include="Views\Actividades\Details.cshtml" />
+    <Content Include="Views\Actividades\Edit.cshtml" />
+    <Content Include="Views\Actividades\Index.cshtml" />
+    <Content Include="Views\Bitacora\Create.cshtml" />
+    <Content Include="Views\Bitacora\Delete.cshtml" />
+    <Content Include="Views\Bitacora\Details.cshtml" />
+    <Content Include="Views\Bitacora\Edit.cshtml" />
+    <Content Include="Views\Bitacora\Index.cshtml" />
+    <Content Include="Views\Consecutivos\Create.cshtml" />
+    <Content Include="Views\Consecutivos\Delete.cshtml" />
+    <Content Include="Views\Consecutivos\Details.cshtml" />
+    <Content Include="Views\Consecutivos\Edit.cshtml" />
+    <Content Include="Views\Consecutivos\Index.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Reservaciones\Create.cshtml" />
+    <Content Include="Views\Reservaciones\Delete.cshtml" />
+    <Content Include="Views\Reservaciones\Details.cshtml" />
+    <Content Include="Views\Reservaciones\Edit.cshtml" />
+    <Content Include="Views\Reservaciones\Index.cshtml" />
+    <Content Include="Views\Habitaciones\Create.cshtml" />
+    <Content Include="Views\Habitaciones\Delete.cshtml" />
+    <Content Include="Views\Habitaciones\Details.cshtml" />
+    <Content Include="Views\Habitaciones\Edit.cshtml" />
+    <Content Include="Views\Habitaciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -250,6 +332,9 @@
       <Project>{b8b17dd2-4791-4fd4-965f-2641a6a49286}</Project>
       <Name>HotelMagnolia.Biz</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

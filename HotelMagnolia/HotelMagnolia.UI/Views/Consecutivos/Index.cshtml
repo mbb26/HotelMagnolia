@@ -1,0 +1,69 @@
+﻿@model IEnumerable<HotelMagnolia.UI.Models.CONSECUTIVO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VALOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIENE_PREFIJO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PREFIJO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.POSEE_RANGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RANGO_INICIAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RANGO_FINAL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VALOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIENE_PREFIJO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PREFIJO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.POSEE_RANGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RANGO_INICIAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RANGO_FINAL)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_CONSECUTIVOS }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_CONSECUTIVOS }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_CONSECUTIVOS })
+        </td>
+    </tr>
+}
+
+</table>

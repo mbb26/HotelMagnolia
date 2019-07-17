@@ -1,0 +1,74 @@
+﻿@model HotelMagnolia.UI.Models.CONSECUTIVO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CONSECUTIVO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIENE_PREFIJO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIENE_PREFIJO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PREFIJO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PREFIJO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.POSEE_RANGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.POSEE_RANGO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RANGO_INICIAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RANGO_INICIAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RANGO_FINAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RANGO_FINAL)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_CONSECUTIVOS }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
