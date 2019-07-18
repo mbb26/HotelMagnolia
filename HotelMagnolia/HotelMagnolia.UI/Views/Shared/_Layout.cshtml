@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using HotelMagnolia.UI.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -19,44 +20,72 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuSeguridad" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Seguridad
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="menuSeguridad">
-                            @Html.ActionLink("Roles", "Index", "Rol", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Usuarios", "Index", "Usuario", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Cambio de Contraseña", "CambiarPassword", "Usuario", null, new { @class = "dropdown-item" })
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuAdministracion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Administracion
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="menuAdministracion">
-                            @Html.ActionLink("Consecutivos", "Index", "Consecutivo", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Actividades", "Index", "Actividad", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Habitaciones", "Index", "Habitacion", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Precios", "Index", "Precio", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Clientes", "Index", "Cliente", null, new { @class = "dropdown-item" })
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuConsulta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Consulta
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="menuConsulta">
-                            @Html.ActionLink("Bitacora", "CheckBinnacle", "Binnacle", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Errores", "CheckErrors", "Binnacle", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Clientes Activos", "#", "#", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Habitaciones Listas", "#", "#", null, new { @class = "dropdown-item" })
-                        </div>
-                    </li>
-                </ul>
-                <span class="navbar-text text-light">Bienvenido, Usuario</span>
-            </div>
+            @if (Session["Usuario"] != null)
+            {
+                USUARIO user = (USUARIO)Session["Usuario"];
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuario
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="menuUsuario">
+                                @Html.ActionLink("Cambio de Contraseña", "CambiarPassword", "Usuario", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Logout", "LogOut", "Usuario", null, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuSeguridad" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Seguridad
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="menuSeguridad">
+                                @Html.ActionLink("Roles", "Index", "Rol", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Usuarios", "Index", "Usuario", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Cambio de Contraseña", "CambiarPassword", "Usuario", null, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuAdministracion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administracion
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="menuAdministracion">
+                                @Html.ActionLink("Consecutivos", "Index", "Consecutivo", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Actividades", "Index", "Actividad", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Habitaciones", "Index", "Habitacion", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Precios", "Index", "Precio", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Clientes", "Index", "Cliente", null, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuConsulta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Consulta
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="menuConsulta">
+                                @Html.ActionLink("Bitacora", "CheckBinnacle", "Binnacle", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Errores", "CheckErrors", "Binnacle", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Clientes Activos", "#", "#", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Habitaciones Listas", "#", "#", null, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                    <span class="navbar-text text-light">Bienvenido, @user.NOMBRE</span>
+                </div>
+            }
+            else
+            {
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="menuUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuario
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="menuUsuario">
+                                @Html.ActionLink("Login", "LogIn", "Usuario", null, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            }
         </nav>
     </header>
     <section class="welcome_area bg-img background-overlay">

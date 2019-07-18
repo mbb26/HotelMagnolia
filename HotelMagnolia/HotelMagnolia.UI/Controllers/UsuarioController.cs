@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,11 +13,35 @@ namespace HotelMagnolia.UI.Controllers
 {
     public class UsuarioController : Controller
     {
-        public ActionResult CambiarPassword() => View();
-
-        public ActionResult LogIn() => View();
 
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
+        public ActionResult CambiarPassword() => View();
+
+        // GET: Usuario/LogIn
+        public ActionResult LogIn()
+        {
+            return View();
+        }
+
+        // POST: Usuario/LogIn
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogIn([Bind(Include = "PASSWORD,USER_NAME")] USUARIO uSUARIO)
+        {
+            string result = db.ValidateUser(uSUARIO.USER_NAME, uSUARIO.PASSWORD).FirstOrDefault();
+            
+
+            USUARIO User = db.USUARIOs.Find(result);
+            if (User != null) {
+                Session["Usuario"] = User;
+                return RedirectToAction("/");
+            }
+            else
+            {
+                Session["Usuario"] = null;
+                return RedirectToAction("LogIn");
+            }
+        }
 
         // GET: Usuario
         public ActionResult Index()
