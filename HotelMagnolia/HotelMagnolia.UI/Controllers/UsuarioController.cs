@@ -17,6 +17,13 @@ namespace HotelMagnolia.UI.Controllers
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
         public ActionResult CambiarPassword() => View();
 
+        // GET: Usuario/LogOut
+        public ActionResult LogOut()
+        {
+            Session["Usuario"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: Usuario/LogIn
         public ActionResult LogIn()
         {
