@@ -50,7 +50,8 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ACTIVIDADs.Add(aCTIVIDAD);
+                db.InsertActividad(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG);
+                //db.ACTIVIDADs.Add(aCTIVIDAD);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

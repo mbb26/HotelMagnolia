@@ -53,7 +53,8 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.RESERVACIONs.Add(rESERVACION);
+                db.InsertReservacion(rESERVACION.ID_USUARIO, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION);
+                //db.RESERVACIONs.Add(rESERVACION);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
