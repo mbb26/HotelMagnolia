@@ -13,6 +13,7 @@ namespace HotelMagnolia.UI.Controllers
 {
     public class UsuarioController : Controller
     {
+        private string PERMISOS_ADMIN_SEGURIDAD = "1,2";
 
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
         public ActionResult CambiarPassword() => View();
@@ -54,30 +55,54 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            var uSUARIOs = db.USUARIOs.Include(u => u.ROL);
-            return View(uSUARIOs.ToList());
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion != null && PERMISOS_ADMIN_SEGURIDAD.IndexOf(usuarioSesion.ID_ROL.ToString()) > -1)
+            {
+                var uSUARIOs = db.USUARIOs.Include(u => u.ROL);
+                return View(uSUARIOs.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: Usuario/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion != null && PERMISOS_ADMIN_SEGURIDAD.IndexOf(usuarioSesion.ID_ROL.ToString()) > -1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                USUARIO uSUARIO = db.USUARIOs.Find(id);
+                if (uSUARIO == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(uSUARIO);
             }
-            USUARIO uSUARIO = db.USUARIOs.Find(id);
-            if (uSUARIO == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
-            return View(uSUARIO);
         }
 
         // GET: Usuario/Create
         public ActionResult Create()
         {
-            ViewBag.ID_ROL = new SelectList(db.ROLs, "ID_ROL", "NOMBRE");
-            return View();
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion != null && PERMISOS_ADMIN_SEGURIDAD.IndexOf(usuarioSesion.ID_ROL.ToString()) > -1)
+            {
+                ViewBag.ID_ROL = new SelectList(db.ROLs, "ID_ROL", "NOMBRE");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // POST: Usuario/Create
@@ -101,17 +126,29 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Usuario/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion != null && PERMISOS_ADMIN_SEGURIDAD.IndexOf(usuarioSesion.ID_ROL.ToString()) > -1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                USUARIO uSUARIO = db.USUARIOs.Find(id);
+                if (uSUARIO == null)
+                {
+                    return HttpNotFound();
+                }
+                if (uSUARIO.ID_USUARIO == usuarioSesion.ID_USUARIO)
+                {
+                    return RedirectToAction("Index");
+                }
+                ViewBag.ID_ROL = new SelectList(db.ROLs, "ID_ROL", "NOMBRE", uSUARIO.ID_ROL);
+                return View(uSUARIO);
             }
-            USUARIO uSUARIO = db.USUARIOs.Find(id);
-            if (uSUARIO == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
-            ViewBag.ID_ROL = new SelectList(db.ROLs, "ID_ROL", "NOMBRE", uSUARIO.ID_ROL);
-            return View(uSUARIO);
         }
 
         // POST: Usuario/Edit/5
@@ -134,16 +171,28 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Usuario/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion != null && PERMISOS_ADMIN_SEGURIDAD.IndexOf(usuarioSesion.ID_ROL.ToString()) > -1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                USUARIO uSUARIO = db.USUARIOs.Find(id);
+                if (uSUARIO == null)
+                {
+                    return HttpNotFound();
+                }
+                if (uSUARIO.ID_USUARIO == usuarioSesion.ID_USUARIO)
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(uSUARIO);
             }
-            USUARIO uSUARIO = db.USUARIOs.Find(id);
-            if (uSUARIO == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
-            return View(uSUARIO);
         }
 
         // POST: Usuario/Delete/5
