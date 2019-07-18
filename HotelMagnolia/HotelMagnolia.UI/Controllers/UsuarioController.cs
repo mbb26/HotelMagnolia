@@ -28,7 +28,15 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Usuario/LogIn
         public ActionResult LogIn()
         {
-            return View();
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: Usuario/LogIn
@@ -114,7 +122,7 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.USUARIOs.Add(uSUARIO);
+                db.InsertUsuarios(uSUARIO.NOMBRE, uSUARIO.APELLIDO1, uSUARIO.APELLIDO2, uSUARIO.CORREO, uSUARIO.TELEFONO, uSUARIO.PASSWORD, uSUARIO.USER_NAME, uSUARIO.ID_ROL);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
