@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<HotelMagnolia.UI.Models.CONSECUTIVO>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Consecutivos";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -32,38 +29,46 @@
         <th>
             @Html.DisplayNameFor(model => model.RANGO_FINAL)
         </th>
-        <th></th>
+        <th colspan="3">Acciones</th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOMBRE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VALOR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIENE_PREFIJO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PREFIJO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.POSEE_RANGO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RANGO_INICIAL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RANGO_FINAL)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_CONSECUTIVOS }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_CONSECUTIVOS }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_CONSECUTIVOS })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NOMBRE)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.VALOR)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TIENE_PREFIJO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PREFIJO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.POSEE_RANGO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RANGO_INICIAL)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RANGO_FINAL)
+    </td>
+    <td>
+        @Html.ActionLink("Editar", "Edit", new { id = item.ID_CONSECUTIVOS })
+    </td>
+    <td>
+        @Html.ActionLink("Detalles", "Details", new { id = item.ID_CONSECUTIVOS })
+    </td>
+    <td>
+        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID_CONSECUTIVOS })
+    </td>
+</tr>
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-primary" })
+</p>

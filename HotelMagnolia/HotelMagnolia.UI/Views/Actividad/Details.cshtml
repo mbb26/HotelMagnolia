@@ -1,10 +1,10 @@
 ﻿@model HotelMagnolia.UI.Models.ACTIVIDAD
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de Actividad";
 }
 
-<h2>Details</h2>
+    <h2>@ViewBag.Title</h2>
 
 <div>
     <h4>ACTIVIDAD</h4>
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_ACTIVIDAD }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_ACTIVIDAD }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
 </p>

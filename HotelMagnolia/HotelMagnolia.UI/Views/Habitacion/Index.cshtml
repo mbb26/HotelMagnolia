@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<HotelMagnolia.UI.Models.HABITACION>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Habitaciones";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -23,29 +20,37 @@
         <th>
             @Html.DisplayNameFor(model => model.TIPO_HABITACION)
         </th>
-        <th>Acciones</th>
+        <th colspan="3">Acciones</th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.ID_HABITACION)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NUMERO)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.NOMBRE)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ID_HABITACION }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ID_HABITACION }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ID_HABITACION })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_HABITACION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NUMERO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOMBRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID_HABITACION })
+            </td>
+            <td>
+                @Html.ActionLink("Detalles", "Details", new { id = item.ID_HABITACION })
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID_HABITACION })
+            </td>
+        </tr>
+    }
 
 </table>
+<p>
+    @Html.ActionLink("Crear Nueva", "Create", null, new { @class = "btn btn-primary" })
+</p>
