@@ -11,7 +11,10 @@ var Functions = (function() {
 		$('.reset-form').on('click', function(e) {
 			e.preventDefault();
 			resetForm(this);
-		});
+        });
+        $('form').each(function() {
+            initializeForm(this);
+        })
     };
 
 	var resetForm = function(button) {
@@ -22,6 +25,12 @@ var Functions = (function() {
                 resetEnabled(this);
             });
         }
+    };
+
+    var initializeForm = function (form) {
+        $(form).find('input:checkbox').each(function () {
+            resetEnabled(this);
+        });
     };
     
     var resetEnabled = function(checkbox) {
