@@ -37,7 +37,7 @@
             @Html.LabelFor(model => model.TIENE_PREFIJO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.TIENE_PREFIJO)
+                    @Html.EditorFor(model => model.TIENE_PREFIJO, new { htmlAttributes = new { data_action = "toggleEnable", data_target = "[name='PREFIJO']"} })
                     @Html.ValidationMessageFor(model => model.TIENE_PREFIJO, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -55,7 +55,7 @@
             @Html.LabelFor(model => model.POSEE_RANGO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.POSEE_RANGO)
+                    @Html.EditorFor(model => model.POSEE_RANGO, new { htmlAttributes = new { data_action = "toggleEnable", data_target = "[name='RANGO_INICIAL'], [name='RANGO_FINAL']"} })
                     @Html.ValidationMessageFor(model => model.POSEE_RANGO, "", new { @class = "text-danger" })
                 </div>
             </div>
