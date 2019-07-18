@@ -34,7 +34,7 @@ namespace HotelMagnolia.UI.Controllers
             USUARIO User = db.USUARIOs.Find(result);
             if (User != null) {
                 Session["Usuario"] = User;
-                return RedirectToAction("/");
+                return RedirectToAction("Index", "Home");
             }
             else
             {

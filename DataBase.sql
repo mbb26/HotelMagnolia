@@ -558,3 +558,26 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
         SET Valor = Valor + 1
         WHERE Nombre ='Bitacora'
     GO
+
+    CREATE OR ALTER PROCEDURE ValidateUser
+    (
+      @Username NVARCHAR(20),
+      @Password NVARCHAR(20)
+    )
+   AS
+   BEGIN
+         SET NOCOUNT ON;
+         DECLARE @UserId VARCHAR
+      
+         SELECT @UserId = ID_USUARIO
+         FROM [dbo].[USUARIO] WHERE USER_NAME = @Username AND [Password] = @Password
+      
+         IF @UserId IS NOT NULL
+         BEGIN
+            SELECT @UserId [UserId]
+         END
+         ELSE
+         BEGIN
+               SELECT '0'
+         END
+   END
