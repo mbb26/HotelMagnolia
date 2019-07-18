@@ -50,7 +50,7 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PRECIOs.Add(pRECIO);
+                db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

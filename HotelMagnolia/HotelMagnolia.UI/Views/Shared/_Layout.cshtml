@@ -1,4 +1,11 @@
 ﻿@using HotelMagnolia.UI.Models
+@{ 
+    USUARIO usuario = (USUARIO)Session["Usuario"];
+    string PERMISOS_ADMIN_SEGURIDAD = "1,2";
+    string PERMISOS_ADMIN_CONSECUTIVO_MANTENIMIENTO = "1,3,4";
+    string PERMISOS_ADMIN_MANTENIMIENTO = "1,4";
+    string PERMISOS_ADMIN_CONSULTA = "1,5";
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +13,7 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hotel Mandiola | Inicio</title>
+    <title>Hotel Mandiola | Admin | @ViewBag.Title </title>
     <link rel="icon" href="~/Content/imgs/core-img/favicon.png">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -20,14 +27,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            @if (Session["Usuario"] != null)
+            @if (usuario != null)
             {
-                USUARIO user = (USUARIO)Session["Usuario"];
-                string PERMISOS_ADMIN = "1";
-                string PERMISOS_ADMIN_SEGURIDAD = "1,2";
-                string PERMISOS_ADMIN_CONSECUTIVO_MANTENIMIENTO = "1,3,4";
-                string PERMISOS_ADMIN_MANTENIMIENTO = "1,4";
-                string PERMISOS_ADMIN_CONSULTA = "1,5";
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
@@ -40,7 +41,7 @@
                                 @Html.ActionLink("Logout", "LogOut", "Usuario", null, new { @class = "dropdown-item" })
                             </div>
                         </li>
-                        @if (PERMISOS_ADMIN_SEGURIDAD.IndexOf(user.ID_ROL.ToString()) > -1)
+                        @if (PERMISOS_ADMIN_SEGURIDAD.IndexOf(usuario.ID_ROL.ToString()) > -1)
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="menuSeguridad" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,7 +53,7 @@
                                 </div>
                             </li>
                         }
-                        @if (PERMISOS_ADMIN_CONSECUTIVO_MANTENIMIENTO.IndexOf(user.ID_ROL.ToString()) > -1)
+                        @if (PERMISOS_ADMIN_CONSECUTIVO_MANTENIMIENTO.IndexOf(usuario.ID_ROL.ToString()) > -1)
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="menuAdministracion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +61,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="menuAdministracion">
                                     @Html.ActionLink("Consecutivos", "Index", "Consecutivo", null, new { @class = "dropdown-item" })
-                                    @if (PERMISOS_ADMIN_MANTENIMIENTO.IndexOf(user.ID_ROL.ToString()) > -1)
+                                    @if (PERMISOS_ADMIN_MANTENIMIENTO.IndexOf(usuario.ID_ROL.ToString()) > -1)
                                     {
                                         @Html.ActionLink("Actividades", "Index", "Actividad", null, new { @class = "dropdown-item" })
                                         @Html.ActionLink("Habitaciones", "Index", "Habitacion", null, new { @class = "dropdown-item" })
@@ -70,7 +71,7 @@
                                 </div>
                             </li>
                         }
-                        @if (PERMISOS_ADMIN_CONSULTA.IndexOf(user.ID_ROL.ToString()) > -1)
+                        @if (PERMISOS_ADMIN_CONSULTA.IndexOf(usuario.ID_ROL.ToString()) > -1)
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="menuConsulta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,8 +85,8 @@
                                 </div>
                             </li>
                         }
-                        </ul>
-                    <span class="navbar-text text-light">Bienvenido, @user.NOMBRE</span>
+                    </ul>
+                    <span class="navbar-text text-light">Bienvenido(a), @usuario.NOMBRE</span>
                 </div>
             }
             else
@@ -115,15 +116,14 @@
                 </div>
             </div>
         </div>
-
-        <div id="google_translate_element" style="text-align: center"></div>
-        <script type="text/javascript">
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({ pageLanguage: 'es', includedLanguages: 'de,en,es,it,zh-TW', autoDisplay: false }, 'google_translate_element');
-            }
-        </script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     </section>
+    <div id="google_translate_element" style="text-align: center"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'es', includedLanguages: 'de,en,es,it,zh-TW', autoDisplay: false }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="footer-logo mr-50">

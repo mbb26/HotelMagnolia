@@ -46,7 +46,8 @@ namespace HotelMagnolia.UI.Controllers
             else
             {
                 Session["Usuario"] = null;
-                return RedirectToAction("LogIn");
+                ModelState.AddModelError("PASSWORD", "Usuario o contraseña incorrectos");
+                return View();
             }
         }
 

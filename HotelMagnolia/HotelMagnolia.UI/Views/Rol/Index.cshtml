@@ -1,33 +1,34 @@
 ﻿@model IEnumerable<HotelMagnolia.UI.Models.ROL>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Roles";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.ID_ROL)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.NOMBRE)
         </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOMBRE)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_ROL }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_ROL }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_ROL })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_ROL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOMBRE)
+            </td>
+        </tr>
+    }
 
 </table>
+<p>
+    @Html.ActionLink("Crear Nuevo Rol", "Create", null, new { @class = "btn btn-primary" })
+</p>

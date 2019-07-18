@@ -1,15 +1,22 @@
 ﻿@model HotelMagnolia.UI.Models.PRECIO
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de Precio";
 }
 
-<h2>Details</h2>
+    <h2>@ViewBag.Title</h2>
 
 <div>
     <h4>PRECIO</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_PRECIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_PRECIO)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.TIPO_PRECIO)
         </dt>
@@ -29,6 +36,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_PRECIO }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_PRECIO }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
 </p>
