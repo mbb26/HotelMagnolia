@@ -17,17 +17,18 @@ namespace HotelMagnolia.UI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HABITACION()
         {
-            this.RESERVACIONs = new HashSet<RESERVACION>();
+            this.CLIENTEs = new HashSet<CLIENTE>();
         }
     
-        public string ID_HABITAICIONES { get; set; }
+        public string ID_HABITACION { get; set; }
         public int NUMERO { get; set; }
         public string NOMBRE { get; set; }
-        public string DESCRIPCION { get; set; }
+        public int TIPO_HABITACION { get; set; }
         public string ID_PRECIO { get; set; }
     
-        public virtual PRECIO PRECIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RESERVACION> RESERVACIONs { get; set; }
+        public virtual ICollection<CLIENTE> CLIENTEs { get; set; }
+        public virtual PRECIO PRECIO { get; set; }
+        public virtual TIPO_HABITACION TIPO_HABITACION1 { get; set; }
     }
 }

@@ -12,12 +12,12 @@ namespace HotelMagnolia.UI.Controllers
 {
     public class BitacoraController : Controller
     {
-        private ProyectoHotelMagnoliaEntities db = new ProyectoHotelMagnoliaEntities();
+        private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
 
         // GET: Bitacora
         public ActionResult Index()
         {
-            var bITACORAs = db.BITACORAs.Include(b => b.USUARIO1);
+            var bITACORAs = db.BITACORAs.Include(b => b.USUARIO).Include(b => b.USUARIO1);
             return View(bITACORAs.ToList());
         }
 
@@ -39,6 +39,7 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Bitacora/Create
         public ActionResult Create()
         {
+            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE");
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE");
             return View();
         }
@@ -48,7 +49,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_BITACORA,ID_USUARIO,Usuario,Fecha,Codigo,Tipo,Descripcion,Registro_en_detalle")] BITACORA bITACORA)
+        public ActionResult Create([Bind(Include = "ID_BITACORA,ID_USUARIO,FECHA,CODIGO,TIPO,Descripcion,Registro_en_detalle")] BITACORA bITACORA)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +58,7 @@ namespace HotelMagnolia.UI.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.TIPO);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.ID_USUARIO);
             return View(bITACORA);
         }
@@ -73,6 +75,7 @@ namespace HotelMagnolia.UI.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.TIPO);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.ID_USUARIO);
             return View(bITACORA);
         }
@@ -82,7 +85,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_BITACORA,ID_USUARIO,Usuario,Fecha,Codigo,Tipo,Descripcion,Registro_en_detalle")] BITACORA bITACORA)
+        public ActionResult Edit([Bind(Include = "ID_BITACORA,ID_USUARIO,FECHA,CODIGO,TIPO,Descripcion,Registro_en_detalle")] BITACORA bITACORA)
         {
             if (ModelState.IsValid)
             {
@@ -90,6 +93,7 @@ namespace HotelMagnolia.UI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.TIPO);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.ID_USUARIO);
             return View(bITACORA);
         }

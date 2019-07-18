@@ -1,0 +1,58 @@
+﻿@model HotelMagnolia.UI.Models.RESERVACION
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RESERVACION</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_ENTRADA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_ENTRADA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_SALIDA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_SALIDA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADO_RESERVACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USUARIO.NOMBRE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_RESERVACION }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -14,14 +14,14 @@ namespace HotelMagnolia.UI.Models
     
     public partial class RESERVACION
     {
-        public string ID_CONSECUTIVOS { get; set; }
+        public string ID_RESERVACION { get; set; }
         public string ID_USUARIO { get; set; }
         public System.DateTime FECHA_ENTRADA { get; set; }
         public System.DateTime FECHA_SALIDA { get; set; }
-        public string TIPO_HABITACION { get; set; }
+        public int TIPO_HABITACION { get; set; }
         public int ESTADO_RESERVACION { get; set; }
     
-        public virtual HABITACION HABITACION { get; set; }
+        public virtual TIPO_HABITACION TIPO_HABITACION1 { get; set; }
         public virtual USUARIO USUARIO { get; set; }
     }
 }

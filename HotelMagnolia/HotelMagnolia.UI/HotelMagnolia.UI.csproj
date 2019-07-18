@@ -134,17 +134,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ActividadesController.cs" />
+    <Compile Include="Controllers\ActividadController.cs" />
+    <Compile Include="Controllers\ArticuloController.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
-    <Compile Include="Controllers\ConsecutiveController.cs" />
-    <Compile Include="Controllers\HabitacionesController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ConsecutivoController.cs" />
+    <Compile Include="Controllers\HabitacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogInController.cs" />
-    <Compile Include="Controllers\ReservacionesController.cs" />
-    <Compile Include="Controllers\ReservationController.cs" />
-    <Compile Include="Controllers\RoomController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\PrecioController.cs" />
+    <Compile Include="Controllers\ReservacionController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
+    <Compile Include="Controllers\Tipo_BitacoraController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -155,6 +156,9 @@
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BITACORA.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CLIENTE.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONSECUTIVO.cs">
@@ -185,6 +189,12 @@
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ROL.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIPO_BITACORA.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIPO_HABITACION.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\USUARIO.cs">
@@ -265,51 +275,63 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Usuarios\Admin.cshtml" />
-    <Content Include="Views\Usuarios\AssignRole.cshtml" />
-    <Content Include="Views\Usuarios\ChangePassword.cshtml" />
     <Content Include="Views\Bitacora\CheckBinnacle.cshtml" />
     <Content Include="Views\Bitacora\CheckErrors.cshtml" />
-    <Content Include="Views\Reservation\Detail.cshtml" />
-    <Content Include="Views\Room\Edit.cshtml" />
-    <Content Include="Views\Room\EditPrices.cshtml" />
-    <Content Include="Views\Usuarios\EditUser.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Room\ListRoom.cshtml" />
-    <Content Include="Views\Room\ListPrice.cshtml" />
-    <Content Include="Views\Usuarios\ListRoles.cshtml" />
-    <Content Include="Views\Room\NewRoom.cshtml" />
-    <Content Include="Views\Room\NewPrice.cshtml" />
-    <Content Include="Views\Actividades\Create.cshtml" />
-    <Content Include="Views\Actividades\Delete.cshtml" />
-    <Content Include="Views\Actividades\Details.cshtml" />
-    <Content Include="Views\Actividades\Edit.cshtml" />
-    <Content Include="Views\Actividades\Index.cshtml" />
     <Content Include="Views\Bitacora\Create.cshtml" />
     <Content Include="Views\Bitacora\Delete.cshtml" />
     <Content Include="Views\Bitacora\Details.cshtml" />
     <Content Include="Views\Bitacora\Edit.cshtml" />
     <Content Include="Views\Bitacora\Index.cshtml" />
-    <Content Include="Views\Consecutivos\Create.cshtml" />
-    <Content Include="Views\Consecutivos\Delete.cshtml" />
-    <Content Include="Views\Consecutivos\Details.cshtml" />
-    <Content Include="Views\Consecutivos\Edit.cshtml" />
-    <Content Include="Views\Consecutivos\Index.cshtml" />
-    <Content Include="Views\Usuarios\Create.cshtml" />
-    <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Reservaciones\Create.cshtml" />
-    <Content Include="Views\Reservaciones\Delete.cshtml" />
-    <Content Include="Views\Reservaciones\Details.cshtml" />
-    <Content Include="Views\Reservaciones\Edit.cshtml" />
-    <Content Include="Views\Reservaciones\Index.cshtml" />
-    <Content Include="Views\Habitaciones\Create.cshtml" />
-    <Content Include="Views\Habitaciones\Delete.cshtml" />
-    <Content Include="Views\Habitaciones\Details.cshtml" />
-    <Content Include="Views\Habitaciones\Edit.cshtml" />
-    <Content Include="Views\Habitaciones\Index.cshtml" />
+    <Content Include="Views\Actividad\Create.cshtml" />
+    <Content Include="Views\Actividad\Delete.cshtml" />
+    <Content Include="Views\Actividad\Details.cshtml" />
+    <Content Include="Views\Actividad\Edit.cshtml" />
+    <Content Include="Views\Actividad\Index.cshtml" />
+    <Content Include="Views\Articulo\Create.cshtml" />
+    <Content Include="Views\Articulo\Delete.cshtml" />
+    <Content Include="Views\Articulo\Details.cshtml" />
+    <Content Include="Views\Articulo\Edit.cshtml" />
+    <Content Include="Views\Articulo\Index.cshtml" />
+    <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\Cliente\Delete.cshtml" />
+    <Content Include="Views\Cliente\Details.cshtml" />
+    <Content Include="Views\Cliente\Edit.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Consecutivo\Create.cshtml" />
+    <Content Include="Views\Consecutivo\Delete.cshtml" />
+    <Content Include="Views\Consecutivo\Details.cshtml" />
+    <Content Include="Views\Consecutivo\Edit.cshtml" />
+    <Content Include="Views\Consecutivo\Index.cshtml" />
+    <Content Include="Views\Habitacion\Create.cshtml" />
+    <Content Include="Views\Habitacion\Delete.cshtml" />
+    <Content Include="Views\Habitacion\Details.cshtml" />
+    <Content Include="Views\Habitacion\Edit.cshtml" />
+    <Content Include="Views\Habitacion\Index.cshtml" />
+    <Content Include="Views\Precio\Create.cshtml" />
+    <Content Include="Views\Precio\Delete.cshtml" />
+    <Content Include="Views\Precio\Details.cshtml" />
+    <Content Include="Views\Precio\Edit.cshtml" />
+    <Content Include="Views\Precio\Index.cshtml" />
+    <Content Include="Views\Reservacion\Create.cshtml" />
+    <Content Include="Views\Reservacion\Delete.cshtml" />
+    <Content Include="Views\Reservacion\Details.cshtml" />
+    <Content Include="Views\Reservacion\Edit.cshtml" />
+    <Content Include="Views\Reservacion\Index.cshtml" />
+    <Content Include="Views\Rol\Create.cshtml" />
+    <Content Include="Views\Rol\Delete.cshtml" />
+    <Content Include="Views\Rol\Details.cshtml" />
+    <Content Include="Views\Rol\Edit.cshtml" />
+    <Content Include="Views\Rol\Index.cshtml" />
+    <Content Include="Views\Tipo_Bitacora\Create.cshtml" />
+    <Content Include="Views\Tipo_Bitacora\Delete.cshtml" />
+    <Content Include="Views\Tipo_Bitacora\Details.cshtml" />
+    <Content Include="Views\Tipo_Bitacora\Edit.cshtml" />
+    <Content Include="Views\Tipo_Bitacora\Index.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

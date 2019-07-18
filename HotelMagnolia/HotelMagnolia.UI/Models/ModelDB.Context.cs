@@ -15,10 +15,10 @@ namespace HotelMagnolia.UI.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ProyectoHotelMagnoliaEntities : DbContext
+    public partial class HotelMagnoliaEntities : DbContext
     {
-        public ProyectoHotelMagnoliaEntities()
-            : base("name=ProyectoHotelMagnoliaEntities")
+        public HotelMagnoliaEntities()
+            : base("name=HotelMagnoliaEntities")
         {
         }
     
@@ -30,12 +30,15 @@ namespace HotelMagnolia.UI.Models
         public virtual DbSet<ACTIVIDAD> ACTIVIDADs { get; set; }
         public virtual DbSet<ARTICULO> ARTICULOes { get; set; }
         public virtual DbSet<BITACORA> BITACORAs { get; set; }
+        public virtual DbSet<CLIENTE> CLIENTEs { get; set; }
         public virtual DbSet<CONSECUTIVO> CONSECUTIVOes { get; set; }
         public virtual DbSet<HABITACION> HABITACIONs { get; set; }
         public virtual DbSet<PRECIO> PRECIOs { get; set; }
-        public virtual DbSet<ROL> ROLs { get; set; }
-        public virtual DbSet<USUARIO> USUARIOs { get; set; }
         public virtual DbSet<RESERVACION> RESERVACIONs { get; set; }
+        public virtual DbSet<ROL> ROLs { get; set; }
+        public virtual DbSet<TIPO_BITACORA> TIPO_BITACORA { get; set; }
+        public virtual DbSet<TIPO_HABITACION> TIPO_HABITACION { get; set; }
+        public virtual DbSet<USUARIO> USUARIOs { get; set; }
     
         public virtual int InsertActividad(string nombre, string descripcion, string img)
         {
@@ -54,23 +57,19 @@ namespace HotelMagnolia.UI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertActividad", nombreParameter, descripcionParameter, imgParameter);
         }
     
-        public virtual int InsertBitacora(string usuario, Nullable<System.DateTime> fecha, Nullable<int> codigo, string tipo, string descripcion, string registro_en_detalle)
+        public virtual int InsertBitacora(string iD_Usuario, Nullable<System.DateTime> fecha, Nullable<int> tipo, string descripcion, string registro_en_detalle)
         {
-            var usuarioParameter = usuario != null ?
-                new ObjectParameter("Usuario", usuario) :
-                new ObjectParameter("Usuario", typeof(string));
+            var iD_UsuarioParameter = iD_Usuario != null ?
+                new ObjectParameter("ID_Usuario", iD_Usuario) :
+                new ObjectParameter("ID_Usuario", typeof(string));
     
             var fechaParameter = fecha.HasValue ?
                 new ObjectParameter("Fecha", fecha) :
                 new ObjectParameter("Fecha", typeof(System.DateTime));
     
-            var codigoParameter = codigo.HasValue ?
-                new ObjectParameter("Codigo", codigo) :
-                new ObjectParameter("Codigo", typeof(int));
-    
-            var tipoParameter = tipo != null ?
+            var tipoParameter = tipo.HasValue ?
                 new ObjectParameter("Tipo", tipo) :
-                new ObjectParameter("Tipo", typeof(string));
+                new ObjectParameter("Tipo", typeof(int));
     
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
@@ -80,10 +79,10 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("Registro_en_detalle", registro_en_detalle) :
                 new ObjectParameter("Registro_en_detalle", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertBitacora", usuarioParameter, fechaParameter, codigoParameter, tipoParameter, descripcionParameter, registro_en_detalleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertBitacora", iD_UsuarioParameter, fechaParameter, tipoParameter, descripcionParameter, registro_en_detalleParameter);
         }
     
-        public virtual int InsertHabitacion(Nullable<int> numero, string nombre, string descripcion)
+        public virtual int InsertHabitacion(Nullable<int> numero, string nombre, Nullable<int> tipo_Habitacion, string iD_Precio)
         {
             var numeroParameter = numero.HasValue ?
                 new ObjectParameter("Numero", numero) :
@@ -93,11 +92,15 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("Nombre", nombre) :
                 new ObjectParameter("Nombre", typeof(string));
     
-            var descripcionParameter = descripcion != null ?
-                new ObjectParameter("Descripcion", descripcion) :
-                new ObjectParameter("Descripcion", typeof(string));
+            var tipo_HabitacionParameter = tipo_Habitacion.HasValue ?
+                new ObjectParameter("Tipo_Habitacion", tipo_Habitacion) :
+                new ObjectParameter("Tipo_Habitacion", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHabitacion", numeroParameter, nombreParameter, descripcionParameter);
+            var iD_PrecioParameter = iD_Precio != null ?
+                new ObjectParameter("ID_Precio", iD_Precio) :
+                new ObjectParameter("ID_Precio", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHabitacion", numeroParameter, nombreParameter, tipo_HabitacionParameter, iD_PrecioParameter);
         }
     
         public virtual int InsertPrecios(string tipo_Precio, Nullable<int> precio)
@@ -111,6 +114,31 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("Precio", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertPrecios", tipo_PrecioParameter, precioParameter);
+        }
+    
+        public virtual int InsertReservacion(string iD_Usuario, Nullable<System.DateTime> fecha_Entrada, Nullable<System.DateTime> fecha_Salida, Nullable<int> tipo_Habitacion, Nullable<int> estado)
+        {
+            var iD_UsuarioParameter = iD_Usuario != null ?
+                new ObjectParameter("ID_Usuario", iD_Usuario) :
+                new ObjectParameter("ID_Usuario", typeof(string));
+    
+            var fecha_EntradaParameter = fecha_Entrada.HasValue ?
+                new ObjectParameter("Fecha_Entrada", fecha_Entrada) :
+                new ObjectParameter("Fecha_Entrada", typeof(System.DateTime));
+    
+            var fecha_SalidaParameter = fecha_Salida.HasValue ?
+                new ObjectParameter("Fecha_Salida", fecha_Salida) :
+                new ObjectParameter("Fecha_Salida", typeof(System.DateTime));
+    
+            var tipo_HabitacionParameter = tipo_Habitacion.HasValue ?
+                new ObjectParameter("Tipo_Habitacion", tipo_Habitacion) :
+                new ObjectParameter("Tipo_Habitacion", typeof(int));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertReservacion", iD_UsuarioParameter, fecha_EntradaParameter, fecha_SalidaParameter, tipo_HabitacionParameter, estadoParameter);
         }
     
         public virtual int InsertUsuarios(string nombre, string apellido1, string apellido2, string correo, Nullable<int> telefono, string password, string user_name, Nullable<int> id_rol)
@@ -148,6 +176,19 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("Id_rol", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUsuarios", nombreParameter, apellido1Parameter, apellido2Parameter, correoParameter, telefonoParameter, passwordParameter, user_nameParameter, id_rolParameter);
+        }
+    
+        public virtual ObjectResult<string> ValidateUser(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("Username", username) :
+                new ObjectParameter("Username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ValidateUser", usernameParameter, passwordParameter);
         }
     }
 }
