@@ -405,7 +405,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
 
 /* Table: USER*/
  INSERT INTO USUARIO (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL) VALUES(01, 'Juanito','Pacheco','Mora','admin@magnolia.com',22222222,'123','admin',01);
-
+ GO
 
 
 
@@ -424,7 +424,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
         AS
             DECLARE @ID varchar(200)
             
-            SELECT @ID = CAST([Prefijo] AS VARCHAR(200)) + 
+            SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                     CAST([valor]  AS VARCHAR(200))
                     FROM [dbo].[CONSECUTIVO]
                     WHERE Nombre = 'Habitacion'
@@ -449,7 +449,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
     AS
         DECLARE @ID varchar(200)
         
-        SELECT @ID = CAST([Prefijo] AS VARCHAR(200)) + 
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
                 FROM [dbo].[CONSECUTIVO]
                 WHERE Nombre = 'Reservacion'
@@ -472,7 +472,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
     AS
         DECLARE @ID varchar(200)
         
-        SELECT @ID = CAST([Prefijo] AS VARCHAR(200)) + 
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
                 FROM [dbo].[CONSECUTIVO]
                 WHERE Nombre = 'Actividad'
@@ -494,7 +494,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
     AS
         DECLARE @ID varchar(200)
         
-        SELECT @ID = CAST([Prefijo] AS VARCHAR(200)) + 
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
                 FROM [dbo].[CONSECUTIVO]
                 WHERE Nombre = 'Precio'
@@ -522,7 +522,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
     AS
         DECLARE @ID varchar(200)
         
-        SELECT @ID = CAST([Prefijo] AS VARCHAR(200)) + 
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
                 FROM [dbo].[CONSECUTIVO]
                 WHERE Nombre = 'Usuario'
@@ -546,7 +546,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
     AS
         DECLARE @ID varchar(200)
         
-        SELECT @ID = CAST([Prefijo] AS VARCHAR(200)) + 
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
                 FROM [dbo].[CONSECUTIVO]
                 WHERE Nombre = 'Bitacora'
