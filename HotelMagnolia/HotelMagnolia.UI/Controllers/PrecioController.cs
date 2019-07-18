@@ -82,7 +82,8 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pRECIO).State = EntityState.Modified;
+                db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1);
+                //db.Entry(pRECIO).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
