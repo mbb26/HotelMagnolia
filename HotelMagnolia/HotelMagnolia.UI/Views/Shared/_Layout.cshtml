@@ -26,9 +26,9 @@
                             Seguridad
                         </a>
                         <div class="dropdown-menu" aria-labelledby="menuSeguridad">
-                            @Html.ActionLink("Roles", "ListRoles", "Usuarios", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Usuarios", "Index", "Usuarios", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Cambio de Contraseña", "ChangePassword", "Usuarios", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Roles", "Index", "Rol", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Usuarios", "Index", "Usuario", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Cambio de Contraseña", "CambiarPassword", "Usuario", null, new { @class = "dropdown-item" })
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -36,11 +36,11 @@
                             Administracion
                         </a>
                         <div class="dropdown-menu" aria-labelledby="menuAdministracion">
-                            @Html.ActionLink("Consecutivos", "Index", "Consecutivos", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Actividades", "Index", "Actividades", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Habitaciones", "Index", "Habitaciones", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Precios", "ListPrice", "Room", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Clientes", "ListClient", "Client", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Consecutivos", "Index", "Consecutivo", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Actividades", "Index", "Actividad", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Habitaciones", "Index", "Habitacion", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Precios", "Index", "Precio", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Clientes", "Index", "Cliente", null, new { @class = "dropdown-item" })
                         </div>
                     </li>
                     <li class="nav-item dropdown">

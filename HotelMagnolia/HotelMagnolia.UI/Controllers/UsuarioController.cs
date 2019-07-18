@@ -12,6 +12,10 @@ namespace HotelMagnolia.UI.Controllers
 {
     public class UsuarioController : Controller
     {
+        public ActionResult CambiarPassword() => View();
+
+        public ActionResult LogIn() => View();
+
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
 
         // GET: Usuario
@@ -44,7 +48,7 @@ namespace HotelMagnolia.UI.Controllers
         }
 
         // POST: Usuario/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -78,7 +82,7 @@ namespace HotelMagnolia.UI.Controllers
         }
 
         // POST: Usuario/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
