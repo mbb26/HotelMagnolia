@@ -14,11 +14,11 @@ namespace HotelMagnolia.DB
 
         public int VALOR { get; set; }
 
-        public bool? TIENE_PREFIJO { get; set; }
+        public bool TIENE_PREFIJO { get; set; }
 
         public string PREFIJO { get; set; }
 
-        public bool? POSEE_RANGO { get; set; }
+        public bool POSEE_RANGO { get; set; }
 
         public int? RANGO_INICIAL { get; set; }
 

@@ -212,9 +212,9 @@ create table CONSECUTIVO (
    ID_CONSECUTIVOS      int                  not null,
    NOMBRE               varchar(Max)         null,
    VALOR                int                  not null,
-   TIENE_PREFIJO        bit                  null,
+   TIENE_PREFIJO        bit                  not null,
    PREFIJO              varchar(Max)         null,
-   POSEE_RANGO          bit                  null,
+   POSEE_RANGO          bit                  not null,
    RANGO_INICIAL        int                  null,
    RANGO_FINAL          int                  null,
    constraint PK_CONSECUTIVO primary key (ID_CONSECUTIVOS)

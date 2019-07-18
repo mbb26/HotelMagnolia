@@ -17,9 +17,9 @@ namespace HotelMagnolia.UI.Models
         public int ID_CONSECUTIVOS { get; set; }
         public string NOMBRE { get; set; }
         public int VALOR { get; set; }
-        public Nullable<bool> TIENE_PREFIJO { get; set; }
+        public bool TIENE_PREFIJO { get; set; }
         public string PREFIJO { get; set; }
-        public Nullable<bool> POSEE_RANGO { get; set; }
+        public bool POSEE_RANGO { get; set; }
         public Nullable<int> RANGO_INICIAL { get; set; }
         public Nullable<int> RANGO_FINAL { get; set; }
     }
