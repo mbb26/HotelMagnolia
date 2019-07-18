@@ -49,7 +49,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
+        public ActionResult Create([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
+        public ActionResult Edit([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
         {
             if (ModelState.IsValid)
             {

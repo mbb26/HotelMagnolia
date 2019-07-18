@@ -302,11 +302,6 @@
     <Content Include="Views\Consecutivo\Details.cshtml" />
     <Content Include="Views\Consecutivo\Edit.cshtml" />
     <Content Include="Views\Consecutivo\Index.cshtml" />
-    <Content Include="Views\Habitacion\Create.cshtml" />
-    <Content Include="Views\Habitacion\Delete.cshtml" />
-    <Content Include="Views\Habitacion\Details.cshtml" />
-    <Content Include="Views\Habitacion\Edit.cshtml" />
-    <Content Include="Views\Habitacion\Index.cshtml" />
     <Content Include="Views\Precio\Create.cshtml" />
     <Content Include="Views\Precio\Delete.cshtml" />
     <Content Include="Views\Precio\Details.cshtml" />
@@ -332,6 +327,11 @@
     <Content Include="Views\Usuario\Details.cshtml" />
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Habitacion\Create.cshtml" />
+    <Content Include="Views\Habitacion\Delete.cshtml" />
+    <Content Include="Views\Habitacion\Details.cshtml" />
+    <Content Include="Views\Habitacion\Edit.cshtml" />
+    <Content Include="Views\Habitacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
