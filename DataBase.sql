@@ -429,8 +429,8 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
                     FROM [dbo].[CONSECUTIVO]
                     WHERE Nombre = 'Habitacion'
                             
-            INSERT INTO [dbo].[HABITACION] ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[TIPO_HABITACION],[ID_PRECIO])
-            VALUES (@ID,@Numero,@Nombre,@Descripcion,@Tipo_Habitacion,@ID_Precio)
+            INSERT INTO [dbo].[HABITACION] ([ID_HABITACION],[NUMERO],[NOMBRE],[TIPO_HABITACION],[ID_PRECIO])
+            VALUES (@ID,@Numero,@Nombre,@Tipo_Habitacion,@ID_Precio)
             
             UPDATE [dbo].[CONSECUTIVO]
             SET Valor = Valor + 1
