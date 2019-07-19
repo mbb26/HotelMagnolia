@@ -12,7 +12,7 @@ namespace HotelMagnolia.UI.Controllers
 {
     public class BitacoraController : Controller
     {
-        public ActionResult CheckBinnacle() => View();
+        public ActionResult CheckLog() => View();
 
         public ActionResult CheckErrors() => View();
 
