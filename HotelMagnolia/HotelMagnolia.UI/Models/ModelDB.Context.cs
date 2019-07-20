@@ -82,7 +82,7 @@ namespace HotelMagnolia.UI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertBitacora", iD_UsuarioParameter, fechaParameter, tipoParameter, descripcionParameter, registro_en_detalleParameter);
         }
     
-        public virtual int InsertHabitacion(Nullable<int> numero, string nombre, Nullable<int> tipo_Habitacion, string iD_Precio)
+        public virtual int InsertHabitacion(Nullable<int> numero, string nombre, Nullable<int> tipo_Habitacion, string iD_Precio, string descripcion, string foto)
         {
             var numeroParameter = numero.HasValue ?
                 new ObjectParameter("Numero", numero) :
@@ -100,7 +100,15 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("ID_Precio", iD_Precio) :
                 new ObjectParameter("ID_Precio", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHabitacion", numeroParameter, nombreParameter, tipo_HabitacionParameter, iD_PrecioParameter);
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var fotoParameter = foto != null ?
+                new ObjectParameter("Foto", foto) :
+                new ObjectParameter("Foto", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHabitacion", numeroParameter, nombreParameter, tipo_HabitacionParameter, iD_PrecioParameter, descripcionParameter, fotoParameter);
         }
     
         public virtual int InsertPrecios(string tipo_Precio, Nullable<int> precio)

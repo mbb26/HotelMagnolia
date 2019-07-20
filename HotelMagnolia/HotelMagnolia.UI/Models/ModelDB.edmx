@@ -51,9 +51,9 @@
           <Property Name="ID_CONSECUTIVOS" Type="int" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar(max)" />
           <Property Name="VALOR" Type="int" Nullable="false" />
-          <Property Name="TIENE_PREFIJO" Type="bit" />
+          <Property Name="TIENE_PREFIJO" Type="bit" Nullable="false" />
           <Property Name="PREFIJO" Type="varchar(max)" />
-          <Property Name="POSEE_RANGO" Type="bit" />
+          <Property Name="POSEE_RANGO" Type="bit" Nullable="false" />
           <Property Name="RANGO_INICIAL" Type="int" />
           <Property Name="RANGO_FINAL" Type="int" />
         </EntityType>
@@ -64,6 +64,8 @@
           <Property Name="ID_HABITACION" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="NUMERO" Type="int" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar(max)" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar(max)" Nullable="false" />
+          <Property Name="FOTO" Type="varchar(max)" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="int" Nullable="false" />
           <Property Name="ID_PRECIO" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -247,6 +249,8 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
           <Parameter Name="ID_Precio" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Foto" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertPrecios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Tipo_Precio" Type="varchar" Mode="In" />
@@ -378,9 +382,9 @@
           <Property Name="ID_CONSECUTIVOS" Type="Int32" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VALOR" Type="Int32" Nullable="false" />
-          <Property Name="TIENE_PREFIJO" Type="Boolean" />
+          <Property Name="TIENE_PREFIJO" Type="Boolean" Nullable="false" />
           <Property Name="PREFIJO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="POSEE_RANGO" Type="Boolean" />
+          <Property Name="POSEE_RANGO" Type="Boolean" Nullable="false" />
           <Property Name="RANGO_INICIAL" Type="Int32" />
           <Property Name="RANGO_FINAL" Type="Int32" />
         </EntityType>
@@ -391,6 +395,8 @@
           <Property Name="ID_HABITACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NUMERO" Type="Int32" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FOTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="Int32" Nullable="false" />
           <Property Name="ID_PRECIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CLIENTEs" Relationship="Self.FK_CLIENTE_REFERENCE_HABITACION" FromRole="HABITACION" ToRole="CLIENTE" />
@@ -637,6 +643,8 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
             <Parameter Name="ID_Precio" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Foto" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertPrecios">
             <Parameter Name="Tipo_Precio" Mode="In" Type="String" />
@@ -733,6 +741,8 @@
                 <ScalarProperty Name="ID_HABITACION" ColumnName="ID_HABITACION" />
                 <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
                 <ScalarProperty Name="TIPO_HABITACION" ColumnName="TIPO_HABITACION" />
                 <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
               </MappingFragment>

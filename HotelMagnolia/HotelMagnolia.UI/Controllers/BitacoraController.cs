@@ -12,10 +12,6 @@ namespace HotelMagnolia.UI.Controllers
 {
     public class BitacoraController : Controller
     {
-        public ActionResult CheckLog() => View();
-
-        public ActionResult CheckErrors() => View();
-
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
 
         // GET: Bitacora
@@ -49,7 +45,7 @@ namespace HotelMagnolia.UI.Controllers
         }
 
         // POST: Bitacora/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -85,7 +81,7 @@ namespace HotelMagnolia.UI.Controllers
         }
 
         // POST: Bitacora/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

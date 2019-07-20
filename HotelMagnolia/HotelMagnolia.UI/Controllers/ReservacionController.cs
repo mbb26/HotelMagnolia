@@ -53,7 +53,9 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
                 db.InsertReservacion(rESERVACION.ID_USUARIO, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION);
+                //db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now,);
                 //db.RESERVACIONs.Add(rESERVACION);
                 db.SaveChanges();
                 return RedirectToAction("Index");

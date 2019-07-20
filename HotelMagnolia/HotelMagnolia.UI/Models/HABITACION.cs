@@ -23,6 +23,8 @@ namespace HotelMagnolia.UI.Models
         public string ID_HABITACION { get; set; }
         public int NUMERO { get; set; }
         public string NOMBRE { get; set; }
+        public string DESCRIPCION { get; set; }
+        public string FOTO { get; set; }
         public int TIPO_HABITACION { get; set; }
         public string ID_PRECIO { get; set; }
     

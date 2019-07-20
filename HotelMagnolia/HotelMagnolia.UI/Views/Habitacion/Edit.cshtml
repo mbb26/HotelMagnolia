@@ -1,10 +1,10 @@
 ﻿@model HotelMagnolia.UI.Models.HABITACION
 
 @{
-    ViewBag.Title = "Editar Habitación";
+    ViewBag.Title = "Edit";
 }
 
-    <h2>@ViewBag.Title</h2>
+<h2>Edit</h2>
 
 
 @using (Html.BeginForm())
@@ -34,6 +34,22 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FOTO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FOTO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FOTO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.TIPO_HABITACION, "TIPO_HABITACION", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("TIPO_HABITACION", null, htmlAttributes: new { @class = "form-control" })
@@ -51,12 +67,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
-                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
