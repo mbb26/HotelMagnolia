@@ -100,8 +100,7 @@
             <PropertyRef Name="ID_TEST" />
           </Key>
           <Property Name="ID_TEST" Type="int" Nullable="false" />
-          <Property Name="TEST" Type="varchar(max)" Nullable="false" />
-          <Property Name="NUMERO_TEST" Type="int" Nullable="false" />
+          <Property Name="TEST_NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="TIPO_BITACORA">
           <Key>
@@ -666,6 +665,18 @@
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Foto" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="InsertHabitacionTEST">
+            <Parameter Name="Numero" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
+            <Parameter Name="ID_Precio" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Foto" Mode="In" Type="String" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="InsertPrecios">
             <Parameter Name="Tipo_Precio" Mode="In" Type="String" />
             <Parameter Name="Precio" Mode="In" Type="Int32" />
@@ -692,26 +703,13 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="TESTs" EntityType="HotelMagnoliaModel.TEST" />
-          <FunctionImport Name="InsertHabitacionTEST">
-            <Parameter Name="Numero" Mode="In" Type="Int32" />
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
-            <Parameter Name="ID_Precio" Mode="In" Type="String" />
-            <Parameter Name="Descripcion" Mode="In" Type="String" />
-            <Parameter Name="Foto" Mode="In" Type="String" />
-            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
-            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
-            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
-            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
         <EntityType Name="TEST">
           <Key>
             <PropertyRef Name="ID_TEST" />
           </Key>
           <Property Name="ID_TEST" Type="Int32" Nullable="false" />
-          <Property Name="TEST1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="NUMERO_TEST" Type="Int32" Nullable="false" />
+          <Property Name="TEST_NOMBRE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -853,6 +851,7 @@
           <FunctionImportMapping FunctionImportName="InsertActividad" FunctionName="HotelMagnoliaModel.Store.InsertActividad" />
           <FunctionImportMapping FunctionImportName="InsertBitacora" FunctionName="HotelMagnoliaModel.Store.InsertBitacora" />
           <FunctionImportMapping FunctionImportName="InsertHabitacion" FunctionName="HotelMagnoliaModel.Store.InsertHabitacion" />
+          <FunctionImportMapping FunctionImportName="InsertHabitacionTEST" FunctionName="HotelMagnoliaModel.Store.InsertHabitacionTEST" />
           <FunctionImportMapping FunctionImportName="InsertPrecios" FunctionName="HotelMagnoliaModel.Store.InsertPrecios" />
           <FunctionImportMapping FunctionImportName="InsertReservacion" FunctionName="HotelMagnoliaModel.Store.InsertReservacion" />
           <FunctionImportMapping FunctionImportName="InsertUsuarios" FunctionName="HotelMagnoliaModel.Store.InsertUsuarios" />
@@ -860,13 +859,11 @@
           <EntitySetMapping Name="TESTs">
             <EntityTypeMapping TypeName="HotelMagnoliaModel.TEST">
               <MappingFragment StoreEntitySet="TEST">
-                <ScalarProperty Name="NUMERO_TEST" ColumnName="NUMERO_TEST" />
-                <ScalarProperty Name="TEST1" ColumnName="TEST" />
+                <ScalarProperty Name="TEST_NOMBRE" ColumnName="TEST_NOMBRE" />
                 <ScalarProperty Name="ID_TEST" ColumnName="ID_TEST" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="InsertHabitacionTEST" FunctionName="HotelMagnoliaModel.Store.InsertHabitacionTEST" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -15,7 +15,6 @@ namespace HotelMagnolia.UI.Models
     public partial class TEST
     {
         public int ID_TEST { get; set; }
-        public string TEST1 { get; set; }
-        public int NUMERO_TEST { get; set; }
+        public string TEST_NOMBRE { get; set; }
     }
 }

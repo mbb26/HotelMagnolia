@@ -7,8 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HotelMagnolia.UI.Models;
+using HotelMagnolia.UI.Util;
 
-namespace HotelMagnolia.UI.Controllers
+namespace HotelMagnolia.UI.Content
 {
     public class TestController : Controller
     {
@@ -17,7 +18,14 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Test
         public ActionResult Index()
         {
-            return View(db.TESTs.ToList());
+            List < TEST > ListaNueva = db.TESTs.ToList();
+            foreach(TEST element in ListaNueva)
+            {
+                element.TEST_NOMBRE = Cypher.Decrypt(element.TEST_NOMBRE);
+            }
+
+            //return View(db.TESTs.ToList());
+            return View(ListaNueva);
         }
 
         // GET: Test/Details/5
@@ -46,10 +54,11 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_TEST,TEST1,NUMERO_TEST")] TEST tEST)
+        public ActionResult Create([Bind(Include = "ID_TEST,TEST_NOMBRE")] TEST tEST)
         {
             if (ModelState.IsValid)
             {
+                tEST.TEST_NOMBRE = Cypher.Crypt(tEST.TEST_NOMBRE);
                 db.TESTs.Add(tEST);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -78,7 +87,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_TEST,TEST1,NUMERO_TEST")] TEST tEST)
+        public ActionResult Edit([Bind(Include = "ID_TEST,TEST_NOMBRE")] TEST tEST)
         {
             if (ModelState.IsValid)
             {
