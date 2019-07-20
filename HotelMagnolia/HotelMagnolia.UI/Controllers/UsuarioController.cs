@@ -53,13 +53,20 @@ namespace HotelMagnolia.UI.Controllers
                     }
                     else
                     {
-                        usuarioSesion.PASSWORD = new_password;
-                        Session["Usuario"] = usuarioSesion;
+                        if (current_password == new_password)
+                        {
+                            ModelState.AddModelError("NEW_PASSWORD", "La contraseña nueva no puede ser igual a la actual");
+                        }
+                        else
+                        {
+                            usuarioSesion.PASSWORD = new_password;
+                            Session["Usuario"] = usuarioSesion;
 
-                        db.Entry(usuarioSesion).State = EntityState.Modified;
-                        db.SaveChanges();
-                        TempData["SuccessMessage"] = "La contraseña ha sido cambiada con éxito";
-                        resultado = RedirectToAction("Success", "Home");
+                            db.Entry(usuarioSesion).State = EntityState.Modified;
+                            db.SaveChanges();
+                            TempData["SuccessMessage"] = "La contraseña ha sido cambiada con éxito";
+                            resultado = RedirectToAction("Success", "Home");
+                        }
                     }
                 }
             }
