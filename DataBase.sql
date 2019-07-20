@@ -249,6 +249,8 @@ create table PRECIO (
 )
 go
 
+
+
 /*==============================================================*/
 /* Table: Reservacion                                             
 ==============================================================*/
@@ -422,7 +424,40 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
   INSERT INTO USUARIO (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL) VALUES(05, 'Laurita','Ruperta','Luisita','Consulta@magnolia.com',22222222,'123','Consulta',05);
  GO
 
+/* Table: Precio*/
+DECLARE	@return_value int
+
+EXEC	@return_value = [dbo].[InsertPrecios]
+		@Tipo_Precio = N'Habitacion-Normal',
+		@Precio = 50000
+
+SELECT	'Return Value' = @return_value
+
+GO
+
+DECLARE	@return_value int
+
+EXEC	@return_value = [dbo].[InsertPrecios]
+		@Tipo_Precio = N'Habitacion-Deluxe',
+		@Precio = 75000
+
+SELECT	'Return Value' = @return_value
+
+GO
+
+DECLARE	@return_value int
+
+EXEC	@return_value = [dbo].[InsertPrecios]
+		@Tipo_Precio = N'Habitacion-Condominio',
+		@Precio = 100000
+
+SELECT	'Return Value' = @return_value
+
+GO
+
 /* Table: Habitacion*/
+
+INSERT INTO 
 
 
 
