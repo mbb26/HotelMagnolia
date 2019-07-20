@@ -77,7 +77,8 @@ namespace HotelMagnolia.UI.Controllers
             public ActionResult LogOut()
         {
             Session["Usuario"] = null;
-            return RedirectToAction("Index", "Home");
+            TempData["SuccessMessage"] = "Se ha cerrado la sesión con éxito";
+            return RedirectToAction("Success", "Home");
         }
 
         // GET: Usuario/LogIn
