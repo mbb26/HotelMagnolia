@@ -26,6 +26,7 @@
         <AssociationConnector Association="HotelMagnoliaModel.FK_RESERVAC_REFERENCE_TIPO" ManuallyRouted="false" />
         <AssociationConnector Association="HotelMagnoliaModel.FK_RESERVAC_REFERENCE_USUARIO" ManuallyRouted="false" />
         <AssociationConnector Association="HotelMagnoliaModel.FK_USUARIO_REFERENCE_ROL" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HotelMagnoliaModel.TEST" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -54,7 +54,8 @@ namespace HotelMagnolia.UI.Controllers
             if (ModelState.IsValid)
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO);
+                //db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO);
+                db.InsertHabitacionTEST(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Agregar nueva habitacion");
                 //db.InsertBitacora(usuarioSesion.ID_USUARIO,DateTime.Now,1,"Agregar Habitacion",)
                 //db.HABITACIONs.Add(hABITACION);
                 db.SaveChanges();

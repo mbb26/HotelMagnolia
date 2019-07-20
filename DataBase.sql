@@ -425,56 +425,28 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
  GO
 
 /* Table: Precio*/
-DECLARE	@return_value int
 
-EXEC	@return_value = [dbo].[InsertPrecios]
-		@Tipo_Precio = N'Habitacion-Normal',
-		@Precio = 50000
-
-SELECT	'Return Value' = @return_value
-
-GO
-
-DECLARE	@return_value int
-
-EXEC	@return_value = [dbo].[InsertPrecios]
-		@Tipo_Precio = N'Habitacion-Deluxe',
-		@Precio = 75000
-
-SELECT	'Return Value' = @return_value
-
-GO
-
-DECLARE	@return_value int
-
-EXEC	@return_value = [dbo].[InsertPrecios]
-		@Tipo_Precio = N'Habitacion-Condominio',
-		@Precio = 100000
-
-SELECT	'Return Value' = @return_value
-
-GO
 
 /* Table: Habitacion*/
 
 INSERT INTO 
 
-
-
-
-
-
 /*==============================================================*/
-/* Table: Stored Procedures                                             
+/* Table: Stored Procedures TEST                                             
 ==============================================================*/
-    CREATE OR ALTER PROCEDURE InsertHabitacion
+CREATE OR ALTER PROCEDURE InsertHabitacionTEST
         (
             @Numero int,
             @Nombre varchar(200),
             @Tipo_Habitacion int,
             @ID_Precio varchar(100),
             @Descripcion varchar(250),
-            @Foto varchar(250)
+            @Foto varchar(250),
+            @LOG_UserID varchar(200),
+            @LOG_fecha smalldatetime,
+            @LOG_Tipo int,
+            @LOG_Desc varchar(200)
+
         )
         AS
             DECLARE @ID varchar(200)
@@ -486,12 +458,56 @@ INSERT INTO
                             
             INSERT INTO [dbo].[HABITACION] ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[TIPO_HABITACION],[ID_PRECIO])
             VALUES (@ID,@Numero,@Nombre,@descripcion,@foto,@Tipo_Habitacion,@ID_Precio)
+
+			Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Numero: ' + CAST(@Numero AS VARCHAR(200)) + ' | Nombre: ' + @Nombre + '| Tipo Habitacion: ' + @Tipo_Habitacion + '| Desc: ' + @Descripcion +' | Foto: ' + @Foto)
+			
+            EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_Desc
             
             UPDATE [dbo].[CONSECUTIVO]
             SET Valor = Valor + 1
             WHERE Nombre ='Habitacion'
             
         GO
+
+
+
+
+/*==============================================================*/
+/* Table: Stored Procedures                                             
+==============================================================*/
+
+
+
+
+    CREATE OR ALTER PROCEDURE InsertHabitacion
+        (
+            @Numero int,
+            @Nombre varchar(200),
+            @Tipo_Habitacion int,
+            @ID_Precio varchar(100),
+            @Descripcion varchar(250),
+            @Foto varchar(250),
+
+        )
+        AS
+            DECLARE @ID varchar(200)
+            
+            SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
+                    CAST([valor]  AS VARCHAR(200))
+                    FROM [dbo].[CONSECUTIVO]
+                    WHERE Nombre = 'Habitacion'
+                            
+            INSERT INTO [dbo].[HABITACION] ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[TIPO_HABITACION],[ID_PRECIO])
+            VALUES (@ID,@Numero,@Nombre,@descripcion,@foto,@Tipo_Habitacion,@ID_Precio)
+
+            
+            UPDATE [dbo].[CONSECUTIVO]
+            SET Valor = Valor + 1
+            WHERE Nombre ='Habitacion'
+            
+        GO
+
+
 
     CREATE OR ALTER PROCEDURE InsertReservacion
     (

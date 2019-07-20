@@ -144,6 +144,7 @@
     <Compile Include="Controllers\PrecioController.cs" />
     <Compile Include="Controllers\ReservacionController.cs" />
     <Compile Include="Controllers\RolController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\Tipo_BitacoraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +190,9 @@
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ROL.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TEST.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_BITACORA.cs">
@@ -375,6 +379,11 @@
     <Content Include="Views\Bitacora\Details.cshtml" />
     <Content Include="Views\Bitacora\Edit.cshtml" />
     <Content Include="Views\Bitacora\Index.cshtml" />
+    <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Test\Delete.cshtml" />
+    <Content Include="Views\Test\Details.cshtml" />
+    <Content Include="Views\Test\Edit.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

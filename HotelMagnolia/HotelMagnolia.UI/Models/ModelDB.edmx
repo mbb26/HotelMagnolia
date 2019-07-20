@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelMagnoliaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelMagnoliaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="ID_ACTIVIDAD" />
@@ -94,6 +94,14 @@
           </Key>
           <Property Name="ID_ROL" Type="int" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID_TEST" />
+          </Key>
+          <Property Name="ID_TEST" Type="int" Nullable="false" />
+          <Property Name="TEST" Type="varchar(max)" Nullable="false" />
+          <Property Name="NUMERO_TEST" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TIPO_BITACORA">
           <Key>
@@ -252,6 +260,18 @@
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Foto" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="InsertHabitacionTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Numero" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
+          <Parameter Name="ID_Precio" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Foto" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
+          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
+          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="InsertPrecios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Tipo_Precio" Type="varchar" Mode="In" />
           <Parameter Name="Precio" Type="int" Mode="In" />
@@ -287,6 +307,7 @@
           <EntitySet Name="PRECIO" EntityType="Self.PRECIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RESERVACION" EntityType="Self.RESERVACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_BITACORA" EntityType="Self.TIPO_BITACORA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_HABITACION" EntityType="Self.TIPO_HABITACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
@@ -327,8 +348,7 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelMagnoliaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -671,7 +691,28 @@
             <Parameter Name="Username" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="TESTs" EntityType="HotelMagnoliaModel.TEST" />
+          <FunctionImport Name="InsertHabitacionTEST">
+            <Parameter Name="Numero" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
+            <Parameter Name="ID_Precio" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Foto" Mode="In" Type="String" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID_TEST" />
+          </Key>
+          <Property Name="ID_TEST" Type="Int32" Nullable="false" />
+          <Property Name="TEST1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_TEST" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -816,6 +857,16 @@
           <FunctionImportMapping FunctionImportName="InsertReservacion" FunctionName="HotelMagnoliaModel.Store.InsertReservacion" />
           <FunctionImportMapping FunctionImportName="InsertUsuarios" FunctionName="HotelMagnoliaModel.Store.InsertUsuarios" />
           <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="HotelMagnoliaModel.Store.ValidateUser" />
+          <EntitySetMapping Name="TESTs">
+            <EntityTypeMapping TypeName="HotelMagnoliaModel.TEST">
+              <MappingFragment StoreEntitySet="TEST">
+                <ScalarProperty Name="NUMERO_TEST" ColumnName="NUMERO_TEST" />
+                <ScalarProperty Name="TEST1" ColumnName="TEST" />
+                <ScalarProperty Name="ID_TEST" ColumnName="ID_TEST" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertHabitacionTEST" FunctionName="HotelMagnoliaModel.Store.InsertHabitacionTEST" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
