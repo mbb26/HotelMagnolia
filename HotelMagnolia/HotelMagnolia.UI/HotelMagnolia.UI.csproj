@@ -377,6 +377,8 @@
     <Content Include="Views\Habitacion\Index.cshtml" />
     <Content Include="Views\Usuario\LogIn.cshtml" />
     <Content Include="Views\Usuario\CambiarPassword.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
+    <Content Include="Views\Home\Failure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

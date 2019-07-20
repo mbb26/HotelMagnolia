@@ -15,11 +15,59 @@ namespace HotelMagnolia.UI.Controllers
     {
         private string PERMISOS_ADMIN_SEGURIDAD = "1,2";
 
-        private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
-        public ActionResult CambiarPassword() => View();
+        private readonly HotelMagnoliaEntities db = new HotelMagnoliaEntities();
+        public ActionResult CambiarPassword() {
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+        }
 
-        // GET: Usuario/LogOut
-        public ActionResult LogOut()
+        // POST: Usuario/CambiarPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CambiarPassword([Bind(Include = "ID_USUARIOS")] USUARIO uSUARIO, string current_password, string new_password, string confirm_password)
+        {
+            ActionResult resultado = View();
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            if (usuarioSesion == null)
+            {
+                resultado = RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                if (usuarioSesion.PASSWORD != current_password)
+                {
+                    ModelState.AddModelError("PASSWORD", "La contraseña actual no coincide");
+                }
+                else
+                {
+                    if (confirm_password != new_password)
+                    {
+                        ModelState.AddModelError("CONFIRM_PASSWORD", "Las contraseñas indicadas no coinciden");
+                    }
+                    else
+                    {
+                        usuarioSesion.PASSWORD = new_password;
+                        Session["Usuario"] = usuarioSesion;
+
+                        db.Entry(usuarioSesion).State = EntityState.Modified;
+                        db.SaveChanges();
+                        TempData["SuccessMessage"] = "La contraseña ha sido cambiada con éxito";
+                        resultado = RedirectToAction("Success", "Home");
+                    }
+                }
+            }
+            return resultado;
+        }
+
+            // GET: Usuario/LogOut
+            public ActionResult LogOut()
         {
             Session["Usuario"] = null;
             return RedirectToAction("Index", "Home");
@@ -45,9 +93,8 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult LogIn([Bind(Include = "PASSWORD,USER_NAME")] USUARIO uSUARIO)
         {
             string result = db.ValidateUser(uSUARIO.USER_NAME, uSUARIO.PASSWORD).FirstOrDefault();
-            
-
             USUARIO User = db.USUARIOs.Find(result);
+
             if (User != null) {
                 Session["Usuario"] = User;
                 return RedirectToAction("Index", "Home");
