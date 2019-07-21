@@ -1,17 +1,17 @@
 ﻿@model HotelMagnolia.UI.Models.HABITACION
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles Habitacion";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>HABITACION</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NUMERO)
+            Numero
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NOMBRE)
+            Nombre
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DESCRIPCION)
+            Descripción
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FOTO)
+            Foto
         </dt>
 
         <dd>
@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PRECIO.TIPO_PRECIO)
+            Tipo Precio
         </dt>
 
         <dd>
@@ -51,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+            Tipo Habitacion
         </dt>
 
         <dd>
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_HABITACION }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_HABITACION }) |
+    @Html.ActionLink("Regresar", "Index")
 </p>

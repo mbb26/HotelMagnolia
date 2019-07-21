@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<HotelMagnolia.UI.Models.BITACORA>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista Bitacora";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -53,11 +51,19 @@
             @Html.DisplayFor(modelItem => item.USUARIO.NOMBRE)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_BITACORA }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_BITACORA }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_BITACORA })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID_BITACORA })
+        </td>
+        <td>
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID_BITACORA })
+        </td>
+        <td>
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.ID_BITACORA })
         </td>
     </tr>
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Crear Nueva Bitacora", "Create")
+</p>
