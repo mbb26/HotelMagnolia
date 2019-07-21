@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -18,13 +18,13 @@
             @Html.DisplayNameFor(model => model.FECHA_SALIDA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION)
+            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION1.NOMBRE)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
         </th>
         <th></th>
     </tr>
@@ -38,18 +38,18 @@
             @Html.DisplayFor(modelItem => item.FECHA_SALIDA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ESTADO_RESERVACION)
+            @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ESTADO_RESERVACION1.NOMBRE)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.USUARIO.NOMBRE)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID_RESERVACION })
-            @Html.ActionLink("Detalles", "Details", new { id=item.ID_RESERVACION })
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.ID_RESERVACION })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_RESERVACION }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_RESERVACION }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_RESERVACION })
         </td>
     </tr>
 }

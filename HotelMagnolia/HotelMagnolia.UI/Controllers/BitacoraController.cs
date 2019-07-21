@@ -17,7 +17,7 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Bitacora
         public ActionResult Index()
         {
-            var bITACORAs = db.BITACORAs.Include(b => b.USUARIO).Include(b => b.USUARIO1);
+            var bITACORAs = db.BITACORAs.Include(b => b.TIPO_BITACORA).Include(b => b.USUARIO);
             return View(bITACORAs.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Bitacora/Create
         public ActionResult Create()
         {
-            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE");
+            ViewBag.TIPO = new SelectList(db.TIPO_BITACORA, "ID_TIPO_BITACORA", "NOMBRE");
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE");
             return View();
         }
@@ -58,7 +58,7 @@ namespace HotelMagnolia.UI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.TIPO);
+            ViewBag.TIPO = new SelectList(db.TIPO_BITACORA, "ID_TIPO_BITACORA", "NOMBRE", bITACORA.TIPO);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.ID_USUARIO);
             return View(bITACORA);
         }
@@ -75,7 +75,7 @@ namespace HotelMagnolia.UI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.TIPO);
+            ViewBag.TIPO = new SelectList(db.TIPO_BITACORA, "ID_TIPO_BITACORA", "NOMBRE", bITACORA.TIPO);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.ID_USUARIO);
             return View(bITACORA);
         }
@@ -93,7 +93,7 @@ namespace HotelMagnolia.UI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TIPO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.TIPO);
+            ViewBag.TIPO = new SelectList(db.TIPO_BITACORA, "ID_TIPO_BITACORA", "NOMBRE", bITACORA.TIPO);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.ID_USUARIO);
             return View(bITACORA);
         }

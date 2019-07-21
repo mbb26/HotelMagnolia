@@ -18,8 +18,6 @@ namespace HotelMagnolia.UI.Models
         public USUARIO()
         {
             this.BITACORAs = new HashSet<BITACORA>();
-            this.BITACORAs1 = new HashSet<BITACORA>();
-            this.RESERVACIONs = new HashSet<RESERVACION>();
         }
     
         public string ID_USUARIO { get; set; }
@@ -32,12 +30,8 @@ namespace HotelMagnolia.UI.Models
         public string USER_NAME { get; set; }
         public Nullable<int> ID_ROL { get; set; }
     
+        public virtual ROL ROL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BITACORA> BITACORAs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BITACORA> BITACORAs1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RESERVACION> RESERVACIONs { get; set; }
-        public virtual ROL ROL { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Reservacion
         public ActionResult Index()
         {
-            var rESERVACIONs = db.RESERVACIONs.Include(r => r.TIPO_HABITACION1).Include(r => r.USUARIO);
+            var rESERVACIONs = db.RESERVACIONs.Include(r => r.CLIENTE).Include(r => r.ESTADO_RESERVACION1).Include(r => r.TIPO_HABITACION1);
             return View(rESERVACIONs.ToList());
         }
 
@@ -39,8 +39,9 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Reservacion/Create
         public ActionResult Create()
         {
+            ViewBag.ID_CLIENTE = new SelectList(db.CLIENTEs, "ID_CLIENTE", "NOMBRE");
+            ViewBag.ESTADO_RESERVACION = new SelectList(db.ESTADO_RESERVACION, "ID_ESTADO", "NOMBRE");
             ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE");
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE");
             return View();
         }
 
@@ -49,20 +50,22 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_RESERVACION,ID_USUARIO,FECHA_ENTRADA,FECHA_SALIDA,TIPO_HABITACION,ESTADO_RESERVACION")] RESERVACION rESERVACION)
+        public ActionResult Create([Bind(Include = "ID_RESERVACION,ID_CLIENTE,FECHA_ENTRADA,FECHA_SALIDA,TIPO_HABITACION,ESTADO_RESERVACION")] RESERVACION rESERVACION)
         {
             if (ModelState.IsValid)
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                db.InsertReservacion(rESERVACION.ID_USUARIO, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION);
+                db.InsertReservacionTEST(rESERVACION.ID_CLIENTE, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION, usuarioSesion.ID_USUARIO, DateTime.Now, 01, "Agregar Reservacion");
+                //db.InsertReservacion(rESERVACION.ID_USUARIO, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION);
                 //db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now,);
                 //db.RESERVACIONs.Add(rESERVACION);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ID_CLIENTE = new SelectList(db.CLIENTEs, "ID_CLIENTE", "NOMBRE", rESERVACION.ID_CLIENTE);
+            ViewBag.ESTADO_RESERVACION = new SelectList(db.ESTADO_RESERVACION, "ID_ESTADO", "NOMBRE", rESERVACION.ESTADO_RESERVACION);
             ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE", rESERVACION.TIPO_HABITACION);
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", rESERVACION.ID_USUARIO);
             return View(rESERVACION);
         }
 
@@ -78,8 +81,9 @@ namespace HotelMagnolia.UI.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ID_CLIENTE = new SelectList(db.CLIENTEs, "ID_CLIENTE", "NOMBRE", rESERVACION.ID_CLIENTE);
+            ViewBag.ESTADO_RESERVACION = new SelectList(db.ESTADO_RESERVACION, "ID_ESTADO", "NOMBRE", rESERVACION.ESTADO_RESERVACION);
             ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE", rESERVACION.TIPO_HABITACION);
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", rESERVACION.ID_USUARIO);
             return View(rESERVACION);
         }
 
@@ -88,7 +92,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_RESERVACION,ID_USUARIO,FECHA_ENTRADA,FECHA_SALIDA,TIPO_HABITACION,ESTADO_RESERVACION")] RESERVACION rESERVACION)
+        public ActionResult Edit([Bind(Include = "ID_RESERVACION,ID_CLIENTE,FECHA_ENTRADA,FECHA_SALIDA,TIPO_HABITACION,ESTADO_RESERVACION")] RESERVACION rESERVACION)
         {
             if (ModelState.IsValid)
             {
@@ -96,8 +100,9 @@ namespace HotelMagnolia.UI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ID_CLIENTE = new SelectList(db.CLIENTEs, "ID_CLIENTE", "NOMBRE", rESERVACION.ID_CLIENTE);
+            ViewBag.ESTADO_RESERVACION = new SelectList(db.ESTADO_RESERVACION, "ID_ESTADO", "NOMBRE", rESERVACION.ESTADO_RESERVACION);
             ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE", rESERVACION.TIPO_HABITACION);
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", rESERVACION.ID_USUARIO);
             return View(rESERVACION);
         }
 

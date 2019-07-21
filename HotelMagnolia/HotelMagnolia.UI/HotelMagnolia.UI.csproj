@@ -134,16 +134,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Content\TestController.cs" />
+    <Compile Include="Controllers\BitacoraController.cs" />
+    <Compile Include="Controllers\ReservacionController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\ArticuloController.cs" />
-    <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ConsecutivoController.cs" />
     <Compile Include="Controllers\HabitacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrecioController.cs" />
-    <Compile Include="Controllers\ReservacionController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\Tipo_BitacoraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -163,6 +163,9 @@
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONSECUTIVO.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESTADO_RESERVACION.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HABITACION.cs">
@@ -297,6 +300,7 @@
       <DependentUpon>ModelDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\DatePickerReady.js" />
     <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -348,11 +352,6 @@
     <Content Include="Views\Precio\Details.cshtml" />
     <Content Include="Views\Precio\Edit.cshtml" />
     <Content Include="Views\Precio\Index.cshtml" />
-    <Content Include="Views\Reservacion\Create.cshtml" />
-    <Content Include="Views\Reservacion\Delete.cshtml" />
-    <Content Include="Views\Reservacion\Details.cshtml" />
-    <Content Include="Views\Reservacion\Edit.cshtml" />
-    <Content Include="Views\Reservacion\Index.cshtml" />
     <Content Include="Views\Rol\Create.cshtml" />
     <Content Include="Views\Rol\Delete.cshtml" />
     <Content Include="Views\Rol\Details.cshtml" />
@@ -375,16 +374,21 @@
     <Content Include="Views\Habitacion\Details.cshtml" />
     <Content Include="Views\Habitacion\Edit.cshtml" />
     <Content Include="Views\Habitacion\Index.cshtml" />
-    <Content Include="Views\Bitacora\Create.cshtml" />
-    <Content Include="Views\Bitacora\Delete.cshtml" />
-    <Content Include="Views\Bitacora\Details.cshtml" />
-    <Content Include="Views\Bitacora\Edit.cshtml" />
-    <Content Include="Views\Bitacora\Index.cshtml" />
     <Content Include="Views\Test\Create.cshtml" />
     <Content Include="Views\Test\Delete.cshtml" />
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Reservacion\Create.cshtml" />
+    <Content Include="Views\Reservacion\Delete.cshtml" />
+    <Content Include="Views\Reservacion\Details.cshtml" />
+    <Content Include="Views\Reservacion\Edit.cshtml" />
+    <Content Include="Views\Reservacion\Index.cshtml" />
+    <Content Include="Views\Bitacora\Create.cshtml" />
+    <Content Include="Views\Bitacora\Delete.cshtml" />
+    <Content Include="Views\Bitacora\Details.cshtml" />
+    <Content Include="Views\Bitacora\Edit.cshtml" />
+    <Content Include="Views\Bitacora\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,7 +50,10 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1);
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+
+                db.InsertPreciosTEST(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Agregar Precio");
+                //db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -82,8 +85,9 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1);
-                //db.Entry(pRECIO).State = EntityState.Modified;
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 2, "Editar Precio", "Codigo: " + pRECIO.ID_PRECIO + "| Tipo Precio: " + pRECIO.TIPO_PRECIO + "| Precio: " + pRECIO.PRECIO1);
+                db.Entry(pRECIO).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -111,6 +115,8 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             PRECIO pRECIO = db.PRECIOs.Find(id);
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now,3, "Eliminar Precio", "Codigo: " + pRECIO.ID_PRECIO + "| Tipo Precio: " + pRECIO.TIPO_PRECIO + "| Precio: " + pRECIO.PRECIO1);
             db.PRECIOs.Remove(pRECIO);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -36,6 +36,7 @@ namespace HotelMagnolia.UI.Content
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TEST tEST = db.TESTs.Find(id);
+            tEST.TEST_NOMBRE = Cypher.Decrypt(tEST.TEST_NOMBRE);
             if (tEST == null)
             {
                 return HttpNotFound();
@@ -75,6 +76,7 @@ namespace HotelMagnolia.UI.Content
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TEST tEST = db.TESTs.Find(id);
+            tEST.TEST_NOMBRE = Cypher.Decrypt(tEST.TEST_NOMBRE);
             if (tEST == null)
             {
                 return HttpNotFound();
@@ -91,6 +93,7 @@ namespace HotelMagnolia.UI.Content
         {
             if (ModelState.IsValid)
             {
+                tEST.TEST_NOMBRE = Cypher.Crypt(tEST.TEST_NOMBRE);
                 db.Entry(tEST).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
