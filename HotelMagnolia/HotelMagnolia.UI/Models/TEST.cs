@@ -12,17 +12,9 @@ namespace HotelMagnolia.UI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BITACORA
+    public partial class TEST
     {
-        public string ID_BITACORA { get; set; }
-        public string ID_USUARIO { get; set; }
-        public System.DateTime FECHA { get; set; }
-        public int CODIGO { get; set; }
-        public int TIPO { get; set; }
-        public string Descripcion { get; set; }
-        public string Registro_en_detalle { get; set; }
-    
-        public virtual TIPO_BITACORA TIPO_BITACORA { get; set; }
-        public virtual USUARIO USUARIO { get; set; }
+        public int ID_TEST { get; set; }
+        public string TEST_NOMBRE { get; set; }
     }
 }

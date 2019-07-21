@@ -12,25 +12,18 @@ namespace HotelMagnolia.UI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HABITACION
+    public partial class ESTADO_RESERVACION
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HABITACION()
+        public ESTADO_RESERVACION()
         {
-            this.CLIENTEs = new HashSet<CLIENTE>();
+            this.RESERVACIONs = new HashSet<RESERVACION>();
         }
     
-        public string ID_HABITACION { get; set; }
-        public int NUMERO { get; set; }
+        public int ID_ESTADO { get; set; }
         public string NOMBRE { get; set; }
-        public string DESCRIPCION { get; set; }
-        public string FOTO { get; set; }
-        public int TIPO_HABITACION { get; set; }
-        public string ID_PRECIO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE> CLIENTEs { get; set; }
-        public virtual PRECIO PRECIO { get; set; }
-        public virtual TIPO_HABITACION TIPO_HABITACION1 { get; set; }
+        public virtual ICollection<RESERVACION> RESERVACIONs { get; set; }
     }
 }

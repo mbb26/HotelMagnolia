@@ -43,6 +43,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.TIPO_BITACORA.NOMBRE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_BITACORA.NOMBRE)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
         </dt>
 
@@ -50,17 +58,9 @@
             @Html.DisplayFor(model => model.USUARIO.NOMBRE)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIO1.NOMBRE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.USUARIO1.NOMBRE)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_BITACORA })
-    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_BITACORA }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

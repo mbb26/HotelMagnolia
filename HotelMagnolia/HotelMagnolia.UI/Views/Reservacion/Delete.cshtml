@@ -6,7 +6,7 @@
 
 <h2>Delete</h2>
 
-¿Confirma que desea eliminar esto?</h3>
+<h3>¿Confirma que desea eliminar esto?</h3>
 
 @using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
 {
@@ -27,29 +27,29 @@
                 @Html.DisplayNameFor(model => model.FECHA_SALIDA)
             </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.FECHA_SALIDA)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRE)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ESTADO_RESERVACION)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CLIENTE.NOMBRE)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.ESTADO_RESERVACION)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION1.NOMBRE)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ESTADO_RESERVACION1.NOMBRE)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
+        </dd>
 
             <dd>
                 @Html.DisplayFor(model => model.USUARIO.NOMBRE)
@@ -58,8 +58,8 @@
         </dl>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
 

@@ -188,7 +188,7 @@ create table BITACORA (
    ID_USUARIO           varchar(100)         not null,
    FECHA                smalldatetime        not null,
    CODIGO               int  IDENTITY(1,1)   not null,
-   TIPO                 varchar(100)         not null,
+   TIPO                 int                  not null,
    Descripcion          varchar(Max)         not null,
    Registro_en_detalle  varchar(MAX)         not null,
    constraint PK_BITACORA primary key (ID_BITACORA)        
@@ -221,16 +221,29 @@ create table CONSECUTIVO (
 )
 go
 
+/*==============================================================*/
+/* Table: Estado reservacion                                             
+==============================================================*/
+create table ESTADO_RESERVACION(
+   ID_ESTADO            int                  not null,
+   NOMBRE               varchar(Max)         not null,
+   constraint PK_ESTADO_RESERVACION primary key (ID_ESTADO)
+)
+go
+
+
 
 /*==============================================================*/
 /* Table: Habitacion                                             
 ==============================================================*/
 create table HABITACION (
-   ID_HABITACION     varchar(100)                  not null,
+   ID_HABITACION     varchar(100)            not null,
    NUMERO               int                  not null,
    NOMBRE               varchar(Max)         not null,
+   DESCRIPCION          varchar(max)         not null,
+   FOTO                 varchar(max)         not null,
    TIPO_HABITACION      int                  not null,
-   ID_PRECIO            varchar(100)        not null,
+   ID_PRECIO            varchar(100)         not null,
    constraint PK_HABITACION primary key (ID_HABITACION)
 )
 go
@@ -247,12 +260,14 @@ create table PRECIO (
 )
 go
 
+
+
 /*==============================================================*/
 /* Table: Reservacion                                             
 ==============================================================*/
 create table RESERVACION (
    ID_RESERVACION      varchar(100)                  not null,
-   ID_USUARIO           varchar(100)                  not null,
+   ID_CLIENTE           int                  not null,
    FECHA_ENTRADA        date                 not null,
    FECHA_SALIDA         date                 not null,
    TIPO_HABITACION      int                  not null,
@@ -335,8 +350,8 @@ alter table BITACORA
 go
 
 alter table BITACORA
-    add CONSTRAINT FK_BITACORA_REFERENCE_TIPO_BITACORA FOREIGN key (Tipo)
-    references USUARIO (ID_USUARIO)
+    add CONSTRAINT FK_BITACORA_REFERENCE_TIPO_BITACORA FOREIGN key (TIPO)
+    references TIPO_BITACORA (ID_TIPO_BITACORA)
 go
 
 alter table CLIENTE
@@ -357,10 +372,14 @@ go
 
 
 alter table RESERVACION
-   add constraint FK_RESERVAC_REFERENCE_USUARIO foreign key (ID_USUARIO)
-      references USUARIO (ID_USUARIO)
+   add constraint FK_RESERVAC_REFERENCE_CLIENTE foreign key (ID_CLIENTE)
+      references CLIENTE (ID_CLIENTE)
 go
 
+alter table RESERVACION
+   add constraint FK_RESERVAC_REFERENCE_ESTADO_RESERVACION foreign key (ESTADO_RESERVACION)
+      references ESTADO_RESERVACION (ID_ESTADO)
+go
 
 alter table RESERVACION
    add constraint FK_RESERVAC_REFERENCE_TIPO foreign key (TIPO_HABITACION)
@@ -386,12 +405,13 @@ INSERT INTO ROL (ID_ROL, NOMBRE) VALUES(04, 'Mantenimiento');
 INSERT INTO ROL (ID_ROL, NOMBRE) VALUES(05, 'Consulta');
 
 /* Table: Consecutivos*/
-INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(01, 'Habitacion',50,1,'HAB',1,100,500);
-INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(02, 'Actividad',50,1,'HAB',1,100,500);
-INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(03, 'Precio',50,1,'HAB',1,100,500);
-INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(04, 'Reservacion',50,1,'HAB',1,100,500);
-INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(05, 'Cliente',50,1,'HAB',1,100,500);
-INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(06, 'Bitacora',50,1,'HAB',1,100,500);
+INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(01, 'Habitacion',100,1,'HAB',1,100,500);
+INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(02, 'Actividad',100,1,'ACT',1,100,1000);
+INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(03, 'Precio',100,1,'PRC',1,100,1000);
+INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(04, 'Reservacion',100,1,'RSV',1,100,500);
+INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(05, 'Cliente',100,1,'CLN',1,100,500);
+INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(06, 'Bitacora',100,1,'BTN',1,100,500);
+INSERT INTO CONSECUTIVO (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL) VALUES(07, 'Usuario',100,0,'',0,100,500);
 
 /* Table: Tipo Habitacion*/
 INSERT INTO TIPO_HABITACION (NOMBRE,DESCRIPCION) VALUES('Normal','Este tipo de habitación, cuenta con dos camas matrimoniales, un baño, dos almarios grandes, teléfono, microondas, coffee maker, televisión');
@@ -401,25 +421,80 @@ INSERT INTO TIPO_HABITACION (NOMBRE,DESCRIPCION) VALUES('Condominio','La habitac
 INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(01, 'Agregar');
 INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(02, 'Modificar');
 INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
-
+/* Table: Estado Reservacion*/
+INSERT INTO ESTADO_RESERVACION (ID_ESTADO , NOMBRE) VALUES(01, 'Reservacion Paga');
+INSERT INTO ESTADO_RESERVACION (ID_ESTADO , NOMBRE) VALUES(02, 'Reservacion Sin Paga');
 
 /* Table: USER*/
  INSERT INTO USUARIO (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL) VALUES(01, 'Juanito','Pacheco','Mora','admin@magnolia.com',22222222,'123','admin',01);
  GO
 
+  INSERT INTO USUARIO (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL) VALUES(02, 'Pedro','Pacheco','Mora','seguridad@magnolia.com',22222222,'123','seguridad',02);
+ GO
 
+  INSERT INTO USUARIO (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL) VALUES(03, 'Jose','Gomez','Ramirez','consecutivo@magnolia.com',22222222,'123','consecutivo',03);
+ GO
+
+ INSERT INTO USUARIO (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL) VALUES(04, 'Nidia','Agapito','Samanta','Mantenimiento@magnolia.com',22222222,'123','Mantenimiento',04);
+ GO
+
+  INSERT INTO USUARIO (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL) VALUES(05, 'Laurita','Ruperta','Luisita','Consulta@magnolia.com',22222222,'123','Consulta',05);
+ GO
+
+/* Table: Precio*/
+
+
+/* Table: Habitacion*/
 
 
 
 /*==============================================================*/
-/* Table: Stored Procedures                                             
+/* Table: Stored Procedures TEST                                             
 ==============================================================*/
-    CREATE OR ALTER PROCEDURE InsertHabitacion
+CREATE OR ALTER PROCEDURE InsertActividadTEST
+    (
+        @Nombre varchar(200),
+        @Descripcion varchar(200),
+        @Img varchar(max),
+        @LOG_UserID varchar(200),
+        @LOG_fecha smalldatetime,
+        @LOG_Tipo int,
+        @LOG_Desc varchar(200)
+    )
+    AS
+        DECLARE @ID varchar(200)
+        
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
+                CAST([valor]  AS VARCHAR(200))
+                FROM [dbo].[CONSECUTIVO]
+                WHERE Nombre = 'Actividad'
+                         
+        INSERT INTO [dbo].[ACTIVIDAD] ([ID_ACTIVIDAD],[NOMBRE],[DESCRIPCION],[IMG])
+        VALUES (@ID,@Nombre,@Descripcion,@Img)
+
+        Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Nombre: ' + @Nombre + ' | Descripcion: ' + @Descripcion + '| FOTO: '+ @Img)
+			
+        EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_Detalle
+        
+        UPDATE [dbo].[CONSECUTIVO]
+        SET Valor = Valor + 1
+        WHERE Nombre ='Actividad'
+    GO
+
+
+CREATE OR ALTER PROCEDURE InsertHabitacionTEST
         (
             @Numero int,
             @Nombre varchar(200),
             @Tipo_Habitacion int,
-            @ID_Precio varchar(100)
+            @ID_Precio varchar(100),
+            @Descripcion varchar(250),
+            @Foto varchar(250),
+            @LOG_UserID varchar(200),
+            @LOG_fecha smalldatetime,
+            @LOG_Tipo int,
+            @LOG_Desc varchar(200)
+
         )
         AS
             DECLARE @ID varchar(200)
@@ -429,8 +504,12 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
                     FROM [dbo].[CONSECUTIVO]
                     WHERE Nombre = 'Habitacion'
                             
-            INSERT INTO [dbo].[HABITACION] ([ID_HABITACION],[NUMERO],[NOMBRE],[TIPO_HABITACION],[ID_PRECIO])
-            VALUES (@ID,@Numero,@Nombre,@Tipo_Habitacion,@ID_Precio)
+            INSERT INTO [dbo].[HABITACION] ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[TIPO_HABITACION],[ID_PRECIO])
+            VALUES (@ID,@Numero,@Nombre,@descripcion,@foto,@Tipo_Habitacion,@ID_Precio)
+
+			Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Numero: ' + CAST(@Numero AS VARCHAR(200)) + ' | Nombre: ' + @Nombre + '| Tipo Habitacion: ' + CAST(@Tipo_Habitacion AS VARCHAR(200)) + '| Desc: ' + @Descripcion +' | Foto: ' + @Foto)
+			
+            EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle
             
             UPDATE [dbo].[CONSECUTIVO]
             SET Valor = Valor + 1
@@ -438,9 +517,114 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
             
         GO
 
+        CREATE OR ALTER PROCEDURE InsertPreciosTEST
+    (
+        @Tipo_Precio varchar(200),
+        @Precio int,
+        @LOG_UserID varchar(200),
+        @LOG_fecha smalldatetime,
+        @LOG_Tipo int,
+        @LOG_Desc varchar(200)
+        
+    )
+    AS
+        DECLARE @ID varchar(200)
+        
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
+                CAST([valor]  AS VARCHAR(200))
+                FROM [dbo].[CONSECUTIVO]
+                WHERE Nombre = 'Precio'
+                         
+        INSERT INTO [dbo].[PRECIO] ([ID_PRECIO],[TIPO_PRECIO],[PRECIO])
+        VALUES (@ID,@Tipo_Precio,@Precio)
+
+        Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Tipo_Precio: ' + @Tipo_Precio + ' | Precio: ' + CAST(@Precio AS VARCHAR(200)))
+			
+        EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle
+        
+        UPDATE [dbo].[CONSECUTIVO]
+        SET Valor = Valor + 1
+        WHERE Nombre ='Precio'
+    GO
+
+        CREATE OR ALTER PROCEDURE InsertReservacionTEST
+    (
+        @ID_Cliente int,
+        @Fecha_Entrada date,
+        @Fecha_Salida date,
+        @Tipo_Habitacion int,
+        @Estado int,
+        @LOG_UserID varchar(200),
+        @LOG_fecha smalldatetime,
+        @LOG_Tipo int,
+        @LOG_Desc varchar(200)
+    )
+    AS
+        DECLARE @ID varchar(200)
+        
+        SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
+                CAST([valor]  AS VARCHAR(200))
+                FROM [dbo].[CONSECUTIVO]
+                WHERE Nombre = 'Reservacion'
+                         
+        INSERT INTO [dbo].[RESERVACION] ([ID_RESERVACION],[ID_CLIENTE],[FECHA_ENTRADA],[FECHA_SALIDA],[TIPO_HABITACION],[ESTADO_RESERVACION])
+        VALUES (@ID,@ID_Cliente,@Fecha_Entrada,@Fecha_Salida,@Tipo_Habitacion,@Estado)
+
+        Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Cliente: ' + CAST(@ID_Cliente AS VARCHAR(200)) + ' | Fecha Entrada: ' + CAST(@Fecha_Entrada AS VARCHAR(200)) +'| Fecha Salida: '+ CAST(@Fecha_Salida AS VARCHAR(200)) + '| Estado: ' + CAST(@Estado AS VARCHAR(200)))
+			
+        EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle
+        
+        UPDATE [dbo].[CONSECUTIVO]
+        SET Valor = Valor + 1
+        WHERE Nombre ='Reservacion'
+        
+    GO
+
+    
+
+
+
+
+/*==============================================================*/
+/* Table: Stored Procedures                                             
+==============================================================*/
+
+
+
+
+    CREATE OR ALTER PROCEDURE InsertHabitacion
+        (
+            @Numero int,
+            @Nombre varchar(200),
+            @Tipo_Habitacion int,
+            @ID_Precio varchar(100),
+            @Descripcion varchar(250),
+            @Foto varchar(250)
+
+        )
+        AS
+            DECLARE @ID varchar(200)
+            
+            SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
+                    CAST([valor]  AS VARCHAR(200))
+                    FROM [dbo].[CONSECUTIVO]
+                    WHERE Nombre = 'Habitacion'
+                            
+            INSERT INTO [dbo].[HABITACION] ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[TIPO_HABITACION],[ID_PRECIO])
+            VALUES (@ID,@Numero,@Nombre,@descripcion,@foto,@Tipo_Habitacion,@ID_Precio)
+
+            
+            UPDATE [dbo].[CONSECUTIVO]
+            SET Valor = Valor + 1
+            WHERE Nombre ='Habitacion'
+            
+        GO
+
+
+
     CREATE OR ALTER PROCEDURE InsertReservacion
     (
-        @ID_Usuario varchar(100),
+        @ID_Cliente int,
         @Fecha_Entrada date,
         @Fecha_Salida date,
         @Tipo_Habitacion int,
@@ -454,8 +638,8 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
                 FROM [dbo].[CONSECUTIVO]
                 WHERE Nombre = 'Reservacion'
                          
-        INSERT INTO [dbo].[RESERVACION] ([ID_RESERVACION],[ID_USUARIO],[FECHA_ENTRADA],[FECHA_SALIDA],[TIPO_HABITACION],[ESTADO_RESERVACION])
-        VALUES (@ID,@ID_Usuario,@Fecha_Entrada,@Fecha_Salida,@Tipo_Habitacion,@Estado)
+        INSERT INTO [dbo].[RESERVACION] ([ID_RESERVACION],[ID_CLIENTE],[FECHA_ENTRADA],[FECHA_SALIDA],[TIPO_HABITACION],[ESTADO_RESERVACION])
+        VALUES (@ID,@ID_Cliente,@Fecha_Entrada,@Fecha_Salida,@Tipo_Habitacion,@Estado)
         
         UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
@@ -567,7 +751,7 @@ INSERT INTO TIPO_BITACORA (ID_TIPO_BITACORA , NOMBRE) VALUES(03, 'Eliminar');
    AS
    BEGIN
          SET NOCOUNT ON;
-         DECLARE @UserId VARCHAR
+         DECLARE @UserId VARCHAR(max)
       
          SELECT @UserId = ID_USUARIO
          FROM [dbo].[USUARIO] WHERE USER_NAME = @Username AND [Password] = @Password

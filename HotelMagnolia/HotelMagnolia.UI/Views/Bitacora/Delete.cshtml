@@ -43,21 +43,21 @@
                 @Html.DisplayNameFor(model => model.Registro_en_detalle)
             </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Registro_en_detalle)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_BITACORA.NOMBRE)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_BITACORA.NOMBRE)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.USUARIO.NOMBRE)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.USUARIO1.NOMBRE)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.USUARIO.NOMBRE)
+        </dd>
 
             <dd>
                 @Html.DisplayFor(model => model.USUARIO1.NOMBRE)
@@ -66,8 +66,8 @@
         </dl>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
 

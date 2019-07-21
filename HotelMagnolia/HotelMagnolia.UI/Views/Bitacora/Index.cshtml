@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.FECHA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CODIGO)
+            @Html.DisplayNameFor(model => model.ID_BITACORA)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
@@ -24,10 +24,10 @@
             @Html.DisplayNameFor(model => model.Registro_en_detalle)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
+            @Html.DisplayNameFor(model => model.TIPO_BITACORA.NOMBRE)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.USUARIO1.NOMBRE)
+            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.FECHA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CODIGO)
+            @Html.DisplayFor(modelItem => item.ID_BITACORA)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descripcion)
@@ -47,15 +47,15 @@
             @Html.DisplayFor(modelItem => item.Registro_en_detalle)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.TIPO_BITACORA.NOMBRE)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.USUARIO.NOMBRE)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.USUARIO1.NOMBRE)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID_BITACORA })
-            @Html.ActionLink("Detalles", "Details", new { id=item.ID_BITACORA })
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.ID_BITACORA })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_BITACORA }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_BITACORA }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_BITACORA })
         </td>
     </tr>
 }

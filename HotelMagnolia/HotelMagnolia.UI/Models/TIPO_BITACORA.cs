@@ -14,7 +14,16 @@ namespace HotelMagnolia.UI.Models
     
     public partial class TIPO_BITACORA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TIPO_BITACORA()
+        {
+            this.BITACORAs = new HashSet<BITACORA>();
+        }
+    
         public int ID_TIPO_BITACORA { get; set; }
         public string NOMBRE { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BITACORA> BITACORAs { get; set; }
     }
 }
