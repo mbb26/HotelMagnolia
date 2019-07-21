@@ -7,42 +7,44 @@
 <h2>Delete</h2>
 
 ¿Confirma que desea eliminar esto?</h3>
-<div>
-    <h4>ARTICULO</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DESCRIPCION_)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DESCRIPCION_)
-        </dd>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>ARTICULO</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DESCRIPCION_)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IMG)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DESCRIPCION_)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IMG)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IMG)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PRECIO.TIPO_PRECIO)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IMG)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PRECIO.TIPO_PRECIO)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PRECIO.TIPO_PRECIO)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.PRECIO.TIPO_PRECIO)
+            </dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
 
         <div class="form-actions no-color">
             <input type="submit" value="Eliminar" class="btn btn-default" />
             @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
         </div>
-    }
-</div>
+    </div>
+
+}

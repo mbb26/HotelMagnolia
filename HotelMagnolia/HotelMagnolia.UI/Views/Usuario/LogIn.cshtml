@@ -4,20 +4,20 @@
     ViewBag.Title = "Login";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
 {
     @Html.AntiForgeryToken()
     <h2>@ViewBag.Title</h2>
     <div class="form-group">
         <label class="control-label col-md-4" for="USER_NAME">Nombre de Usuario:</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.USER_NAME, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.USER_NAME, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
             @Html.ValidationMessageFor(model => model.USER_NAME, "", new { @class = "text-danger" })
         </div>
     </div> <div class="form-group">
                <label class="control-label col-md-4" for="PASSWORD">Contrase&ntilde;a:</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+            @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control", @type = "password", data_function = "noBlank" } })
             @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
         </div>
     </div>

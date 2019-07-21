@@ -7,58 +7,60 @@
 <h2>Delete</h2>
 
 ¿Confirma que desea eliminar esto?</h3>
-<div>
-    <h4>RESERVACION</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FECHA_ENTRADA)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FECHA_ENTRADA)
-        </dd>
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>RESERVACION</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FECHA_ENTRADA)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FECHA_SALIDA)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_ENTRADA)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FECHA_SALIDA)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FECHA_SALIDA)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_SALIDA)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ESTADO_RESERVACION)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ESTADO_RESERVACION)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ESTADO_RESERVACION)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.USUARIO.NOMBRE)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.USUARIO.NOMBRE)
+            </dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
 
         <div class="form-actions no-color">
             <input type="submit" value="Eliminar" class="btn btn-default" />
             @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
         </div>
-    }
-</div>
+    </div>
+
+}

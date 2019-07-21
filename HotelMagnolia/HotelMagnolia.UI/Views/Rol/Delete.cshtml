@@ -7,26 +7,28 @@
 <h2>Delete</h2>
 
 ¿Confirma que desea eliminar esto?</h3>
-<div>
-    <h4>ROL</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NOMBRE)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NOMBRE)
-        </dd>
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>ROL</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NOMBRE)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.NOMBRE)
+            </dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
 
         <div class="form-actions no-color">
             <input type="submit" value="Eliminar" class="btn btn-default" />
             @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
         </div>
-    }
-</div>
+    </div>
+
+}
