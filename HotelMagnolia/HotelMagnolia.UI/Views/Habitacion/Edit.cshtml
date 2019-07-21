@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
 {
     @Html.AntiForgeryToken()
     
@@ -18,25 +18,25 @@
         @Html.HiddenFor(model => model.ID_HABITACION)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NUMERO, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NUMERO, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NUMERO, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.NUMERO, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NOMBRE, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NOMBRE, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.NOMBRE, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,13 +44,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FOTO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FOTO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FOTO, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.FOTO, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TIPO_HABITACION, "TIPO_HABITACION", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TIPO_HABITACION, "TIPO_HABITACION", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.DropDownList("TIPO_HABITACION", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TIPO_HABITACION, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ID_PRECIO, "ID_PRECIO", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ID_PRECIO, "ID_PRECIO", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.DropDownList("ID_PRECIO", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ID_PRECIO, "", new { @class = "text-danger" })
@@ -67,16 +67,9 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

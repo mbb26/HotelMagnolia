@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" } ))
 {
     @Html.AntiForgeryToken()
     
@@ -18,61 +18,61 @@
         @Html.HiddenFor(model => model.ID_CONSECUTIVOS)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NOMBRE, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NOMBRE, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.NOMBRE, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.VALOR, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.VALOR, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VALOR, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.VALOR, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.VALOR, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TIENE_PREFIJO, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TIENE_PREFIJO, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.TIENE_PREFIJO, new { htmlAttributes = new { data_action = "toggleEnable", data_target = "[name='PREFIJO']"} })
+                    @Html.EditorFor(model => model.TIENE_PREFIJO, new { htmlAttributes = new { data_function = "toggleEnable", data_target = "[name='PREFIJO']"} })
                     @Html.ValidationMessageFor(model => model.TIENE_PREFIJO, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PREFIJO, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PREFIJO, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PREFIJO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PREFIJO, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.PREFIJO, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.POSEE_RANGO, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.POSEE_RANGO, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.POSEE_RANGO, new { htmlAttributes = new { data_action = "toggleEnable", data_target = "[name='RANGO_INICIAL'], [name='RANGO_FINAL']"} })
+                    @Html.EditorFor(model => model.POSEE_RANGO, new { htmlAttributes = new { data_function = "toggleEnable", data_target = "[name='RANGO_INICIAL'], [name='RANGO_FINAL']"} })
                     @Html.ValidationMessageFor(model => model.POSEE_RANGO, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RANGO_INICIAL, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RANGO_INICIAL, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RANGO_INICIAL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RANGO_INICIAL, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.RANGO_INICIAL, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RANGO_FINAL, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RANGO_FINAL, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RANGO_FINAL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RANGO_FINAL, new { htmlAttributes = new { @class = "form-control", data_function = "noBlank" } })
                 @Html.ValidationMessageFor(model => model.RANGO_FINAL, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -84,8 +84,4 @@
             </div>
         </div>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }
