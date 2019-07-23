@@ -1,56 +1,76 @@
 ﻿@model IEnumerable<HotelMagnolia.UI.Models.HABITACION>
 
 @{
-    ViewBag.Title = "Lista de Habitaciones";
+    ViewBag.Title = "Lista Habitaciones";
 }
 
 <h2>@ViewBag.Title</h2>
 
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ID_HABITACION)
+            ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NUMERO)
+            Numero
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NOMBRE)
+            Nombre
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION)
+            Descripcion
+        </th>
+        <th>
+            Foto
+        </th>
+        <th>
+            Precio
+        </th>
+        <th>
+            Tipo
         </th>
         <th colspan="3">Acciones</th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID_HABITACION)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NUMERO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NOMBRE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ID_HABITACION })
-            </td>
-            <td>
-                @Html.ActionLink("Detalles", "Details", new { id = item.ID_HABITACION })
-            </td>
-            <td>
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID_HABITACION })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ID_HABITACION)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NUMERO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NOMBRE)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DESCRIPCION)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FOTO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PRECIO.TIPO_PRECIO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
+    </td>
+    <td>
+        @Html.ActionLink("Editar", "Edit", new { id = item.ID_HABITACION })
+    </td>
+    <td>
+
+        @Html.ActionLink("Detalles", "Details", new { id = item.ID_HABITACION })
+    </td>
+    <td>
+
+        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID_HABITACION })
+    </td>
+</tr>
+}
 
 </table>
 <p>
-    @Html.ActionLink("Crear Nueva", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Crear Nueva Habitacion", "Create")
 </p>

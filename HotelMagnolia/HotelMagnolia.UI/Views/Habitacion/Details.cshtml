@@ -1,25 +1,17 @@
 ﻿@model HotelMagnolia.UI.Models.HABITACION
 
 @{
-    ViewBag.Title = "Detalles de Habitación";
+    ViewBag.Title = "Detalles Habitacion";
 }
 
-    <h2>@ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>HABITACION</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ID_HABITACION)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ID_HABITACION)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NUMERO)
+            Numero
         </dt>
 
         <dd>
@@ -27,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NOMBRE)
+            Nombre
         </dt>
 
         <dd>
@@ -35,7 +27,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PRECIO.TIPO_PRECIO)
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            Foto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FOTO)
+        </dd>
+
+        <dt>
+            Tipo Precio
         </dt>
 
         <dd>
@@ -43,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+            Tipo Habitacion
         </dt>
 
         <dd>
@@ -53,6 +61,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_HABITACION }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_HABITACION }) |
+    @Html.ActionLink("Regresar", "Index")
 </p>

@@ -12,5 +12,15 @@ namespace HotelMagnolia.UI.Controllers
         {
             return View();
         }
+        public ActionResult Success()
+        {
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            return View();
+        }
+        public ActionResult Failure()
+        {
+            ViewBag.FailureMessage = TempData["FailureMessage"];
+            return View();
+        }
     }
 }

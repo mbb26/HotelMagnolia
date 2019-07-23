@@ -1,17 +1,23 @@
 ﻿@model HotelMagnolia.UI.Models.RESERVACION
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>RESERVACION</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FECHA_ENTRADA)
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID_RESERVACION)
+        </dd>
+        <dt>
+            Fecha Entrada
         </dt>
 
         <dd>
@@ -19,7 +25,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FECHA_SALIDA)
+            Fecha Salida
         </dt>
 
         <dd>
@@ -27,32 +33,32 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION)
+            Cliente
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ESTADO_RESERVACION)
+            @Html.DisplayFor(model => model.CLIENTE.NOMBRE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+            Estado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADO_RESERVACION1.NOMBRE)
+        </dd>
+
+        <dt>
+            Habitacion
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.USUARIO.NOMBRE)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_RESERVACION })
-    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_RESERVACION }) |
+    @Html.ActionLink("Regresar ", "Index")
 </p>

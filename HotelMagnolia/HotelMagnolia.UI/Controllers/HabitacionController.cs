@@ -49,11 +49,14 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
+        public ActionResult Create([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,FOTO,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
         {
             if (ModelState.IsValid)
             {
-                db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO);
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                //db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO);
+                db.InsertHabitacionTEST(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Agregar nueva habitacion");
+                //db.InsertBitacora(usuarioSesion.ID_USUARIO,DateTime.Now,1,"Agregar Habitacion",)
                 //db.HABITACIONs.Add(hABITACION);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,7 +89,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
+        public ActionResult Edit([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,FOTO,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
         {
             if (ModelState.IsValid)
             {

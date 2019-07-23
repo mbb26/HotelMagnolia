@@ -11,13 +11,10 @@ namespace HotelMagnolia.UI.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
-    public partial class ACTIVIDAD
+    
+    public partial class TEST
     {
-        public string ID_ACTIVIDAD { get; set; }
-        public string NOMBRE { get; set; }
-        public string DESCRIPCION { get; set; }
-        public string IMG { get; set; }
+        public int ID_TEST { get; set; }
+        public string TEST_NOMBRE { get; set; }
     }
 }

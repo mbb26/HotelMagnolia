@@ -1,57 +1,72 @@
 ﻿@model HotelMagnolia.UI.Models.HABITACION
 
 @{
-    ViewBag.Title = "Eliminar Habitación";
+    ViewBag.Title = "Eliminar Habitacion";
 }
 
 <h2>@ViewBag.Title</h2>
 
-¿Confirma que desea eliminar esto?</h3>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div>
-        <h4>HABITACION</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.NUMERO)
-            </dt>
+<h3>¿Confirma que desea eliminar esto??</h3>
+<div>
+    <h4>HABITACION</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Numero
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.NUMERO)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.NUMERO)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.NOMBRE)
-            </dt>
+        <dt>
+            Nombre
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.NOMBRE)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRE)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.PRECIO.TIPO_PRECIO)
-            </dt>
+        <dt>
+            Descripcion
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.PRECIO.TIPO_PRECIO)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
-            </dt>
+        <dt>
+            Foto
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.FOTO)
+        </dd>
 
-        </dl>
+        <dt>
+           Tipo Precio
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.PRECIO.TIPO_PRECIO)
+        </dd>
+
+        <dt>
+            Tipo Habitacion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
         </div>
-    </div>
-}
+    }
+</div>

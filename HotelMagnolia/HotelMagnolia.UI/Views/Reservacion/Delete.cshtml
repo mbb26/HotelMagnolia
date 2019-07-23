@@ -1,64 +1,66 @@
 ﻿@model HotelMagnolia.UI.Models.RESERVACION
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Reservacion";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
-¿Confirma que desea eliminar esto?</h3>
-<div>
-    <h4>RESERVACION</h4>
-    <hr />
-    <dl class="dl-horizontal">
+<h3>¿Confirma que desea eliminar esto?</h3>
+
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>RESERVACION</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+               Fecha Entrada
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_ENTRADA)
+            </dd>
+
+            <dt>
+                Fecha Salida
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_SALIDA)
+            </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.FECHA_ENTRADA)
+            Nombre Cliente
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FECHA_ENTRADA)
+            @Html.DisplayFor(model => model.CLIENTE.NOMBRE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FECHA_SALIDA)
+            Estado Reservacion
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FECHA_SALIDA)
+            @Html.DisplayFor(model => model.ESTADO_RESERVACION1.NOMBRE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ESTADO_RESERVACION)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+            Tipo Habitacion
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.USUARIO.NOMBRE)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
         </div>
-    }
-</div>
+    </div>
+
+}

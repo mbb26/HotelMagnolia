@@ -7,113 +7,122 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HotelMagnolia.UI.Models;
+using HotelMagnolia.UI.Util;
 
-namespace HotelMagnolia.UI.Controllers
+namespace HotelMagnolia.UI.Content
 {
-    public class ActividadController : Controller
+    public class TestController : Controller
     {
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
 
-        // GET: Actividad
+        // GET: Test
         public ActionResult Index()
         {
-            return View(db.ACTIVIDADs.ToList());
+            List < TEST > ListaNueva = db.TESTs.ToList();
+            foreach(TEST element in ListaNueva)
+            {
+                element.TEST_NOMBRE = Cypher.Decrypt(element.TEST_NOMBRE);
+            }
+
+            //return View(db.TESTs.ToList());
+            return View(ListaNueva);
         }
 
-        // GET: Actividad/Details/5
-        public ActionResult Details(string id)
+        // GET: Test/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ACTIVIDAD aCTIVIDAD = db.ACTIVIDADs.Find(id);
-            if (aCTIVIDAD == null)
+            TEST tEST = db.TESTs.Find(id);
+            tEST.TEST_NOMBRE = Cypher.Decrypt(tEST.TEST_NOMBRE);
+            if (tEST == null)
             {
                 return HttpNotFound();
             }
-            return View(aCTIVIDAD);
+            return View(tEST);
         }
 
-        // GET: Actividad/Create
+        // GET: Test/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Actividad/Create
+        // POST: Test/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_ACTIVIDAD,NOMBRE,DESCRIPCION,IMG")] ACTIVIDAD aCTIVIDAD)
+        public ActionResult Create([Bind(Include = "ID_TEST,TEST_NOMBRE")] TEST tEST)
         {
             if (ModelState.IsValid)
             {
-                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                db.InsertActividadTEST(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nueva Actividad");
-                //db.InsertActividad(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG);
-                //db.ACTIVIDADs.Add(aCTIVIDAD);
+                tEST.TEST_NOMBRE = Cypher.Crypt(tEST.TEST_NOMBRE);
+                db.TESTs.Add(tEST);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(aCTIVIDAD);
+            return View(tEST);
         }
 
-        // GET: Actividad/Edit/5
-        public ActionResult Edit(string id)
+        // GET: Test/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ACTIVIDAD aCTIVIDAD = db.ACTIVIDADs.Find(id);
-            if (aCTIVIDAD == null)
+            TEST tEST = db.TESTs.Find(id);
+            tEST.TEST_NOMBRE = Cypher.Decrypt(tEST.TEST_NOMBRE);
+            if (tEST == null)
             {
                 return HttpNotFound();
             }
-            return View(aCTIVIDAD);
+            return View(tEST);
         }
 
-        // POST: Actividad/Edit/5
+        // POST: Test/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_ACTIVIDAD,NOMBRE,DESCRIPCION,IMG")] ACTIVIDAD aCTIVIDAD)
+        public ActionResult Edit([Bind(Include = "ID_TEST,TEST_NOMBRE")] TEST tEST)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(aCTIVIDAD).State = EntityState.Modified;
+                tEST.TEST_NOMBRE = Cypher.Crypt(tEST.TEST_NOMBRE);
+                db.Entry(tEST).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(aCTIVIDAD);
+            return View(tEST);
         }
 
-        // GET: Actividad/Delete/5
-        public ActionResult Delete(string id)
+        // GET: Test/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ACTIVIDAD aCTIVIDAD = db.ACTIVIDADs.Find(id);
-            if (aCTIVIDAD == null)
+            TEST tEST = db.TESTs.Find(id);
+            if (tEST == null)
             {
                 return HttpNotFound();
             }
-            return View(aCTIVIDAD);
+            return View(tEST);
         }
 
-        // POST: Actividad/Delete/5
+        // POST: Test/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            ACTIVIDAD aCTIVIDAD = db.ACTIVIDADs.Find(id);
-            db.ACTIVIDADs.Remove(aCTIVIDAD);
+            TEST tEST = db.TESTs.Find(id);
+            db.TESTs.Remove(tEST);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

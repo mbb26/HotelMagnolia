@@ -14,11 +14,19 @@ namespace HotelMagnolia.UI.Models
     
     public partial class CLIENTE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CLIENTE()
+        {
+            this.RESERVACIONs = new HashSet<RESERVACION>();
+        }
+    
         public int ID_CLIENTE { get; set; }
         public string NOMBRE { get; set; }
         public bool ACTIVO { get; set; }
         public string ID_HABITACION { get; set; }
     
         public virtual HABITACION HABITACION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RESERVACION> RESERVACIONs { get; set; }
     }
 }

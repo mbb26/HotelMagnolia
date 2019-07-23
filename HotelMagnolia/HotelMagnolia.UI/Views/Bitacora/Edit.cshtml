@@ -1,13 +1,13 @@
 ﻿@model HotelMagnolia.UI.Models.BITACORA
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Bitacora";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
 {
     @Html.AntiForgeryToken()
     
@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.ID_BITACORA)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ID_USUARIO, "ID_USUARIO", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ID_USUARIO, "Usuario", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.DropDownList("ID_USUARIO", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ID_USUARIO, "", new { @class = "text-danger" })
@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FECHA, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FECHA,"Fecha", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FECHA, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FECHA, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CODIGO, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CODIGO,"Codigo", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CODIGO, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CODIGO, "", new { @class = "text-danger" })
@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TIPO, "TIPO", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TIPO, "Tipo", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.DropDownList("TIPO", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TIPO, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Descripcion,"Descripcion", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Registro_en_detalle, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Registro_en_detalle,"Detalle", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Registro_en_detalle, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Registro_en_detalle, "", new { @class = "text-danger" })
@@ -74,9 +74,5 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Regresar", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

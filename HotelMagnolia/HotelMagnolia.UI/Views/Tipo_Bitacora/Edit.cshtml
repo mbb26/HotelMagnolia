@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
 {
     @Html.AntiForgeryToken()
     
@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.ID_TIPO_BITACORA)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NOMBRE, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NOMBRE, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NOMBRE, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NOMBRE, "", new { @class = "text-danger" })
@@ -28,15 +28,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Guardar" class="btn btn-default" />
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

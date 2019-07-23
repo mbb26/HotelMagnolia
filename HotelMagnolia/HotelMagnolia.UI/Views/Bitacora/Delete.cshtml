@@ -1,72 +1,73 @@
 ﻿@model HotelMagnolia.UI.Models.BITACORA
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Bitacora";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
 ¿Confirma que desea eliminar esto?</h3>
-<div>
-    <h4>BITACORA</h4>
-    <hr />
-    <dl class="dl-horizontal">
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>BITACORA</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Fecha
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FECHA)
+            </dd>
+
+            <dt>
+                Codigo
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CODIGO)
+            </dd>
+
+            <dt>
+                Descipcion
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+
+            <dt>
+                Detalle
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Registro_en_detalle)
+            </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.FECHA)
+            Tipo Bitacora
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FECHA)
+            @Html.DisplayFor(model => model.TIPO_BITACORA.NOMBRE)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CODIGO)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CODIGO)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Registro_en_detalle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Registro_en_detalle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
+            Usuario
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.USUARIO.NOMBRE)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIO1.NOMBRE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.USUARIO1.NOMBRE)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
         </div>
-    }
-</div>
+    </div>
+
+}

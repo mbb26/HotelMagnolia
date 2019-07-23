@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelMagnoliaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelMagnoliaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="ID_ACTIVIDAD" />
@@ -31,7 +31,7 @@
           <Property Name="ID_USUARIO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FECHA" Type="smalldatetime" Nullable="false" />
           <Property Name="CODIGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TIPO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TIPO" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="Registro_en_detalle" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -51,11 +51,18 @@
           <Property Name="ID_CONSECUTIVOS" Type="int" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar(max)" />
           <Property Name="VALOR" Type="int" Nullable="false" />
-          <Property Name="TIENE_PREFIJO" Type="bit" />
+          <Property Name="TIENE_PREFIJO" Type="bit" Nullable="false" />
           <Property Name="PREFIJO" Type="varchar(max)" />
-          <Property Name="POSEE_RANGO" Type="bit" />
+          <Property Name="POSEE_RANGO" Type="bit" Nullable="false" />
           <Property Name="RANGO_INICIAL" Type="int" />
           <Property Name="RANGO_FINAL" Type="int" />
+        </EntityType>
+        <EntityType Name="ESTADO_RESERVACION">
+          <Key>
+            <PropertyRef Name="ID_ESTADO" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="HABITACION">
           <Key>
@@ -64,6 +71,8 @@
           <Property Name="ID_HABITACION" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="NUMERO" Type="int" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar(max)" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar(max)" Nullable="false" />
+          <Property Name="FOTO" Type="varchar(max)" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="int" Nullable="false" />
           <Property Name="ID_PRECIO" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -80,7 +89,7 @@
             <PropertyRef Name="ID_RESERVACION" />
           </Key>
           <Property Name="ID_RESERVACION" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ID_USUARIO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="int" Nullable="false" />
           <Property Name="FECHA_ENTRADA" Type="date" Nullable="false" />
           <Property Name="FECHA_SALIDA" Type="date" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="int" Nullable="false" />
@@ -92,6 +101,13 @@
           </Key>
           <Property Name="ID_ROL" Type="int" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID_TEST" />
+          </Key>
+          <Property Name="ID_TEST" Type="int" Nullable="false" />
+          <Property Name="TEST_NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="TIPO_BITACORA">
           <Key>
@@ -135,11 +151,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BITACORA_REFERENCE_TIPO_BITACORA">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="TIPO_BITACORA" Type="Self.TIPO_BITACORA" Multiplicity="1" />
           <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="ID_USUARIO" />
+            <Principal Role="TIPO_BITACORA">
+              <PropertyRef Name="ID_TIPO_BITACORA" />
             </Principal>
             <Dependent Role="BITACORA">
               <PropertyRef Name="TIPO" />
@@ -194,6 +210,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RESERVAC_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Principal>
+            <Dependent Role="RESERVACION">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVAC_REFERENCE_ESTADO_RESERVACION">
+          <End Role="ESTADO_RESERVACION" Type="Self.ESTADO_RESERVACION" Multiplicity="1" />
+          <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO_RESERVACION">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="RESERVACION">
+              <PropertyRef Name="ESTADO_RESERVACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RESERVAC_REFERENCE_TIPO">
           <End Role="TIPO_HABITACION" Type="Self.TIPO_HABITACION" Multiplicity="1" />
           <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
@@ -203,18 +243,6 @@
             </Principal>
             <Dependent Role="RESERVACION">
               <PropertyRef Name="TIPO_HABITACION" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RESERVAC_REFERENCE_USUARIO">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-          <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="ID_USUARIO" />
-            </Principal>
-            <Dependent Role="RESERVACION">
-              <PropertyRef Name="ID_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -235,6 +263,15 @@
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Img" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="InsertActividadTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Img" Type="varchar(max)" Mode="In" />
+          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
+          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
+          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="InsertBitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Usuario" Type="varchar" Mode="In" />
           <Parameter Name="Fecha" Type="smalldatetime" Mode="In" />
@@ -247,10 +284,32 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
           <Parameter Name="ID_Precio" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Foto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertHabitacionTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Numero" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
+          <Parameter Name="ID_Precio" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Foto" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
+          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
+          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertPrecios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Tipo_Precio" Type="varchar" Mode="In" />
           <Parameter Name="Precio" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertPreciosTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Tipo_Precio" Type="varchar" Mode="In" />
+          <Parameter Name="Precio" Type="int" Mode="In" />
+          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
+          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
+          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Usuario" Type="varchar" Mode="In" />
@@ -258,6 +317,17 @@
           <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
           <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertReservacionTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Cliente" Type="int" Mode="In" />
+          <Parameter Name="Fecha_Entrada" Type="date" Mode="In" />
+          <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
+          <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
+          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
+          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
@@ -279,10 +349,12 @@
           <EntitySet Name="BITACORA" EntityType="Self.BITACORA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSECUTIVO" EntityType="Self.CONSECUTIVO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESTADO_RESERVACION" EntityType="Self.ESTADO_RESERVACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HABITACION" EntityType="Self.HABITACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRECIO" EntityType="Self.PRECIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RESERVACION" EntityType="Self.RESERVACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_BITACORA" EntityType="Self.TIPO_BITACORA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_HABITACION" EntityType="Self.TIPO_HABITACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
@@ -291,7 +363,7 @@
             <End Role="ARTICULO" EntitySet="ARTICULO" />
           </AssociationSet>
           <AssociationSet Name="FK_BITACORA_REFERENCE_TIPO_BITACORA" Association="Self.FK_BITACORA_REFERENCE_TIPO_BITACORA">
-            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="TIPO_BITACORA" EntitySet="TIPO_BITACORA" />
             <End Role="BITACORA" EntitySet="BITACORA" />
           </AssociationSet>
           <AssociationSet Name="FK_BITACORA_REFERENCE_USER" Association="Self.FK_BITACORA_REFERENCE_USER">
@@ -310,12 +382,16 @@
             <End Role="TIPO_HABITACION" EntitySet="TIPO_HABITACION" />
             <End Role="HABITACION" EntitySet="HABITACION" />
           </AssociationSet>
-          <AssociationSet Name="FK_RESERVAC_REFERENCE_TIPO" Association="Self.FK_RESERVAC_REFERENCE_TIPO">
-            <End Role="TIPO_HABITACION" EntitySet="TIPO_HABITACION" />
+          <AssociationSet Name="FK_RESERVAC_REFERENCE_CLIENTE" Association="Self.FK_RESERVAC_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="RESERVACION" EntitySet="RESERVACION" />
           </AssociationSet>
-          <AssociationSet Name="FK_RESERVAC_REFERENCE_USUARIO" Association="Self.FK_RESERVAC_REFERENCE_USUARIO">
-            <End Role="USUARIO" EntitySet="USUARIO" />
+          <AssociationSet Name="FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" Association="Self.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION">
+            <End Role="ESTADO_RESERVACION" EntitySet="ESTADO_RESERVACION" />
+            <End Role="RESERVACION" EntitySet="RESERVACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVAC_REFERENCE_TIPO" Association="Self.FK_RESERVAC_REFERENCE_TIPO">
+            <End Role="TIPO_HABITACION" EntitySet="TIPO_HABITACION" />
             <End Role="RESERVACION" EntitySet="RESERVACION" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIO_REFERENCE_ROL" Association="Self.FK_USUARIO_REFERENCE_ROL">
@@ -323,8 +399,7 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelMagnoliaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -347,20 +422,6 @@
           <Property Name="IMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PRECIO" Relationship="Self.FK_ARTICULO_REFERENCE_PRECIO" FromRole="ARTICULO" ToRole="PRECIO" />
         </EntityType>
-        <EntityType Name="BITACORA">
-          <Key>
-            <PropertyRef Name="ID_BITACORA" />
-          </Key>
-          <Property Name="ID_BITACORA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ID_USUARIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CODIGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TIPO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Registro_en_detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="BITACORA" ToRole="USUARIO" />
-          <NavigationProperty Name="USUARIO1" Relationship="Self.FK_BITACORA_REFERENCE_USER" FromRole="BITACORA" ToRole="USUARIO" />
-        </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="ID_CLIENTE" />
@@ -370,6 +431,7 @@
           <Property Name="ACTIVO" Type="Boolean" Nullable="false" />
           <Property Name="ID_HABITACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="HABITACION" Relationship="Self.FK_CLIENTE_REFERENCE_HABITACION" FromRole="CLIENTE" ToRole="HABITACION" />
+          <NavigationProperty Name="RESERVACIONs" Relationship="Self.FK_RESERVAC_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="RESERVACION" />
         </EntityType>
         <EntityType Name="CONSECUTIVO">
           <Key>
@@ -378,11 +440,19 @@
           <Property Name="ID_CONSECUTIVOS" Type="Int32" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VALOR" Type="Int32" Nullable="false" />
-          <Property Name="TIENE_PREFIJO" Type="Boolean" />
+          <Property Name="TIENE_PREFIJO" Type="Boolean" Nullable="false" />
           <Property Name="PREFIJO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="POSEE_RANGO" Type="Boolean" />
+          <Property Name="POSEE_RANGO" Type="Boolean" Nullable="false" />
           <Property Name="RANGO_INICIAL" Type="Int32" />
           <Property Name="RANGO_FINAL" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ESTADO_RESERVACION">
+          <Key>
+            <PropertyRef Name="ID_ESTADO" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RESERVACIONs" Relationship="Self.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" FromRole="ESTADO_RESERVACION" ToRole="RESERVACION" />
         </EntityType>
         <EntityType Name="HABITACION">
           <Key>
@@ -391,6 +461,8 @@
           <Property Name="ID_HABITACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NUMERO" Type="Int32" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FOTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="Int32" Nullable="false" />
           <Property Name="ID_PRECIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CLIENTEs" Relationship="Self.FK_CLIENTE_REFERENCE_HABITACION" FromRole="HABITACION" ToRole="CLIENTE" />
@@ -412,13 +484,14 @@
             <PropertyRef Name="ID_RESERVACION" />
           </Key>
           <Property Name="ID_RESERVACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ID_USUARIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" />
           <Property Name="FECHA_ENTRADA" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FECHA_SALIDA" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="TIPO_HABITACION" Type="Int32" Nullable="false" />
           <Property Name="ESTADO_RESERVACION" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_RESERVAC_REFERENCE_CLIENTE" FromRole="RESERVACION" ToRole="CLIENTE" />
+          <NavigationProperty Name="ESTADO_RESERVACION1" Relationship="Self.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" FromRole="RESERVACION" ToRole="ESTADO_RESERVACION" />
           <NavigationProperty Name="TIPO_HABITACION1" Relationship="Self.FK_RESERVAC_REFERENCE_TIPO" FromRole="RESERVACION" ToRole="TIPO_HABITACION" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.FK_RESERVAC_REFERENCE_USUARIO" FromRole="RESERVACION" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -428,12 +501,20 @@
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="USUARIOs" Relationship="Self.FK_USUARIO_REFERENCE_ROL" FromRole="ROL" ToRole="USUARIO" />
         </EntityType>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID_TEST" />
+          </Key>
+          <Property Name="ID_TEST" Type="Int32" Nullable="false" />
+          <Property Name="TEST_NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="TIPO_BITACORA">
           <Key>
             <PropertyRef Name="ID_TIPO_BITACORA" />
           </Key>
           <Property Name="ID_TIPO_BITACORA" Type="Int32" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BITACORAs" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="TIPO_BITACORA" ToRole="BITACORA" />
         </EntityType>
         <EntityType Name="TIPO_HABITACION">
           <Key>
@@ -458,10 +539,8 @@
           <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="USER_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_ROL" Type="Int32" />
-          <NavigationProperty Name="BITACORAs" Relationship="Self.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="USUARIO" ToRole="BITACORA" />
-          <NavigationProperty Name="BITACORAs1" Relationship="Self.FK_BITACORA_REFERENCE_USER" FromRole="USUARIO" ToRole="BITACORA" />
-          <NavigationProperty Name="RESERVACIONs" Relationship="Self.FK_RESERVAC_REFERENCE_USUARIO" FromRole="USUARIO" ToRole="RESERVACION" />
           <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_REFERENCE_ROL" FromRole="USUARIO" ToRole="ROL" />
+          <NavigationProperty Name="BITACORAs" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_USER" FromRole="USUARIO" ToRole="BITACORA" />
         </EntityType>
         <Association Name="FK_ARTICULO_REFERENCE_PRECIO">
           <End Role="PRECIO" Type="Self.PRECIO" Multiplicity="1" />
@@ -475,30 +554,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BITACORA_REFERENCE_TIPO_BITACORA">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="ID_USUARIO" />
-            </Principal>
-            <Dependent Role="BITACORA">
-              <PropertyRef Name="TIPO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BITACORA_REFERENCE_USER">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="ID_USUARIO" />
-            </Principal>
-            <Dependent Role="BITACORA">
-              <PropertyRef Name="ID_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CLIENTE_REFERENCE_HABITACION">
           <End Role="HABITACION" Type="Self.HABITACION" Multiplicity="0..1" />
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
@@ -508,6 +563,30 @@
             </Principal>
             <Dependent Role="CLIENTE">
               <PropertyRef Name="ID_HABITACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVAC_REFERENCE_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Principal>
+            <Dependent Role="RESERVACION">
+              <PropertyRef Name="ID_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVAC_REFERENCE_ESTADO_RESERVACION">
+          <End Role="ESTADO_RESERVACION" Type="Self.ESTADO_RESERVACION" Multiplicity="1" />
+          <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO_RESERVACION">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="RESERVACION">
+              <PropertyRef Name="ESTADO_RESERVACION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -547,18 +626,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RESERVAC_REFERENCE_USUARIO">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-          <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="ID_USUARIO" />
-            </Principal>
-            <Dependent Role="RESERVACION">
-              <PropertyRef Name="ID_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_USUARIO_REFERENCE_ROL">
           <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
@@ -574,13 +641,14 @@
         <EntityContainer Name="HotelMagnoliaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ACTIVIDADs" EntityType="Self.ACTIVIDAD" />
           <EntitySet Name="ARTICULOes" EntityType="Self.ARTICULO" />
-          <EntitySet Name="BITACORAs" EntityType="Self.BITACORA" />
           <EntitySet Name="CLIENTEs" EntityType="Self.CLIENTE" />
           <EntitySet Name="CONSECUTIVOes" EntityType="Self.CONSECUTIVO" />
+          <EntitySet Name="ESTADO_RESERVACION" EntityType="Self.ESTADO_RESERVACION" />
           <EntitySet Name="HABITACIONs" EntityType="Self.HABITACION" />
           <EntitySet Name="PRECIOs" EntityType="Self.PRECIO" />
           <EntitySet Name="RESERVACIONs" EntityType="Self.RESERVACION" />
           <EntitySet Name="ROLs" EntityType="Self.ROL" />
+          <EntitySet Name="TESTs" EntityType="Self.TEST" />
           <EntitySet Name="TIPO_BITACORA" EntityType="Self.TIPO_BITACORA" />
           <EntitySet Name="TIPO_HABITACION" EntityType="Self.TIPO_HABITACION" />
           <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
@@ -588,17 +656,17 @@
             <End Role="PRECIO" EntitySet="PRECIOs" />
             <End Role="ARTICULO" EntitySet="ARTICULOes" />
           </AssociationSet>
-          <AssociationSet Name="FK_BITACORA_REFERENCE_TIPO_BITACORA" Association="Self.FK_BITACORA_REFERENCE_TIPO_BITACORA">
-            <End Role="USUARIO" EntitySet="USUARIOs" />
-            <End Role="BITACORA" EntitySet="BITACORAs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BITACORA_REFERENCE_USER" Association="Self.FK_BITACORA_REFERENCE_USER">
-            <End Role="USUARIO" EntitySet="USUARIOs" />
-            <End Role="BITACORA" EntitySet="BITACORAs" />
-          </AssociationSet>
           <AssociationSet Name="FK_CLIENTE_REFERENCE_HABITACION" Association="Self.FK_CLIENTE_REFERENCE_HABITACION">
             <End Role="HABITACION" EntitySet="HABITACIONs" />
             <End Role="CLIENTE" EntitySet="CLIENTEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVAC_REFERENCE_CLIENTE" Association="Self.FK_RESERVAC_REFERENCE_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTEs" />
+            <End Role="RESERVACION" EntitySet="RESERVACIONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" Association="Self.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION">
+            <End Role="ESTADO_RESERVACION" EntitySet="ESTADO_RESERVACION" />
+            <End Role="RESERVACION" EntitySet="RESERVACIONs" />
           </AssociationSet>
           <AssociationSet Name="FK_HABITACI_REFERENCE_PRECIO" Association="Self.FK_HABITACI_REFERENCE_PRECIO">
             <End Role="PRECIO" EntitySet="PRECIOs" />
@@ -612,10 +680,6 @@
             <End Role="TIPO_HABITACION" EntitySet="TIPO_HABITACION" />
             <End Role="RESERVACION" EntitySet="RESERVACIONs" />
           </AssociationSet>
-          <AssociationSet Name="FK_RESERVAC_REFERENCE_USUARIO" Association="Self.FK_RESERVAC_REFERENCE_USUARIO">
-            <End Role="USUARIO" EntitySet="USUARIOs" />
-            <End Role="RESERVACION" EntitySet="RESERVACIONs" />
-          </AssociationSet>
           <AssociationSet Name="FK_USUARIO_REFERENCE_ROL" Association="Self.FK_USUARIO_REFERENCE_ROL">
             <End Role="ROL" EntitySet="ROLs" />
             <End Role="USUARIO" EntitySet="USUARIOs" />
@@ -624,6 +688,15 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Img" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertActividadTEST">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Img" Mode="In" Type="String" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertBitacora">
             <Parameter Name="ID_Usuario" Mode="In" Type="String" />
@@ -637,10 +710,32 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
             <Parameter Name="ID_Precio" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Foto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertHabitacionTEST">
+            <Parameter Name="Numero" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
+            <Parameter Name="ID_Precio" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Foto" Mode="In" Type="String" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertPrecios">
             <Parameter Name="Tipo_Precio" Mode="In" Type="String" />
             <Parameter Name="Precio" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertPreciosTEST">
+            <Parameter Name="Tipo_Precio" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertReservacion">
             <Parameter Name="ID_Usuario" Mode="In" Type="String" />
@@ -648,6 +743,17 @@
             <Parameter Name="Fecha_Salida" Mode="In" Type="DateTime" />
             <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
             <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertReservacionTEST">
+            <Parameter Name="ID_Cliente" Mode="In" Type="Int32" />
+            <Parameter Name="Fecha_Entrada" Mode="In" Type="DateTime" />
+            <Parameter Name="Fecha_Salida" Mode="In" Type="DateTime" />
+            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertUsuarios">
             <Parameter Name="nombre" Mode="In" Type="String" />
@@ -663,7 +769,54 @@
             <Parameter Name="Username" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="BITACORAs" EntityType="HotelMagnoliaModel.BITACORA" />
+          <AssociationSet Name="FK_BITACORA_REFERENCE_TIPO_BITACORA" Association="HotelMagnoliaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA">
+            <End Role="TIPO_BITACORA" EntitySet="TIPO_BITACORA" />
+            <End Role="BITACORA" EntitySet="BITACORAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BITACORA_REFERENCE_USER" Association="HotelMagnoliaModel.FK_BITACORA_REFERENCE_USER">
+            <End Role="USUARIO" EntitySet="USUARIOs" />
+            <End Role="BITACORA" EntitySet="BITACORAs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="BITACORA">
+          <Key>
+            <PropertyRef Name="ID_BITACORA" />
+          </Key>
+          <Property Name="ID_BITACORA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ID_USUARIO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CODIGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIPO" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Registro_en_detalle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TIPO_BITACORA" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="BITACORA" ToRole="TIPO_BITACORA" />
+          <NavigationProperty Name="USUARIO" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_USER" FromRole="BITACORA" ToRole="USUARIO" />
+        </EntityType>
+        <Association Name="FK_BITACORA_REFERENCE_TIPO_BITACORA">
+          <End Type="HotelMagnoliaModel.TIPO_BITACORA" Role="TIPO_BITACORA" Multiplicity="1" />
+          <End Type="HotelMagnoliaModel.BITACORA" Role="BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_BITACORA">
+              <PropertyRef Name="ID_TIPO_BITACORA" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BITACORA_REFERENCE_USER">
+          <End Type="HotelMagnoliaModel.USUARIO" Role="USUARIO" Multiplicity="1" />
+          <End Type="HotelMagnoliaModel.BITACORA" Role="BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -687,19 +840,6 @@
                 <ScalarProperty Name="DESCRIPCION_" ColumnName="DESCRIPCION_" />
                 <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
                 <ScalarProperty Name="IMG" ColumnName="IMG" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BITACORAs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.BITACORA">
-              <MappingFragment StoreEntitySet="BITACORA">
-                <ScalarProperty Name="ID_BITACORA" ColumnName="ID_BITACORA" />
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Registro_en_detalle" ColumnName="Registro_en_detalle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -727,12 +867,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ESTADO_RESERVACION">
+            <EntityTypeMapping TypeName="HotelMagnoliaModel.ESTADO_RESERVACION">
+              <MappingFragment StoreEntitySet="ESTADO_RESERVACION">
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HABITACIONs">
             <EntityTypeMapping TypeName="HotelMagnoliaModel.HABITACION">
               <MappingFragment StoreEntitySet="HABITACION">
                 <ScalarProperty Name="ID_HABITACION" ColumnName="ID_HABITACION" />
                 <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
                 <ScalarProperty Name="TIPO_HABITACION" ColumnName="TIPO_HABITACION" />
                 <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
               </MappingFragment>
@@ -751,7 +901,7 @@
             <EntityTypeMapping TypeName="HotelMagnoliaModel.RESERVACION">
               <MappingFragment StoreEntitySet="RESERVACION">
                 <ScalarProperty Name="ID_RESERVACION" ColumnName="ID_RESERVACION" />
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
                 <ScalarProperty Name="FECHA_ENTRADA" ColumnName="FECHA_ENTRADA" />
                 <ScalarProperty Name="FECHA_SALIDA" ColumnName="FECHA_SALIDA" />
                 <ScalarProperty Name="TIPO_HABITACION" ColumnName="TIPO_HABITACION" />
@@ -764,6 +914,14 @@
               <MappingFragment StoreEntitySet="ROL">
                 <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TESTs">
+            <EntityTypeMapping TypeName="HotelMagnoliaModel.TEST">
+              <MappingFragment StoreEntitySet="TEST">
+                <ScalarProperty Name="ID_TEST" ColumnName="ID_TEST" />
+                <ScalarProperty Name="TEST_NOMBRE" ColumnName="TEST_NOMBRE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -800,12 +958,29 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertActividad" FunctionName="HotelMagnoliaModel.Store.InsertActividad" />
+          <FunctionImportMapping FunctionImportName="InsertActividadTEST" FunctionName="HotelMagnoliaModel.Store.InsertActividadTEST" />
           <FunctionImportMapping FunctionImportName="InsertBitacora" FunctionName="HotelMagnoliaModel.Store.InsertBitacora" />
           <FunctionImportMapping FunctionImportName="InsertHabitacion" FunctionName="HotelMagnoliaModel.Store.InsertHabitacion" />
+          <FunctionImportMapping FunctionImportName="InsertHabitacionTEST" FunctionName="HotelMagnoliaModel.Store.InsertHabitacionTEST" />
           <FunctionImportMapping FunctionImportName="InsertPrecios" FunctionName="HotelMagnoliaModel.Store.InsertPrecios" />
+          <FunctionImportMapping FunctionImportName="InsertPreciosTEST" FunctionName="HotelMagnoliaModel.Store.InsertPreciosTEST" />
           <FunctionImportMapping FunctionImportName="InsertReservacion" FunctionName="HotelMagnoliaModel.Store.InsertReservacion" />
+          <FunctionImportMapping FunctionImportName="InsertReservacionTEST" FunctionName="HotelMagnoliaModel.Store.InsertReservacionTEST" />
           <FunctionImportMapping FunctionImportName="InsertUsuarios" FunctionName="HotelMagnoliaModel.Store.InsertUsuarios" />
           <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="HotelMagnoliaModel.Store.ValidateUser" />
+          <EntitySetMapping Name="BITACORAs">
+            <EntityTypeMapping TypeName="HotelMagnoliaModel.BITACORA">
+              <MappingFragment StoreEntitySet="BITACORA">
+                <ScalarProperty Name="Registro_en_detalle" ColumnName="Registro_en_detalle" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_BITACORA" ColumnName="ID_BITACORA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
