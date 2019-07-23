@@ -11,6 +11,7 @@ namespace HotelMagnolia.UI.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class HABITACION
     {
@@ -19,13 +20,21 @@ namespace HotelMagnolia.UI.Models
         {
             this.CLIENTEs = new HashSet<CLIENTE>();
         }
-    
+
+
+        [DisplayName("ID")]
         public string ID_HABITACION { get; set; }
+        [DisplayName("Numero")]
         public int NUMERO { get; set; }
+        [DisplayName("Nombre")]
         public string NOMBRE { get; set; }
+        [DisplayName("Descripcion")]
         public string DESCRIPCION { get; set; }
+        [DisplayName("Foto")]
         public string FOTO { get; set; }
+        [DisplayName("Tipo Habitacion")]
         public int TIPO_HABITACION { get; set; }
+        [DisplayName("Precio")]
         public string ID_PRECIO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

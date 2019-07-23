@@ -1,36 +1,40 @@
 ﻿@model IEnumerable<HotelMagnolia.UI.Models.RESERVACION>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista Reservaciones";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FECHA_ENTRADA)
+            ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FECHA_SALIDA)
+            Fecha Entrada
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRE)
+            Fecha Salida
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION1.NOMBRE)
+            Cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+            Estado
         </th>
-        <th></th>
+        <th>
+            Tipo Habitacion
+        </th>
+        <th colspan="3">Acciones</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_RESERVACION)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FECHA_ENTRADA)
         </td>
@@ -47,11 +51,18 @@
             @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_RESERVACION }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_RESERVACION }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_RESERVACION })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID_RESERVACION })
+        </td>
+        <td>
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID_RESERVACION })
+        </td>
+        <td>
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.ID_RESERVACION })
         </td>
     </tr>
 }
 
 </table>
+<p>
+    @Html.ActionLink("Crear Nueva Reservacion", "Create")
+</p>

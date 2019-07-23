@@ -1,10 +1,10 @@
 ﻿@model HotelMagnolia.UI.Models.RESERVACION
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Reservacion";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
 <h3>¿Confirma que desea eliminar esto?</h3>
 
@@ -16,7 +16,7 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.FECHA_ENTRADA)
+               Fecha Entrada
             </dt>
 
             <dd>
@@ -24,11 +24,14 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.FECHA_SALIDA)
+                Fecha Salida
             </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_SALIDA)
+            </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRE)
+            Nombre Cliente
         </dt>
 
         <dd>
@@ -36,7 +39,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ESTADO_RESERVACION1.NOMBRE)
+            Estado Reservacion
         </dt>
 
         <dd>
@@ -44,22 +47,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TIPO_HABITACION1.NOMBRE)
+            Tipo Habitacion
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TIPO_HABITACION1.NOMBRE)
         </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.USUARIO.NOMBRE)
-            </dd>
 
         </dl>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
         </div>
     </div>
 

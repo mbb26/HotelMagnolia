@@ -1,17 +1,23 @@
 ﻿@model HotelMagnolia.UI.Models.BITACORA
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles Bitacora";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>BITACORA</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FECHA)
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID_BITACORA)
+        </dd>
+        <dt>
+            Fecha
         </dt>
 
         <dd>
@@ -19,7 +25,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CODIGO)
+            Codigo
         </dt>
 
         <dd>
@@ -27,7 +33,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
+            Descripcion
         </dt>
 
         <dd>
@@ -35,7 +41,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Registro_en_detalle)
+            Detalle
         </dt>
 
         <dd>
@@ -43,7 +49,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TIPO_BITACORA.NOMBRE)
+            Tipo
         </dt>
 
         <dd>
@@ -51,7 +57,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.USUARIO.NOMBRE)
+            Usuario
         </dt>
 
         <dd>
@@ -61,6 +67,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_BITACORA }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_BITACORA }) |
+    @Html.ActionLink("Regresar", "Index")
 </p>

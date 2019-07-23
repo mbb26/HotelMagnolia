@@ -1,10 +1,10 @@
 ﻿@model HotelMagnolia.UI.Models.RESERVACION
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Tittle</h2>
 
 
 @using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.ID_RESERVACION)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ID_CLIENTE, "ID_CLIENTE", htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.ID_CLIENTE, "ID Cliente", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.DropDownList("ID_CLIENTE", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ID_CLIENTE, "", new { @class = "text-danger" })
@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FECHA_ENTRADA, htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.FECHA_ENTRADA,"Fecha Entrada", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FECHA_ENTRADA, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FECHA_ENTRADA, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FECHA_SALIDA, htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.FECHA_SALIDA,"Fecha Salida", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FECHA_SALIDA, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FECHA_SALIDA, "", new { @class = "text-danger" })
@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TIPO_HABITACION, "TIPO_HABITACION", htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.TIPO_HABITACION, "Tipo Habitacion", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.DropDownList("TIPO_HABITACION", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TIPO_HABITACION, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ESTADO_RESERVACION, "ESTADO_RESERVACION", htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.ESTADO_RESERVACION, "Estado Reservacion", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.DropDownList("ESTADO_RESERVACION", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ESTADO_RESERVACION, "", new { @class = "text-danger" })
@@ -59,12 +59,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar  a Lista", "Index")
 </div>
