@@ -1,0 +1,10 @@
+diff a/HotelMagnolia/HotelMagnolia.UI/HotelMagnolia.UI.csproj b/HotelMagnolia/HotelMagnolia.UI/HotelMagnolia.UI.csproj	(rejected hunks)
+@@ -318,7 +318,7 @@
+     <Content Include="Views\Shared\Error.cshtml" />
+     <Content Include="Views\Shared\_Layout.cshtml" />
+     <Content Include="Views\Home\Index.cshtml" />
+-    <Content Include="Views\Bitacora\CheckBinnacle.cshtml" />
++    <Content Include="Views\Bitacora\CheckLog.cshtml" />
+     <Content Include="Views\Bitacora\CheckErrors.cshtml" />
+     <Content Include="Views\Bitacora\Create.cshtml" />
+     <Content Include="Views\Bitacora\Delete.cshtml" />

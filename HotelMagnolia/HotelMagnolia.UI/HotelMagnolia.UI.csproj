@@ -327,6 +327,16 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+<<<<<<< HEAD
+=======
+    <Content Include="Views\Bitacora\CheckBinnacle.cshtml" />
+    <Content Include="Views\Bitacora\CheckErrors.cshtml" />
+    <Content Include="Views\Bitacora\Create.cshtml" />
+    <Content Include="Views\Bitacora\Delete.cshtml" />
+    <Content Include="Views\Bitacora\Details.cshtml" />
+    <Content Include="Views\Bitacora\Edit.cshtml" />
+    <Content Include="Views\Bitacora\Index.cshtml" />
+>>>>>>> parent of 76661a3... commit
     <Content Include="Views\Actividad\Create.cshtml" />
     <Content Include="Views\Actividad\Delete.cshtml" />
     <Content Include="Views\Actividad\Details.cshtml" />

@@ -1,0 +1,10 @@
+diff a/DataBase.sql b/DataBase.sql	(rejected hunks)
+@@ -188,7 +188,7 @@
+    ID_USUARIO           varchar(100)         not null,
+    FECHA                smalldatetime        not null,
+    CODIGO               int  IDENTITY(1,1)   not null,
+-   TIPO                 varchar(100)         not null,
++   TIPO                 int                  not null,
+    Descripcion          varchar(Max)         not null,
+    Registro_en_detalle  varchar(MAX)         not null,
+    constraint PK_BITACORA primary key (ID_BITACORA)        
