@@ -51,18 +51,11 @@
             @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID_RESERVACION })
-        </td>
-        <td>
-            @Html.ActionLink("Detalles", "Details", new { id=item.ID_RESERVACION })
-        </td>
-        <td>
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.ID_RESERVACION })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_RESERVACION }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_RESERVACION }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_RESERVACION })
         </td>
     </tr>
 }
 
 </table>
-<p>
-    @Html.ActionLink("Crear Nueva Reservacion", "Create")
-</p>
