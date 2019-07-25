@@ -8,8 +8,6 @@
 
 ¿Confirma que desea eliminar esto?</h3>
 
-@using (Html.BeginForm(ViewC@using (Html.BeginForm())
-{
     @Html.AntiForgeryToken()
     <div>
         <h4>CLIENTE</h4>
@@ -46,4 +44,3 @@
             @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
         </div>
     </div>
-}
