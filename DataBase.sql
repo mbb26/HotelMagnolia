@@ -67,6 +67,13 @@ alter table USUARIO
    drop constraint FK_USUARIO_REFERENCE_ROL
 go
 
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('RESERVACION') and o.name = 'FK_RESERVAC_REFERENCE_CLIENTE')
+alter table RESERVACION
+   drop constraint FK_RESERVAC_REFERENCE_CLIENTE
+go
+
 
 
 if exists (select 1
@@ -155,6 +162,15 @@ if exists (select 1
            where  id = object_id('USUARIO')
             and   type = 'U')
    drop table USUARIO
+go
+
+
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ESTADO_RESERVACION')
+            and   type = 'U')
+   drop table ESTADO_RESERVACION
 go
 
 /*==============================================================*/
