@@ -512,7 +512,7 @@ VALUES(03, 'Jose', 'Gomez', 'Ramirez', 'consecutivo@hotelmandiola.com', 22222222
 
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(04, 'Nidia', 'Agapito', 'Samanta', 'cantenimiento@hotelmandiola.com', 22222222, '123', 'mantenimiento', 04);
+VALUES(04, 'Nidia', 'Agapito', 'Samanta', 'mantenimiento@hotelmandiola.com', 22222222, '123', 'mantenimiento', 04);
  GO
 
 INSERT INTO USUARIO
