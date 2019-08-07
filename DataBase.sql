@@ -512,12 +512,12 @@ VALUES(03, 'Jose', 'Gomez', 'Ramirez', 'consecutivo@hotelmandiola.com', 22222222
 
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(04, 'Nidia', 'Agapito', 'Samanta', 'Mantenimiento@hotelmandiola.com', 22222222, '123', 'mantenimiento', 04);
+VALUES(04, 'Nidia', 'Agapito', 'Samanta', 'cantenimiento@hotelmandiola.com', 22222222, '123', 'mantenimiento', 04);
  GO
 
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(05, 'Laurita', 'Ruperta', 'Luisita', 'Consulta@hotelmandiola.com', 22222222, '123', 'consulta', 05);
+VALUES(05, 'Laurita', 'Ruperta', 'Luisita', 'consulta@hotelmandiola.com', 22222222, '123', 'consulta', 05);
  GO
 
 /* Table: Precio*/
