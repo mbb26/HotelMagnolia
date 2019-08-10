@@ -17,7 +17,14 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Actividad
         public ActionResult Index()
         {
-            return View(db.ACTIVIDADs.ToList());
+            List<ACTIVIDAD> Encriptada = db.ACTIVIDADs.ToList();
+            foreach (ACTIVIDAD i in Encriptada)
+            {
+                i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
+                i.DESCRIPCION = Util.Cypher.Decrypt(i.DESCRIPCION);
+            }
+            return View(Encriptada);
+            //return View(db.ACTIVIDADs.ToList());
         }
 
         // GET: Actividad/Details/5
@@ -28,6 +35,8 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ACTIVIDAD aCTIVIDAD = db.ACTIVIDADs.Find(id);
+            aCTIVIDAD.NOMBRE = Util.Cypher.Decrypt(aCTIVIDAD.NOMBRE);
+            aCTIVIDAD.DESCRIPCION = Util.Cypher.Decrypt(aCTIVIDAD.DESCRIPCION);
             if (aCTIVIDAD == null)
             {
                 return HttpNotFound();
@@ -51,9 +60,11 @@ namespace HotelMagnolia.UI.Controllers
             if (ModelState.IsValid)
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                db.InsertActividadTEST(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nueva Actividad");
-                //db.InsertActividad(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG);
-                //db.ACTIVIDADs.Add(aCTIVIDAD);
+                String logDetalle = "Nombre:" + aCTIVIDAD.NOMBRE + "/Descripcion:" + aCTIVIDAD.DESCRIPCION + "/Foto:" + aCTIVIDAD.IMG;
+                aCTIVIDAD.NOMBRE = Util.Cypher.Crypt(aCTIVIDAD.NOMBRE);
+                aCTIVIDAD.DESCRIPCION = Util.Cypher.Crypt(aCTIVIDAD.DESCRIPCION);
+                logDetalle = Util.Cypher.Crypt(logDetalle);
+                db.InsertActividadTEST(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG, usuarioSesion.ID_USUARIO, DateTime.Now, 01, "Nueva actividad", logDetalle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,6 +80,8 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ACTIVIDAD aCTIVIDAD = db.ACTIVIDADs.Find(id);
+            aCTIVIDAD.NOMBRE = Util.Cypher.Decrypt(aCTIVIDAD.NOMBRE);
+            aCTIVIDAD.DESCRIPCION = Util.Cypher.Decrypt(aCTIVIDAD.DESCRIPCION);
             if (aCTIVIDAD == null)
             {
                 return HttpNotFound();
@@ -85,6 +98,12 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                String logDetalle = "Nombre:" + aCTIVIDAD.NOMBRE + "/Descripcion:" + aCTIVIDAD.DESCRIPCION + "/Foto:" + aCTIVIDAD.IMG;
+                logDetalle = Util.Cypher.Crypt(logDetalle);
+                aCTIVIDAD.NOMBRE = Util.Cypher.Crypt(aCTIVIDAD.NOMBRE);
+                aCTIVIDAD.DESCRIPCION = Util.Cypher.Crypt(aCTIVIDAD.DESCRIPCION);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 02, "Modificar Actividad", logDetalle, aCTIVIDAD.ID_ACTIVIDAD);
                 db.Entry(aCTIVIDAD).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -100,6 +119,8 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ACTIVIDAD aCTIVIDAD = db.ACTIVIDADs.Find(id);
+            aCTIVIDAD.NOMBRE = Util.Cypher.Decrypt(aCTIVIDAD.NOMBRE);
+            aCTIVIDAD.DESCRIPCION = Util.Cypher.Decrypt(aCTIVIDAD.DESCRIPCION);
             if (aCTIVIDAD == null)
             {
                 return HttpNotFound();

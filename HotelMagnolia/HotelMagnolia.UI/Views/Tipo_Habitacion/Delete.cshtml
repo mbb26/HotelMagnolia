@@ -1,4 +1,4 @@
-﻿@model HotelMagnolia.UI.Models.TEST
+﻿@model HotelMagnolia.UI.Models.TIPO_HABITACION
 
 @{
     ViewBag.Title = "Delete";
@@ -8,15 +8,23 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>TEST</h4>
+    <h4>TIPO_HABITACION</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TEST_NOMBRE)
+            @Html.DisplayNameFor(model => model.NOMBRE)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TEST_NOMBRE)
+            @Html.DisplayFor(model => model.NOMBRE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
         </dd>
 
     </dl>

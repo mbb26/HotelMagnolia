@@ -469,14 +469,16 @@ VALUES(07, 'Usuario', 100, 0, '', 0, 100, 500);
 /* Table: Tipo Habitacion*/
 INSERT INTO TIPO_HABITACION
    (NOMBRE,DESCRIPCION)
-VALUES('Normal', 'Este tipo de habitación, cuenta con dos camas matrimoniales, un baño, dos almarios grandes, teléfono, microondas, coffee maker, televisión');
+VALUES('Jla0izLm+VS6/DaDUE87QQ==', 'MY3LB4cRBzKTT2CUSAUDK49NWk4giX/9Vqszk/Vzmo6sHkpjELxTLCqtdcXNDMEQcFFzKlD5sDNJuaWwgifAuSXCnxr3hTS5Mj7cw8jlQxcdvI2I/I3gOH9F8nJIuTlnXI7auQmOmGuCggwvAhyUAHErai5eXC/cgay+2ryIDPl+/4blgQ+yJUoe5YWFjrZLlU8qU8taL6zISmXSoHnspNNpAoA7tZkFpq7EIxSY8J7Ctoe21TjM8Oa2MWc6f7z2ODBrLtAFT1Bsnod/uhUFU1eOqc4NIVKfDwmhRsr3WuNGtBjclKfug3DJRTSqSyOU4TxrTj9rDTocDJMbEtwIzZrZzw1Gg8t0y5CiRiRg955EJ2a2GMxOJQ==');
 INSERT INTO TIPO_HABITACION
    (NOMBRE,DESCRIPCION)
-VALUES('Deluxe', 'La habitación cuenta con tres salas, dos de ellas son cuartos con 2 camas matrimoniales, un almario grande, baño en cada cuarto, la tercera sala, es una de estar, donde se encuentra un desayunador, nevera grande, televisión, teléfono, microondas, coffee maker, además de una terraza');
+VALUES('8PDQWpA7O65DpxNEJShYUg==', 'Uy59aiizgznbLhdM1x8twTGK6fsv4AuQBqS9SNjhoqq98hKaVjotbgpE8aE5/Knbte8KQpLOO0bhU4UjNi8yyAu58L4h0bdtADrrr3HQ07Bx9yGos9Hnl5KFg3shNu/TnodJwK5aDSs6IhlBGkBWs91xuSCXAoIwfHTLwjkkQa5wv4WLdw3Zzj19EdeRwWNNstFQ/ICNJysVP5eaFQnlVJZ4XwN/BVyuPuOnFSYizC1Tu/tFr/4EHSa/eree1pzjPfeqtcy7dKYIyHkniIRyoKMxuBXgDHAwolFcuWM53tWswy74zkCyS25o0aydrt8qEGMKDEGVjjwT6BhREpX0gyO3jAAKy4KwE+D/SfBDeQlYH64uwai4wMi5qz5dy4kbmyZvdzaAERM6p5MNKNXWPQ5qT2XtcOCM/nSI1ioY9nG8pZBxJ8kui5+mYuYf16rKkiuxSHZddAsSzEol0XVgIhS5cVaHIH2Sb4YhJ/IcVfW1MzVaE959ykWpWJ3a4FSI1R0s0AdHXrsII//21zrTO6s9O7EbnVYaPlxTByIgx6c58CCfr4CPfePtPmG2VT14BwfgVLJu26+SawPl79wzuwZ6DJBBIzZq/3xQi6SVfKZYDvxz5ywhpTQHKb5/bQyo0cBMZ0OkTpp8qYlKzy7dQNjsmthuWKsxqW5F6o7uUFfpXFCYT2OyOf2lHvdoXUWdDWqecxfa8183vkH6p8AAI++suJ6/5LieD3ampvb91HNfA3HMz3exnA==');
 INSERT INTO TIPO_HABITACION
    (NOMBRE,DESCRIPCION)
-VALUES('Condominio', 'La habitación de este tipo contiene la misma descripción que la Deluxe, lo único diferente es, que cuenta con un jardín trasero donde los clientes pueden encontrar parrilla, lavadora y yacusi');
+VALUES('pXaRYnvoGDI9iZsBzUQLS165doabFhb7', 'Uy59aiizgznbLhdM1x8twTGK6fsv4AuQ4IFXzD3sPfmx70+i0Y4sHnpVc/3xmZdjLht7/6JszkyHH6LT4Rek8+q7RGDuYNS83SAOS937IUDQQ5qEUA9qH67cyNIzNWXTST+umbtOaaGu55969yFTVMhc3bvZWq7t/o1t3aP7e1P5AB6X4L3k/m5hr0h7kHa/LFcOOPo/oSZI98ymwDRUDVw1ExQ7ooSHFkoywMtMrJl9fVH4CJ16QmzmNlH8NODW65ND6sm3qCTJEZNVqdExY+x1/2k96qxzGLjTaQi9cfO4n70Zwspy9ZOBZwMkZFF+sWMZaCQIs92ZMdsjD2Gd6YSnys85W2Wpq7QmpeZKRwt5Cf/iguhXBbd9GIWo8EIXZvqlRpDbIKF1+NjG2r4pfkZsboLWkQb9bJVfFPjDKe/skHNelzGpsloYb0Cae2RcK03BE2WPlKwI1Lo3NwOElaDooyCyLFztSO+KssPc1crfzYf8pIeHmWyErUzoX0TD');
+
 /* Table: Tipo Bitacora*/
+
 INSERT INTO TIPO_BITACORA
    (ID_TIPO_BITACORA , NOMBRE)
 VALUES(01, 'Agregar');
@@ -537,7 +539,8 @@ CREATE OR ALTER PROCEDURE InsertBitacora
    @Fecha smalldatetime,
    @Tipo int,
    @Descripcion varchar(200),
-   @Registro_en_detalle varchar(200)
+   @Registro_en_detalle varchar(200),
+   @codigo varchar(200)
 )
 AS
 DECLARE @ID varchar(200)
@@ -548,9 +551,9 @@ FROM [dbo].[CONSECUTIVO]
 WHERE Nombre = 'Bitacora'
 
 INSERT INTO [dbo].[BITACORA]
-   ([ID_BITACORA],[ID_USUARIO],[Fecha],[Tipo],[Descripcion],[Registro_en_detalle])
+   ([ID_BITACORA],[ID_USUARIO],[Fecha],[Codigo],[Tipo],[Descripcion],[Registro_en_detalle])
 VALUES
-   (@ID, @ID_Usuario, @Fecha, @Tipo, @Descripcion, @Registro_en_detalle)
+   (@ID, @ID_Usuario, @Fecha,@Codigo, @Tipo, @Descripcion, @Registro_en_detalle)
 
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
@@ -565,7 +568,8 @@ CREATE OR ALTER PROCEDURE InsertActividadTEST
    @LOG_UserID varchar(200),
    @LOG_fecha smalldatetime,
    @LOG_Tipo int,
-   @LOG_Desc varchar(200)
+   @LOG_Desc varchar(200),
+   @Log_Detalle varchar(200)
 )
 AS
 DECLARE @ID varchar(200)
@@ -580,9 +584,8 @@ INSERT INTO [dbo].[ACTIVIDAD]
 VALUES
    (@ID, @Nombre, @Descripcion, @Img)
 
-Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Nombre: ' + @Nombre + ' | Descripcion: ' + @Descripcion + '| FOTO: '+ @Img)
 
-EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_Detalle
+EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_Detalle,@ID
 
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1

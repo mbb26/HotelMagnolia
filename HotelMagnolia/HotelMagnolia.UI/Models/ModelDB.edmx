@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HotelMagnoliaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="mandiolaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="ID_ACTIVIDAD" />
@@ -30,7 +30,7 @@
           <Property Name="ID_BITACORA" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ID_USUARIO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FECHA" Type="smalldatetime" Nullable="false" />
-          <Property Name="CODIGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="TIPO" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="Registro_en_detalle" Type="varchar(max)" Nullable="false" />
@@ -101,13 +101,6 @@
           </Key>
           <Property Name="ID_ROL" Type="int" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar(max)" />
-        </EntityType>
-        <EntityType Name="TEST">
-          <Key>
-            <PropertyRef Name="ID_TEST" />
-          </Key>
-          <Property Name="ID_TEST" Type="int" Nullable="false" />
-          <Property Name="TEST_NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="TIPO_BITACORA">
           <Key>
@@ -263,6 +256,16 @@
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Img" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="InsertActividadBIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="Img" Type="varchar(max)" Mode="In" />
+          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
+          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
+          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+          <Parameter Name="Log_Detalle" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="InsertActividadTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
@@ -271,6 +274,7 @@
           <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+          <Parameter Name="Log_Detalle" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertBitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Usuario" Type="varchar" Mode="In" />
@@ -278,6 +282,7 @@
           <Parameter Name="Tipo" Type="int" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Registro_en_detalle" Type="varchar" Mode="In" />
+          <Parameter Name="codigo" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertHabitacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Numero" Type="int" Mode="In" />
@@ -312,7 +317,7 @@
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ID_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="ID_Cliente" Type="int" Mode="In" />
           <Parameter Name="Fecha_Entrada" Type="date" Mode="In" />
           <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
           <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
@@ -343,7 +348,7 @@
           <Parameter Name="Username" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="HotelMagnoliaModelStoreContainer">
+        <EntityContainer Name="mandiolaModelStoreContainer">
           <EntitySet Name="ACTIVIDAD" EntityType="Self.ACTIVIDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ARTICULO" EntityType="Self.ARTICULO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BITACORA" EntityType="Self.BITACORA" Schema="dbo" store:Type="Tables" />
@@ -354,7 +359,6 @@
           <EntitySet Name="PRECIO" EntityType="Self.PRECIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RESERVACION" EntityType="Self.RESERVACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_BITACORA" EntityType="Self.TIPO_BITACORA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_HABITACION" EntityType="Self.TIPO_HABITACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
@@ -399,10 +403,11 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="HotelMagnoliaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="mandiolaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="ID_ACTIVIDAD" />
@@ -421,6 +426,20 @@
           <Property Name="ID_PRECIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PRECIO" Relationship="Self.FK_ARTICULO_REFERENCE_PRECIO" FromRole="ARTICULO" ToRole="PRECIO" />
+        </EntityType>
+        <EntityType Name="BITACORA">
+          <Key>
+            <PropertyRef Name="ID_BITACORA" />
+          </Key>
+          <Property Name="ID_BITACORA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CODIGO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TIPO" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Registro_en_detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TIPO_BITACORA" Relationship="Self.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="BITACORA" ToRole="TIPO_BITACORA" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_BITACORA_REFERENCE_USER" FromRole="BITACORA" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -501,20 +520,13 @@
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="USUARIOs" Relationship="Self.FK_USUARIO_REFERENCE_ROL" FromRole="ROL" ToRole="USUARIO" />
         </EntityType>
-        <EntityType Name="TEST">
-          <Key>
-            <PropertyRef Name="ID_TEST" />
-          </Key>
-          <Property Name="ID_TEST" Type="Int32" Nullable="false" />
-          <Property Name="TEST_NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="TIPO_BITACORA">
           <Key>
             <PropertyRef Name="ID_TIPO_BITACORA" />
           </Key>
           <Property Name="ID_TIPO_BITACORA" Type="Int32" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BITACORAs" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="TIPO_BITACORA" ToRole="BITACORA" />
+          <NavigationProperty Name="BITACORAs" Relationship="Self.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="TIPO_BITACORA" ToRole="BITACORA" />
         </EntityType>
         <EntityType Name="TIPO_HABITACION">
           <Key>
@@ -539,8 +551,8 @@
           <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="USER_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_ROL" Type="Int32" />
+          <NavigationProperty Name="BITACORAs" Relationship="Self.FK_BITACORA_REFERENCE_USER" FromRole="USUARIO" ToRole="BITACORA" />
           <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_REFERENCE_ROL" FromRole="USUARIO" ToRole="ROL" />
-          <NavigationProperty Name="BITACORAs" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_USER" FromRole="USUARIO" ToRole="BITACORA" />
         </EntityType>
         <Association Name="FK_ARTICULO_REFERENCE_PRECIO">
           <End Role="PRECIO" Type="Self.PRECIO" Multiplicity="1" />
@@ -551,6 +563,30 @@
             </Principal>
             <Dependent Role="ARTICULO">
               <PropertyRef Name="ID_PRECIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BITACORA_REFERENCE_TIPO_BITACORA">
+          <End Role="TIPO_BITACORA" Type="Self.TIPO_BITACORA" Multiplicity="1" />
+          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_BITACORA">
+              <PropertyRef Name="ID_TIPO_BITACORA" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="TIPO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BITACORA_REFERENCE_USER">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="BITACORA" Type="Self.BITACORA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="BITACORA">
+              <PropertyRef Name="ID_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -641,6 +677,7 @@
         <EntityContainer Name="HotelMagnoliaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ACTIVIDADs" EntityType="Self.ACTIVIDAD" />
           <EntitySet Name="ARTICULOes" EntityType="Self.ARTICULO" />
+          <EntitySet Name="BITACORAs" EntityType="Self.BITACORA" />
           <EntitySet Name="CLIENTEs" EntityType="Self.CLIENTE" />
           <EntitySet Name="CONSECUTIVOes" EntityType="Self.CONSECUTIVO" />
           <EntitySet Name="ESTADO_RESERVACION" EntityType="Self.ESTADO_RESERVACION" />
@@ -648,13 +685,20 @@
           <EntitySet Name="PRECIOs" EntityType="Self.PRECIO" />
           <EntitySet Name="RESERVACIONs" EntityType="Self.RESERVACION" />
           <EntitySet Name="ROLs" EntityType="Self.ROL" />
-          <EntitySet Name="TESTs" EntityType="Self.TEST" />
           <EntitySet Name="TIPO_BITACORA" EntityType="Self.TIPO_BITACORA" />
           <EntitySet Name="TIPO_HABITACION" EntityType="Self.TIPO_HABITACION" />
           <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
           <AssociationSet Name="FK_ARTICULO_REFERENCE_PRECIO" Association="Self.FK_ARTICULO_REFERENCE_PRECIO">
             <End Role="PRECIO" EntitySet="PRECIOs" />
             <End Role="ARTICULO" EntitySet="ARTICULOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BITACORA_REFERENCE_TIPO_BITACORA" Association="Self.FK_BITACORA_REFERENCE_TIPO_BITACORA">
+            <End Role="TIPO_BITACORA" EntitySet="TIPO_BITACORA" />
+            <End Role="BITACORA" EntitySet="BITACORAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BITACORA_REFERENCE_USER" Association="Self.FK_BITACORA_REFERENCE_USER">
+            <End Role="USUARIO" EntitySet="USUARIOs" />
+            <End Role="BITACORA" EntitySet="BITACORAs" />
           </AssociationSet>
           <AssociationSet Name="FK_CLIENTE_REFERENCE_HABITACION" Association="Self.FK_CLIENTE_REFERENCE_HABITACION">
             <End Role="HABITACION" EntitySet="HABITACIONs" />
@@ -689,6 +733,16 @@
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Img" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="InsertActividadBIT">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Img" Mode="In" Type="String" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+            <Parameter Name="Log_Detalle" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="InsertActividadTEST">
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
@@ -697,6 +751,7 @@
             <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+            <Parameter Name="Log_Detalle" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertBitacora">
             <Parameter Name="ID_Usuario" Mode="In" Type="String" />
@@ -704,6 +759,7 @@
             <Parameter Name="Tipo" Mode="In" Type="Int32" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Registro_en_detalle" Mode="In" Type="String" />
+            <Parameter Name="codigo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertHabitacion">
             <Parameter Name="Numero" Mode="In" Type="Int32" />
@@ -738,7 +794,7 @@
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertReservacion">
-            <Parameter Name="ID_Usuario" Mode="In" Type="String" />
+            <Parameter Name="ID_Cliente" Mode="In" Type="Int32" />
             <Parameter Name="Fecha_Entrada" Mode="In" Type="DateTime" />
             <Parameter Name="Fecha_Salida" Mode="In" Type="DateTime" />
             <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
@@ -769,62 +825,15 @@
             <Parameter Name="Username" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="BITACORAs" EntityType="HotelMagnoliaModel.BITACORA" />
-          <AssociationSet Name="FK_BITACORA_REFERENCE_TIPO_BITACORA" Association="HotelMagnoliaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA">
-            <End Role="TIPO_BITACORA" EntitySet="TIPO_BITACORA" />
-            <End Role="BITACORA" EntitySet="BITACORAs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BITACORA_REFERENCE_USER" Association="HotelMagnoliaModel.FK_BITACORA_REFERENCE_USER">
-            <End Role="USUARIO" EntitySet="USUARIOs" />
-            <End Role="BITACORA" EntitySet="BITACORAs" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="BITACORA">
-          <Key>
-            <PropertyRef Name="ID_BITACORA" />
-          </Key>
-          <Property Name="ID_BITACORA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ID_USUARIO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CODIGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TIPO" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Registro_en_detalle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TIPO_BITACORA" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA" FromRole="BITACORA" ToRole="TIPO_BITACORA" />
-          <NavigationProperty Name="USUARIO" Relationship="HotelMagnoliaModel.FK_BITACORA_REFERENCE_USER" FromRole="BITACORA" ToRole="USUARIO" />
-        </EntityType>
-        <Association Name="FK_BITACORA_REFERENCE_TIPO_BITACORA">
-          <End Type="HotelMagnoliaModel.TIPO_BITACORA" Role="TIPO_BITACORA" Multiplicity="1" />
-          <End Type="HotelMagnoliaModel.BITACORA" Role="BITACORA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TIPO_BITACORA">
-              <PropertyRef Name="ID_TIPO_BITACORA" />
-            </Principal>
-            <Dependent Role="BITACORA">
-              <PropertyRef Name="TIPO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BITACORA_REFERENCE_USER">
-          <End Type="HotelMagnoliaModel.USUARIO" Role="USUARIO" Multiplicity="1" />
-          <End Type="HotelMagnoliaModel.BITACORA" Role="BITACORA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="ID_USUARIO" />
-            </Principal>
-            <Dependent Role="BITACORA">
-              <PropertyRef Name="ID_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HotelMagnoliaModelStoreContainer" CdmEntityContainer="HotelMagnoliaEntities">
+        <EntityContainerMapping StorageEntityContainer="mandiolaModelStoreContainer" CdmEntityContainer="HotelMagnoliaEntities">
           <EntitySetMapping Name="ACTIVIDADs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.ACTIVIDAD">
+            <EntityTypeMapping TypeName="mandiolaModel.ACTIVIDAD">
               <MappingFragment StoreEntitySet="ACTIVIDAD">
                 <ScalarProperty Name="ID_ACTIVIDAD" ColumnName="ID_ACTIVIDAD" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -834,7 +843,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ARTICULOes">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.ARTICULO">
+            <EntityTypeMapping TypeName="mandiolaModel.ARTICULO">
               <MappingFragment StoreEntitySet="ARTICULO">
                 <ScalarProperty Name="ID_ARTICULO" ColumnName="ID_ARTICULO" />
                 <ScalarProperty Name="DESCRIPCION_" ColumnName="DESCRIPCION_" />
@@ -843,8 +852,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BITACORAs">
+            <EntityTypeMapping TypeName="mandiolaModel.BITACORA">
+              <MappingFragment StoreEntitySet="BITACORA">
+                <ScalarProperty Name="ID_BITACORA" ColumnName="ID_BITACORA" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Registro_en_detalle" ColumnName="Registro_en_detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CLIENTEs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.CLIENTE">
+            <EntityTypeMapping TypeName="mandiolaModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -854,7 +876,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CONSECUTIVOes">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.CONSECUTIVO">
+            <EntityTypeMapping TypeName="mandiolaModel.CONSECUTIVO">
               <MappingFragment StoreEntitySet="CONSECUTIVO">
                 <ScalarProperty Name="ID_CONSECUTIVOS" ColumnName="ID_CONSECUTIVOS" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -868,7 +890,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ESTADO_RESERVACION">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.ESTADO_RESERVACION">
+            <EntityTypeMapping TypeName="mandiolaModel.ESTADO_RESERVACION">
               <MappingFragment StoreEntitySet="ESTADO_RESERVACION">
                 <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -876,7 +898,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HABITACIONs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.HABITACION">
+            <EntityTypeMapping TypeName="mandiolaModel.HABITACION">
               <MappingFragment StoreEntitySet="HABITACION">
                 <ScalarProperty Name="ID_HABITACION" ColumnName="ID_HABITACION" />
                 <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
@@ -889,7 +911,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PRECIOs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.PRECIO">
+            <EntityTypeMapping TypeName="mandiolaModel.PRECIO">
               <MappingFragment StoreEntitySet="PRECIO">
                 <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
                 <ScalarProperty Name="TIPO_PRECIO" ColumnName="TIPO_PRECIO" />
@@ -898,7 +920,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RESERVACIONs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.RESERVACION">
+            <EntityTypeMapping TypeName="mandiolaModel.RESERVACION">
               <MappingFragment StoreEntitySet="RESERVACION">
                 <ScalarProperty Name="ID_RESERVACION" ColumnName="ID_RESERVACION" />
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
@@ -910,23 +932,15 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ROLs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.ROL">
+            <EntityTypeMapping TypeName="mandiolaModel.ROL">
               <MappingFragment StoreEntitySet="ROL">
                 <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TESTs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.TEST">
-              <MappingFragment StoreEntitySet="TEST">
-                <ScalarProperty Name="ID_TEST" ColumnName="ID_TEST" />
-                <ScalarProperty Name="TEST_NOMBRE" ColumnName="TEST_NOMBRE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TIPO_BITACORA">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.TIPO_BITACORA">
+            <EntityTypeMapping TypeName="mandiolaModel.TIPO_BITACORA">
               <MappingFragment StoreEntitySet="TIPO_BITACORA">
                 <ScalarProperty Name="ID_TIPO_BITACORA" ColumnName="ID_TIPO_BITACORA" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -934,7 +948,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TIPO_HABITACION">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.TIPO_HABITACION">
+            <EntityTypeMapping TypeName="mandiolaModel.TIPO_HABITACION">
               <MappingFragment StoreEntitySet="TIPO_HABITACION">
                 <ScalarProperty Name="ID_TIPO_HABITACION" ColumnName="ID_TIPO_HABITACION" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -943,7 +957,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USUARIOs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.USUARIO">
+            <EntityTypeMapping TypeName="mandiolaModel.USUARIO">
               <MappingFragment StoreEntitySet="USUARIO">
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
@@ -957,30 +971,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="InsertActividad" FunctionName="HotelMagnoliaModel.Store.InsertActividad" />
-          <FunctionImportMapping FunctionImportName="InsertActividadTEST" FunctionName="HotelMagnoliaModel.Store.InsertActividadTEST" />
-          <FunctionImportMapping FunctionImportName="InsertBitacora" FunctionName="HotelMagnoliaModel.Store.InsertBitacora" />
-          <FunctionImportMapping FunctionImportName="InsertHabitacion" FunctionName="HotelMagnoliaModel.Store.InsertHabitacion" />
-          <FunctionImportMapping FunctionImportName="InsertHabitacionTEST" FunctionName="HotelMagnoliaModel.Store.InsertHabitacionTEST" />
-          <FunctionImportMapping FunctionImportName="InsertPrecios" FunctionName="HotelMagnoliaModel.Store.InsertPrecios" />
-          <FunctionImportMapping FunctionImportName="InsertPreciosTEST" FunctionName="HotelMagnoliaModel.Store.InsertPreciosTEST" />
-          <FunctionImportMapping FunctionImportName="InsertReservacion" FunctionName="HotelMagnoliaModel.Store.InsertReservacion" />
-          <FunctionImportMapping FunctionImportName="InsertReservacionTEST" FunctionName="HotelMagnoliaModel.Store.InsertReservacionTEST" />
-          <FunctionImportMapping FunctionImportName="InsertUsuarios" FunctionName="HotelMagnoliaModel.Store.InsertUsuarios" />
-          <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="HotelMagnoliaModel.Store.ValidateUser" />
-          <EntitySetMapping Name="BITACORAs">
-            <EntityTypeMapping TypeName="HotelMagnoliaModel.BITACORA">
-              <MappingFragment StoreEntitySet="BITACORA">
-                <ScalarProperty Name="Registro_en_detalle" ColumnName="Registro_en_detalle" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
-                <ScalarProperty Name="ID_BITACORA" ColumnName="ID_BITACORA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertActividad" FunctionName="mandiolaModel.Store.InsertActividad" />
+          <FunctionImportMapping FunctionImportName="InsertActividadBIT" FunctionName="mandiolaModel.Store.InsertActividadBIT" />
+          <FunctionImportMapping FunctionImportName="InsertActividadTEST" FunctionName="mandiolaModel.Store.InsertActividadTEST" />
+          <FunctionImportMapping FunctionImportName="InsertBitacora" FunctionName="mandiolaModel.Store.InsertBitacora" />
+          <FunctionImportMapping FunctionImportName="InsertHabitacion" FunctionName="mandiolaModel.Store.InsertHabitacion" />
+          <FunctionImportMapping FunctionImportName="InsertHabitacionTEST" FunctionName="mandiolaModel.Store.InsertHabitacionTEST" />
+          <FunctionImportMapping FunctionImportName="InsertPrecios" FunctionName="mandiolaModel.Store.InsertPrecios" />
+          <FunctionImportMapping FunctionImportName="InsertPreciosTEST" FunctionName="mandiolaModel.Store.InsertPreciosTEST" />
+          <FunctionImportMapping FunctionImportName="InsertReservacion" FunctionName="mandiolaModel.Store.InsertReservacion" />
+          <FunctionImportMapping FunctionImportName="InsertReservacionTEST" FunctionName="mandiolaModel.Store.InsertReservacionTEST" />
+          <FunctionImportMapping FunctionImportName="InsertUsuarios" FunctionName="mandiolaModel.Store.InsertUsuarios" />
+          <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="mandiolaModel.Store.ValidateUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
