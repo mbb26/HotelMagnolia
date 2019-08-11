@@ -12,76 +12,52 @@ namespace HotelMagnolia.UI.Util
     {
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        private static byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
-        private static byte[] iv = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        //private static byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        //private static byte[] iv = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
 
-        public static string Crypt(this string text)
-        {
-            SymmetricAlgorithm algorithm = DES.Create();
-            ICryptoTransform transform = algorithm.CreateEncryptor(key, iv);
-            byte[] inputbuffer = System.Text.Encoding.Unicode.GetBytes(text);
-            byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
-            return Convert.ToBase64String(outputBuffer);
-        }
+        //public static string Crypt(this string text)
+        //{
+        //    SymmetricAlgorithm algorithm = DES.Create();
+        //    ICryptoTransform transform = algorithm.CreateEncryptor(key, iv);
+        //    byte[] inputbuffer = System.Text.Encoding.Unicode.GetBytes(text);
+        //    byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
+        //    return Convert.ToBase64String(outputBuffer);
+        //}
 
-        public static string Decrypt(this string text)
-        {
-            SymmetricAlgorithm algorithm = DES.Create();
-            ICryptoTransform transform = algorithm.CreateDecryptor(key, iv);
-            byte[] inputbuffer = Convert.FromBase64String(text);
-            byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
-            return Encoding.Unicode.GetString(outputBuffer);
-        }
+        //public static string Decrypt(this string text)
+        //{
+        //    SymmetricAlgorithm algorithm = DES.Create();
+        //    ICryptoTransform transform = algorithm.CreateDecryptor(key, iv);
+        //    byte[] inputbuffer = Convert.FromBase64String(text);
+        //    byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
+        //    return Encoding.Unicode.GetString(outputBuffer);
+        //}
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        //public static string Crypt(string encryptString)
-        //{
-        //    string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        //    byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
-        //    using (Aes encryptor = Aes.Create())
-        //    {
-        //        Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-        //    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
-        //});
-        //        encryptor.Key = pdb.GetBytes(32);
-        //        encryptor.IV = pdb.GetBytes(16);
-        //        using (MemoryStream ms = new MemoryStream())
-        //        {
-        //            using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
-        //            {
-        //                cs.Write(clearBytes, 0, clearBytes.Length);
-        //                cs.Close();
-        //            }
-        //            encryptString = Convert.ToBase64String(ms.ToArray());
-        //        }
-        //    }
-        //    return encryptString;
-        //}
+        private static byte[] salt = Encoding.ASCII.GetBytes("somerandomstuff");
 
-        //public static string Decrypt(string cipherText)
-        //{
-        //    string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        //    cipherText = cipherText.Replace(" ", "+");
-        //    byte[] cipherBytes = Convert.FromBase64String(cipherText);
-        //    using (Aes encryptor = Aes.Create())
-        //    {
-        //        Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-        //    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
-        //});
-        //        encryptor.Key = pdb.GetBytes(32);
-        //        encryptor.IV = pdb.GetBytes(16);
-        //        using (MemoryStream ms = new MemoryStream())
-        //        {
-        //            using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-        //            {
-        //                cs.Write(cipherBytes, 0, cipherBytes.Length);
-        //                cs.Close();
-        //            }
-        //            cipherText = Encoding.Unicode.GetString(ms.ToArray());
-        //        }
-        //    }
-        //    return cipherText;
-        //}
+        public static string Encrypt(string plainText)
+        {
+            string keyString = "password";
+            Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(keyString, salt);
+
+            MemoryStream ms = new MemoryStream();
+            StreamWriter sw = new StreamWriter(new CryptoStream(ms, new RijndaelManaged().CreateEncryptor(key.GetBytes(32), key.GetBytes(16)), CryptoStreamMode.Write));
+            sw.Write(plainText);
+            sw.Close();
+            ms.Close();
+            return Convert.ToBase64String(ms.ToArray());
+        }
+
+        public static string Decrypt(string base64Text)
+        {
+            string keyString = "password";
+            Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(keyString, salt);
+
+            ICryptoTransform d = new RijndaelManaged().CreateDecryptor(key.GetBytes(32), key.GetBytes(16));
+            byte[] bytes = Convert.FromBase64String(base64Text);
+            return new StreamReader(new CryptoStream(new MemoryStream(bytes), d, CryptoStreamMode.Read)).ReadToEnd();
+        }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

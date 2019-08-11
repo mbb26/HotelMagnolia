@@ -18,6 +18,11 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult Index()
         {
             var cLIENTEs = db.CLIENTEs.Include(c => c.HABITACION);
+            List<CLIENTE> encriptada = cLIENTEs.ToList();
+            foreach(CLIENTE i in encriptada)
+            {
+                i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
+            }
             return View(cLIENTEs.ToList());
         }
 
@@ -29,6 +34,7 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CLIENTE cLIENTE = db.CLIENTEs.Find(id);
+            cLIENTE.NOMBRE = Util.Cypher.Decrypt(cLIENTE.NOMBRE);
             if (cLIENTE == null)
             {
                 return HttpNotFound();
@@ -52,6 +58,11 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                cLIENTE.NOMBRE = Util.Cypher.Encrypt(cLIENTE.NOMBRE);
+                String logDetalle = "IDCliente:" + cLIENTE.ID_CLIENTE+ "Nombre" + cLIENTE.NOMBRE + "/Activo:" + cLIENTE.ACTIVO.ToString() +"/IDHabitacion:"+cLIENTE.ID_HABITACION;
+                logDetalle = Util.Cypher.Encrypt(logDetalle);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 01, "Insertar cliente", logDetalle , cLIENTE.ID_CLIENTE.ToString());
                 db.CLIENTEs.Add(cLIENTE);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -69,6 +80,9 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CLIENTE cLIENTE = db.CLIENTEs.Find(id);
+            cLIENTE.NOMBRE = Util.Cypher.Decrypt(cLIENTE.NOMBRE);
+
+            
             if (cLIENTE == null)
             {
                 return HttpNotFound();
@@ -86,6 +100,11 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                String logDetalle = "IDCliente:" + cLIENTE.ID_CLIENTE + "Nombre" + cLIENTE.NOMBRE + "/Activo:" + cLIENTE.ACTIVO.ToString() + "/IDHabitacion:" + cLIENTE.ID_HABITACION;
+                logDetalle = Util.Cypher.Encrypt(logDetalle);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 02, "Modificar cliente", logDetalle, cLIENTE.ID_CLIENTE.ToString());
+                cLIENTE.NOMBRE = Util.Cypher.Encrypt(cLIENTE.NOMBRE);
                 db.Entry(cLIENTE).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -102,6 +121,7 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CLIENTE cLIENTE = db.CLIENTEs.Find(id);
+            cLIENTE.NOMBRE = Util.Cypher.Decrypt(cLIENTE.NOMBRE);
             if (cLIENTE == null)
             {
                 return HttpNotFound();
@@ -115,6 +135,12 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             CLIENTE cLIENTE = db.CLIENTEs.Find(id);
+
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            String logDetalle = "IDCliente:" + cLIENTE.ID_CLIENTE + "Nombre" + cLIENTE.NOMBRE + "/Activo:" + cLIENTE.ACTIVO.ToString() + "/IDHabitacion:" + cLIENTE.ID_HABITACION;
+            logDetalle = Util.Cypher.Encrypt(logDetalle);
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 03, "Eliminar cliente", logDetalle, cLIENTE.ID_CLIENTE.ToString());
+
             db.CLIENTEs.Remove(cLIENTE);
             db.SaveChanges();
             return RedirectToAction("Index");

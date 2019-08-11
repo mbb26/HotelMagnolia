@@ -255,26 +255,11 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Img" Type="varchar(max)" Mode="In" />
-        </Function>
-        <Function Name="InsertActividadBIT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Nombre" Type="varchar" Mode="In" />
-          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
-          <Parameter Name="Img" Type="varchar(max)" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
           <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
-          <Parameter Name="Log_Detalle" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="InsertActividadTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Nombre" Type="varchar" Mode="In" />
-          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
-          <Parameter Name="Img" Type="varchar(max)" Mode="In" />
-          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
-          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
-          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
-          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
-          <Parameter Name="Log_Detalle" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertBitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Usuario" Type="varchar" Mode="In" />
@@ -291,30 +276,20 @@
           <Parameter Name="ID_Precio" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Foto" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="InsertHabitacionTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Numero" Type="int" Mode="In" />
-          <Parameter Name="Nombre" Type="varchar" Mode="In" />
-          <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
-          <Parameter Name="ID_Precio" Type="varchar" Mode="In" />
-          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
-          <Parameter Name="Foto" Type="varchar" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
           <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertPrecios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Tipo_Precio" Type="varchar" Mode="In" />
           <Parameter Name="Precio" Type="int" Mode="In" />
-        </Function>
-        <Function Name="InsertPreciosTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Tipo_Precio" Type="varchar" Mode="In" />
-          <Parameter Name="Precio" Type="int" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
           <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Cliente" Type="int" Mode="In" />
@@ -322,17 +297,11 @@
           <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
           <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
-        </Function>
-        <Function Name="InsertReservacionTEST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ID_Cliente" Type="int" Mode="In" />
-          <Parameter Name="Fecha_Entrada" Type="date" Mode="In" />
-          <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
-          <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
-          <Parameter Name="Estado" Type="int" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
           <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
@@ -732,26 +701,11 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Img" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertActividadBIT">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="Descripcion" Mode="In" Type="String" />
-            <Parameter Name="Img" Mode="In" Type="String" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
             <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
-            <Parameter Name="Log_Detalle" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertActividadTEST">
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="Descripcion" Mode="In" Type="String" />
-            <Parameter Name="Img" Mode="In" Type="String" />
-            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
-            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
-            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
-            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
-            <Parameter Name="Log_Detalle" Mode="In" Type="String" />
+            <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertBitacora">
             <Parameter Name="ID_Usuario" Mode="In" Type="String" />
@@ -768,30 +722,20 @@
             <Parameter Name="ID_Precio" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Foto" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="InsertHabitacionTEST">
-            <Parameter Name="Numero" Mode="In" Type="Int32" />
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
-            <Parameter Name="ID_Precio" Mode="In" Type="String" />
-            <Parameter Name="Descripcion" Mode="In" Type="String" />
-            <Parameter Name="Foto" Mode="In" Type="String" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
             <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+            <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertPrecios">
             <Parameter Name="Tipo_Precio" Mode="In" Type="String" />
             <Parameter Name="Precio" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="InsertPreciosTEST">
-            <Parameter Name="Tipo_Precio" Mode="In" Type="String" />
-            <Parameter Name="Precio" Mode="In" Type="Int32" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
             <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+            <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertReservacion">
             <Parameter Name="ID_Cliente" Mode="In" Type="Int32" />
@@ -799,17 +743,11 @@
             <Parameter Name="Fecha_Salida" Mode="In" Type="DateTime" />
             <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
             <Parameter Name="Estado" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="InsertReservacionTEST">
-            <Parameter Name="ID_Cliente" Mode="In" Type="Int32" />
-            <Parameter Name="Fecha_Entrada" Mode="In" Type="DateTime" />
-            <Parameter Name="Fecha_Salida" Mode="In" Type="DateTime" />
-            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
-            <Parameter Name="Estado" Mode="In" Type="Int32" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
             <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+            <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertUsuarios">
             <Parameter Name="nombre" Mode="In" Type="String" />
@@ -972,15 +910,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertActividad" FunctionName="mandiolaModel.Store.InsertActividad" />
-          <FunctionImportMapping FunctionImportName="InsertActividadBIT" FunctionName="mandiolaModel.Store.InsertActividadBIT" />
-          <FunctionImportMapping FunctionImportName="InsertActividadTEST" FunctionName="mandiolaModel.Store.InsertActividadTEST" />
           <FunctionImportMapping FunctionImportName="InsertBitacora" FunctionName="mandiolaModel.Store.InsertBitacora" />
           <FunctionImportMapping FunctionImportName="InsertHabitacion" FunctionName="mandiolaModel.Store.InsertHabitacion" />
-          <FunctionImportMapping FunctionImportName="InsertHabitacionTEST" FunctionName="mandiolaModel.Store.InsertHabitacionTEST" />
           <FunctionImportMapping FunctionImportName="InsertPrecios" FunctionName="mandiolaModel.Store.InsertPrecios" />
-          <FunctionImportMapping FunctionImportName="InsertPreciosTEST" FunctionName="mandiolaModel.Store.InsertPreciosTEST" />
           <FunctionImportMapping FunctionImportName="InsertReservacion" FunctionName="mandiolaModel.Store.InsertReservacion" />
-          <FunctionImportMapping FunctionImportName="InsertReservacionTEST" FunctionName="mandiolaModel.Store.InsertReservacionTEST" />
           <FunctionImportMapping FunctionImportName="InsertUsuarios" FunctionName="mandiolaModel.Store.InsertUsuarios" />
           <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="mandiolaModel.Store.ValidateUser" />
         </EntityContainerMapping>

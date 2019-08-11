@@ -177,6 +177,16 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                String LogDetalle = "Nombre:" + uSUARIO.NOMBRE + "/Apellido1:" + uSUARIO.APELLIDO1 + "/Apellido2:" + uSUARIO.APELLIDO2 + "/Correo:" + uSUARIO.CORREO + "/Telefono:" + uSUARIO.TELEFONO + "/Rol:" + uSUARIO.ROL;
+                LogDetalle = Util.Cypher.Encrypt(LogDetalle);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nuevo Usuario", LogDetalle, "N/A");
+                uSUARIO.NOMBRE = Util.Cypher.Encrypt(uSUARIO.NOMBRE);
+                uSUARIO.APELLIDO1=Util.Cypher.Encrypt(uSUARIO.APELLIDO1);
+                uSUARIO.APELLIDO2=Util.Cypher.Encrypt(uSUARIO.APELLIDO2);
+                uSUARIO.CORREO=Util.Cypher.Encrypt(uSUARIO.CORREO);
+                uSUARIO.PASSWORD = Util.Cypher.Encrypt(uSUARIO.PASSWORD);
+                uSUARIO.USER_NAME = Util.Cypher.Encrypt(uSUARIO.USER_NAME);
                 db.InsertUsuarios(uSUARIO.NOMBRE, uSUARIO.APELLIDO1, uSUARIO.APELLIDO2, uSUARIO.CORREO, uSUARIO.TELEFONO, uSUARIO.PASSWORD, uSUARIO.USER_NAME, uSUARIO.ID_ROL);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -197,6 +207,12 @@ namespace HotelMagnolia.UI.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 USUARIO uSUARIO = db.USUARIOs.Find(id);
+                uSUARIO.NOMBRE = Util.Cypher.Decrypt(uSUARIO.NOMBRE);
+                uSUARIO.APELLIDO1 = Util.Cypher.Decrypt(uSUARIO.APELLIDO1);
+                uSUARIO.APELLIDO2 = Util.Cypher.Decrypt(uSUARIO.APELLIDO2);
+                uSUARIO.CORREO = Util.Cypher.Decrypt(uSUARIO.CORREO);
+                uSUARIO.PASSWORD = Util.Cypher.Decrypt(uSUARIO.PASSWORD);
+                uSUARIO.USER_NAME = Util.Cypher.Decrypt(uSUARIO.USER_NAME);
                 if (uSUARIO == null)
                 {
                     return HttpNotFound();
@@ -223,6 +239,10 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                String LogDetalle = "Nombre:" + uSUARIO.NOMBRE + "/Apellido1:" + uSUARIO.APELLIDO1 + "/Apellido2:" + uSUARIO.APELLIDO2 + "/Correo:" + uSUARIO.CORREO + "/Telefono:" + uSUARIO.TELEFONO + "/Rol:" + uSUARIO.ROL;
+                LogDetalle = Util.Cypher.Encrypt(LogDetalle);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 2, "Modificar Usuario", LogDetalle, uSUARIO.ID_USUARIO);
                 db.Entry(uSUARIO).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -242,6 +262,12 @@ namespace HotelMagnolia.UI.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 USUARIO uSUARIO = db.USUARIOs.Find(id);
+                uSUARIO.NOMBRE = Util.Cypher.Decrypt(uSUARIO.NOMBRE);
+                uSUARIO.APELLIDO1 = Util.Cypher.Decrypt(uSUARIO.APELLIDO1);
+                uSUARIO.APELLIDO2 = Util.Cypher.Decrypt(uSUARIO.APELLIDO2);
+                uSUARIO.CORREO = Util.Cypher.Decrypt(uSUARIO.CORREO);
+                uSUARIO.PASSWORD = Util.Cypher.Decrypt(uSUARIO.PASSWORD);
+                uSUARIO.USER_NAME = Util.Cypher.Decrypt(uSUARIO.USER_NAME);
                 if (uSUARIO == null)
                 {
                     return HttpNotFound();
@@ -265,6 +291,10 @@ namespace HotelMagnolia.UI.Controllers
         {
             USUARIO uSUARIO = db.USUARIOs.Find(id);
             db.USUARIOs.Remove(uSUARIO);
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            String LogDetalle = "Nombre:" + uSUARIO.NOMBRE + "/Apellido1:" + uSUARIO.APELLIDO1 + "/Apellido2:" + uSUARIO.APELLIDO2 + "/Correo:" + uSUARIO.CORREO + "/Telefono:" + uSUARIO.TELEFONO + "/Rol:" + uSUARIO.ROL;
+            LogDetalle = Util.Cypher.Encrypt(LogDetalle);
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 3, "Eliminar Usuario", LogDetalle, uSUARIO.ID_USUARIO);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

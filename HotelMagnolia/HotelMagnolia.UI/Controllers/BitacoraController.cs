@@ -52,6 +52,7 @@ namespace HotelMagnolia.UI.Controllers
                 return HttpNotFound();
             }
             bITACORA.Registro_en_detalle = Util.Cypher.Decrypt(bITACORA.Registro_en_detalle);
+
             return View(bITACORA);
         }
 

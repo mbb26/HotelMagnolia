@@ -60,8 +60,8 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                tIPO_HABITACION.NOMBRE = Util.Cypher.Crypt(tIPO_HABITACION.NOMBRE);
-                tIPO_HABITACION.DESCRIPCION = Util.Cypher.Crypt(tIPO_HABITACION.DESCRIPCION);
+                tIPO_HABITACION.NOMBRE = Util.Cypher.Encrypt(tIPO_HABITACION.NOMBRE);
+                tIPO_HABITACION.DESCRIPCION = Util.Cypher.Encrypt(tIPO_HABITACION.DESCRIPCION);
 
                 db.TIPO_HABITACION.Add(tIPO_HABITACION);
                 db.SaveChanges();
@@ -97,8 +97,8 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                tIPO_HABITACION.NOMBRE = Util.Cypher.Crypt(tIPO_HABITACION.NOMBRE);
-                tIPO_HABITACION.DESCRIPCION = Util.Cypher.Crypt(tIPO_HABITACION.DESCRIPCION);
+                tIPO_HABITACION.NOMBRE = Util.Cypher.Encrypt(tIPO_HABITACION.NOMBRE);
+                tIPO_HABITACION.DESCRIPCION = Util.Cypher.Encrypt(tIPO_HABITACION.DESCRIPCION);
                 db.Entry(tIPO_HABITACION).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

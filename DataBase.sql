@@ -560,7 +560,7 @@ UPDATE [dbo].[CONSECUTIVO]
         WHERE Nombre ='Bitacora'
     GO
 
-CREATE OR ALTER PROCEDURE InsertActividadTEST
+CREATE OR ALTER PROCEDURE InsertActividad
    (
    @Nombre varchar(200),
    @Descripcion varchar(200),
@@ -569,7 +569,7 @@ CREATE OR ALTER PROCEDURE InsertActividadTEST
    @LOG_fecha smalldatetime,
    @LOG_Tipo int,
    @LOG_Desc varchar(200),
-   @Log_Detalle varchar(200)
+   @LOG_Detalle varchar(200)
 )
 AS
 DECLARE @ID varchar(200)
@@ -593,7 +593,7 @@ UPDATE [dbo].[CONSECUTIVO]
     GO
 
 
-CREATE OR ALTER PROCEDURE InsertHabitacionTEST
+CREATE OR ALTER PROCEDURE InsertHabitacion
    (
    @Numero int,
    @Nombre varchar(200),
@@ -604,7 +604,8 @@ CREATE OR ALTER PROCEDURE InsertHabitacionTEST
    @LOG_UserID varchar(200),
    @LOG_fecha smalldatetime,
    @LOG_Tipo int,
-   @LOG_Desc varchar(200)
+   @LOG_Desc varchar(200),
+   @LOG_Detalle varchar(200)
 
 )
 AS
@@ -620,9 +621,9 @@ INSERT INTO [dbo].[HABITACION]
 VALUES
    (@ID, @Numero, @Nombre, @descripcion, @foto, @Tipo_Habitacion, @ID_Precio)
 
-Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Numero: ' + CAST(@Numero AS VARCHAR(200)) + ' | Nombre: ' + @Nombre + '| Tipo Habitacion: ' + CAST(@Tipo_Habitacion AS VARCHAR(200)) + '| Desc: ' + @Descripcion +' | Foto: ' + @Foto)
 
-EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle
+
+EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle,@ID
 
 UPDATE [dbo].[CONSECUTIVO]
             SET Valor = Valor + 1
@@ -630,14 +631,15 @@ UPDATE [dbo].[CONSECUTIVO]
             
         GO
 
-CREATE OR ALTER PROCEDURE InsertPreciosTEST
+CREATE OR ALTER PROCEDURE InsertPrecios
    (
    @Tipo_Precio varchar(200),
    @Precio int,
    @LOG_UserID varchar(200),
    @LOG_fecha smalldatetime,
    @LOG_Tipo int,
-   @LOG_Desc varchar(200)
+   @LOG_Desc varchar(200),
+   @LOG_Detalle varchar(200)
 
 )
 AS
@@ -653,16 +655,15 @@ INSERT INTO [dbo].[PRECIO]
 VALUES
    (@ID, @Tipo_Precio, @Precio)
 
-Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Tipo_Precio: ' + @Tipo_Precio + ' | Precio: ' + CAST(@Precio AS VARCHAR(200)))
 
-EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle
+EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle,@ID
 
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
         WHERE Nombre ='Precio'
     GO
 
-CREATE OR ALTER PROCEDURE InsertReservacionTEST
+CREATE OR ALTER PROCEDURE InsertReservacion
    (
    @ID_Cliente int,
    @Fecha_Entrada date,
@@ -672,7 +673,8 @@ CREATE OR ALTER PROCEDURE InsertReservacionTEST
    @LOG_UserID varchar(200),
    @LOG_fecha smalldatetime,
    @LOG_Tipo int,
-   @LOG_Desc varchar(200)
+   @LOG_Desc varchar(200),
+   @LOG_Detalle varchar(200)
 )
 AS
 DECLARE @ID varchar(200)
@@ -687,7 +689,6 @@ INSERT INTO [dbo].[RESERVACION]
 VALUES
    (@ID, @ID_Cliente, @Fecha_Entrada, @Fecha_Salida, @Tipo_Habitacion, @Estado)
 
-Declare @LOG_detalle VARCHAR(200) = ('Codigo:' + @ID + '| Cliente: ' + CAST(@ID_Cliente AS VARCHAR(200)) + ' | Fecha Entrada: ' + CAST(@Fecha_Entrada AS VARCHAR(200)) +'| Fecha Salida: '+ CAST(@Fecha_Salida AS VARCHAR(200)) + '| Estado: ' + CAST(@Estado AS VARCHAR(200)))
 
 EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle
 
@@ -703,7 +704,7 @@ UPDATE [dbo].[CONSECUTIVO]
 
 
 /*==============================================================*/
-/* Table: Stored Procedures                                             
+/* Table: Stored Procedures    Backup - no Bitacora                                         
 ==============================================================*/
 
 
