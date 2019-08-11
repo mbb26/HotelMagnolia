@@ -1,0 +1,92 @@
+@import 'normalize';
+@import 'variables';
+@import 'mixins';
+@import 'reset';
+@import 'core';
+@import 'typography/all';
+@import 'forms';
+@import 'embedded';
+@import 'buttons';
+
+html, body {
+    background-color: $color-footer;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	font-size: 1.7em;
+}
+
+h3 {
+	font-size: 1.4em;
+}
+
+h4 {
+	font-size: 1.1	em;
+}
+
+section {
+    background-color: $color-background;
+}
+
+a {
+    &:link,
+    &:hover,
+    &:visited {
+        color: $color-dark-green;
+        &.btn {
+            color: $color-background;
+        }
+    }
+}
+
+.navbar {
+    background-color: $color-nav;
+    a,
+    a:hover,
+    a:visited {
+        color: $color-background;
+        &.dropdown-item {
+            color: $color-nav;
+        }
+    }
+}
+
+.welcome_area {
+	min-height: 600px;
+	padding-bottom: 50px;
+}
+
+.reset-form {
+	margin-top: 10px;
+}
+
+.social_icons {
+	display: inline-block;
+	list-style: none;
+
+	li {
+		float: left;
+		
+		&:nth-child(n+2) {
+			margin-left: 20px;
+		}
+	}
+}
+
+img.social_icon {
+	height: 50px;
+	width: 50px;
+}
+
+footer {
+	background-color: $color-light-green;
+	color: $color-background;
+
+	h1, h2, h3, h4, h5, h6 {
+		color: inherit;
+	}
+}
