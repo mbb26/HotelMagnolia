@@ -45,8 +45,12 @@
                             <a class="dropdown-item" href="resevaciones.html">Reservacion</a>
                         </div>
                     </li>
-                   
                 </ul>
+                
+                <ul id="carrito" class="nav navbar-nav navbar-right">
+                    <li><a href="Carrito.html"><span class="glyphicon glyphicon-user"></span> Carrito</a></li>
+                </ul>
+               
             </div>
         </nav>
     </header>
@@ -60,24 +64,26 @@
                     <div class="hero-content">
                         <form action="#">
                             <h2>Pantalla de Pago</h2>
-                            <h4>Tipo de tarjeta:</h4>
-                            <input class="input" type="text" name="txtUser" id="txtUser"><br>
-                            <h4>Primer apellido:</h4>
-                            <input class="input" type="password" name="password" id="password"><br>
-                            <h4>Segundo apellido:</h4>
-                            <input class="input" type="password" name="password" id="password"><br>
-                            <h4>Email:</h4>
-                            <input class="input" type="text" name="email" id="email"><br>
-                            <h4>Nombre de Usuario:</h4>
-                            <input class="input" type="password" name="confirmpass" id="confirmpass">
-                            <a href="lista_usuarios.html" class="btn essence-btn">Confirmar exsistencia</a>
-                            <h4>Contraseña:</h4>
-                            <input class="input" type="password" name="confirmpass" id="confirmpass"><br>
-                            <h4>Confirmar Contraseña:</h4>
-                            <input class="input" type="password" name="confirmpass" id="confirmpass"><br>
-                            <a href="lista_usuarios.html" class="btn essence-btn">Crear</a>
-                            <a href="lista_usuarios.html" class="btn">Cancelar</a>
-                            <br /><input type="reset" value="Restablecer" class="reset-form">
+                            <h3>Seleccione su tipo de tarjeta</h3>
+                            <a href="TarjetasFavoritas.html" class="btn essence-btn">Seleccionar una tarjeta favorita</a>
+                            <br/>
+                            <br/>
+                        <select name="tipo" id="tipo">
+							<option value="agregar">Visa</option>
+							<option value="eliminar">MasterCard</option>
+							<option value="modificar">American Express</option>
+                        </select>
+                            <h4>Nombre Completo de la tarjeta:</h4>
+                            <input class="input" type="text" name="nombreTarejeta" id="nombreTarejeta"><br>
+                            <h4>Fecha de vencimiento:</h4>
+                            <input class="input" type="date" name="date" id="date"><br>
+                            <h4>CVC:</h4>
+                            <input class="input" type="number" name="cvc" id="cvc"><br>
+                            <label><input type="checkbox" id="addFavoritos" value="addFavoritos"> Agregar a favoritos</label>
+                            <br/>
+                            <br/>
+                            <a href="lista_usuarios.html" class="btn essence-btn">Pagar</a>
+                            
                         </form>
                     </div>
                 </div>
