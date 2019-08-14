@@ -9,120 +9,125 @@ using System.Web.Mvc;
 using HotelMagnolia.UI.Models;
 using HotelMagnolia.UI.Util;
 
-namespace HotelMagnolia.UI.Content
+namespace HotelMagnolia.UI.Controllers
 {
-    public class TestController : Controller
+    public class Tipo_HabitacionController : Controller
     {
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
 
-        // GET: Test
+        // GET: Tipo_Habitacion
         public ActionResult Index()
         {
-            List < TEST > ListaNueva = db.TESTs.ToList();
-            foreach(TEST element in ListaNueva)
+            List<TIPO_HABITACION> Encriptada = db.TIPO_HABITACION.ToList();
+            foreach (TIPO_HABITACION i in Encriptada)
             {
-                element.TEST_NOMBRE = Cypher.Decrypt(element.TEST_NOMBRE);
+                i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
+                i.DESCRIPCION = Util.Cypher.Decrypt(i.DESCRIPCION);
             }
-
-            //return View(db.TESTs.ToList());
-            return View(ListaNueva);
+            return View(db.TIPO_HABITACION.ToList());
         }
 
-        // GET: Test/Details/5
+        // GET: Tipo_Habitacion/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TEST tEST = db.TESTs.Find(id);
-            tEST.TEST_NOMBRE = Cypher.Decrypt(tEST.TEST_NOMBRE);
-            if (tEST == null)
+            TIPO_HABITACION tIPO_HABITACION = db.TIPO_HABITACION.Find(id);
+            tIPO_HABITACION.NOMBRE = Util.Cypher.Decrypt(tIPO_HABITACION.NOMBRE);
+            tIPO_HABITACION.DESCRIPCION = Util.Cypher.Decrypt(tIPO_HABITACION.DESCRIPCION);
+
+            if (tIPO_HABITACION == null)
             {
                 return HttpNotFound();
             }
-            return View(tEST);
+            return View(tIPO_HABITACION);
         }
 
-        // GET: Test/Create
+        // GET: Tipo_Habitacion/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Test/Create
+        // POST: Tipo_Habitacion/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_TEST,TEST_NOMBRE")] TEST tEST)
+        public ActionResult Create([Bind(Include = "ID_TIPO_HABITACION,NOMBRE,DESCRIPCION")] TIPO_HABITACION tIPO_HABITACION)
         {
             if (ModelState.IsValid)
             {
-                tEST.TEST_NOMBRE = Cypher.Crypt(tEST.TEST_NOMBRE);
-                db.TESTs.Add(tEST);
+                tIPO_HABITACION.NOMBRE = Util.Cypher.Encrypt(tIPO_HABITACION.NOMBRE);
+                tIPO_HABITACION.DESCRIPCION = Util.Cypher.Encrypt(tIPO_HABITACION.DESCRIPCION);
+
+                db.TIPO_HABITACION.Add(tIPO_HABITACION);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tEST);
+            return View(tIPO_HABITACION);
         }
 
-        // GET: Test/Edit/5
+        // GET: Tipo_Habitacion/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TEST tEST = db.TESTs.Find(id);
-            tEST.TEST_NOMBRE = Cypher.Decrypt(tEST.TEST_NOMBRE);
-            if (tEST == null)
+            TIPO_HABITACION tIPO_HABITACION = db.TIPO_HABITACION.Find(id);
+            tIPO_HABITACION.NOMBRE = Util.Cypher.Decrypt(tIPO_HABITACION.NOMBRE);
+            tIPO_HABITACION.DESCRIPCION = Util.Cypher.Decrypt(tIPO_HABITACION.DESCRIPCION);
+            if (tIPO_HABITACION == null)
             {
                 return HttpNotFound();
             }
-            return View(tEST);
+            return View(tIPO_HABITACION);
         }
 
-        // POST: Test/Edit/5
+        // POST: Tipo_Habitacion/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_TEST,TEST_NOMBRE")] TEST tEST)
+        public ActionResult Edit([Bind(Include = "ID_TIPO_HABITACION,NOMBRE,DESCRIPCION")] TIPO_HABITACION tIPO_HABITACION)
         {
             if (ModelState.IsValid)
             {
-                tEST.TEST_NOMBRE = Cypher.Crypt(tEST.TEST_NOMBRE);
-                db.Entry(tEST).State = EntityState.Modified;
+                tIPO_HABITACION.NOMBRE = Util.Cypher.Encrypt(tIPO_HABITACION.NOMBRE);
+                tIPO_HABITACION.DESCRIPCION = Util.Cypher.Encrypt(tIPO_HABITACION.DESCRIPCION);
+                db.Entry(tIPO_HABITACION).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tEST);
+            return View(tIPO_HABITACION);
         }
 
-        // GET: Test/Delete/5
+        // GET: Tipo_Habitacion/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TEST tEST = db.TESTs.Find(id);
-            if (tEST == null)
+            TIPO_HABITACION tIPO_HABITACION = db.TIPO_HABITACION.Find(id);
+            if (tIPO_HABITACION == null)
             {
                 return HttpNotFound();
             }
-            return View(tEST);
+            return View(tIPO_HABITACION);
         }
 
-        // POST: Test/Delete/5
+        // POST: Tipo_Habitacion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TEST tEST = db.TESTs.Find(id);
-            db.TESTs.Remove(tEST);
+            TIPO_HABITACION tIPO_HABITACION = db.TIPO_HABITACION.Find(id);
+            db.TIPO_HABITACION.Remove(tIPO_HABITACION);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

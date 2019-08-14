@@ -11,8 +11,7 @@ namespace HotelMagnolia.UI.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class ACTIVIDAD
     {
         public string ID_ACTIVIDAD { get; set; }
