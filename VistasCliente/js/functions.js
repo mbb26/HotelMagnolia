@@ -82,15 +82,13 @@ APP.functions = (function() {
         });
     };
 
-    var validateForm = function (form, e) {
+    var validateForm = function (form) {
         var $form = $(form);
         var $valid = true;
         $form.find('[data-function="noBlank"]').each(function () {
             $valid = validateNoBlank(this) && $valid;
         });
-        if ($valid) {
-            $(e.currentTarget).trigger(e.type, { 'validated': true });
-        }
+        return $valid;
     };
 
     var validateFormAndSubmit = function (form, e) {
