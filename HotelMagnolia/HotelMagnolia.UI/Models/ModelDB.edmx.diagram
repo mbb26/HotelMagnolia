@@ -4,31 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1a118c192caa4a2cb4bebad802c6b621" Name="Diagram1">
-        <EntityTypeShape EntityType="HotelMagnoliaModel.ACTIVIDAD" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.ARTICULO" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.CLIENTE" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.CONSECUTIVO" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.ESTADO_RESERVACION" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.HABITACION" Width="1.5" PointX="6" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.PRECIO" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.RESERVACION" Width="1.5" PointX="10.5" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.ROL" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.TEST" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.TIPO_BITACORA" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.TIPO_HABITACION" Width="1.5" PointX="3.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.USUARIO" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_ARTICULO_REFERENCE_PRECIO" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_CLIENTE_REFERENCE_HABITACION" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_RESERVAC_REFERENCE_CLIENTE" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_HABITACI_REFERENCE_PRECIO" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_HABITACI_REFERENCE_TIPO" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_RESERVAC_REFERENCE_TIPO" ManuallyRouted="false" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_USUARIO_REFERENCE_ROL" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="HotelMagnoliaModel.BITACORA" Width="1.5" PointX="5.25" PointY="2.75" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA" />
-        <AssociationConnector Association="HotelMagnoliaModel.FK_BITACORA_REFERENCE_USER" />
+      <Diagram DiagramId="5f957875340f4e7594da7863f4c2d8fb" Name="Diagram1">
+        <EntityTypeShape EntityType="mandiolaModel.ACTIVIDAD" Width="1.5" PointX="7.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.ARTICULO" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.BITACORA" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.CLIENTE" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.CONSECUTIVO" Width="1.5" PointX="9.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.ESTADO_RESERVACION" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.HABITACION" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.PRECIO" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.RESERVACION" Width="1.5" PointX="10.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.ROL" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.TIPO_BITACORA" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.TIPO_HABITACION" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mandiolaModel.USUARIO" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="mandiolaModel.FK_ARTICULO_REFERENCE_PRECIO" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_BITACORA_REFERENCE_USER" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_CLIENTE_REFERENCE_HABITACION" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_RESERVAC_REFERENCE_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_HABITACI_REFERENCE_PRECIO" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_HABITACI_REFERENCE_TIPO" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_RESERVAC_REFERENCE_TIPO" ManuallyRouted="false" />
+        <AssociationConnector Association="mandiolaModel.FK_USUARIO_REFERENCE_ROL" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

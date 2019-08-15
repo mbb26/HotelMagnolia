@@ -136,7 +136,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BitacoraController.cs" />
     <Compile Include="Controllers\ReservacionController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\ArticuloController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -146,6 +145,7 @@
     <Compile Include="Controllers\PrecioController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\Tipo_BitacoraController.cs" />
+    <Compile Include="Controllers\Tipo_HabitacionController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -193,9 +193,6 @@
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ROL.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TEST.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_BITACORA.cs">
@@ -381,11 +378,6 @@
     <Content Include="Views\Habitacion\Details.cshtml" />
     <Content Include="Views\Habitacion\Edit.cshtml" />
     <Content Include="Views\Habitacion\Index.cshtml" />
-    <Content Include="Views\Test\Create.cshtml" />
-    <Content Include="Views\Test\Delete.cshtml" />
-    <Content Include="Views\Test\Details.cshtml" />
-    <Content Include="Views\Test\Edit.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Reservacion\Create.cshtml" />
     <Content Include="Views\Reservacion\Delete.cshtml" />
     <Content Include="Views\Reservacion\Details.cshtml" />
@@ -400,6 +392,11 @@
     <Content Include="Views\Usuario\CambiarPassword.cshtml" />
     <Content Include="Views\Home\Success.cshtml" />
     <Content Include="Views\Home\Failure.cshtml" />
+    <Content Include="Views\Tipo_Habitacion\Create.cshtml" />
+    <Content Include="Views\Tipo_Habitacion\Delete.cshtml" />
+    <Content Include="Views\Tipo_Habitacion\Details.cshtml" />
+    <Content Include="Views\Tipo_Habitacion\Edit.cshtml" />
+    <Content Include="Views\Tipo_Habitacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

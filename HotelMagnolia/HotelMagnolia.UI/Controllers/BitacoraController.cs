@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HotelMagnolia.UI.Models;
+using System.Diagnostics;
 
 namespace HotelMagnolia.UI.Controllers
 {
@@ -17,8 +18,24 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Bitacora
         public ActionResult Index()
         {
+
             var bITACORAs = db.BITACORAs.Include(b => b.TIPO_BITACORA).Include(b => b.USUARIO);
+
+            //List<BITACORA> encriptada = db.BITACORAs.ToList();
+            //foreach (BITACORA i in encriptada)
+            //{
+
+            //    i.Registro_en_detalle = Util.Cypher.Decrypt(i.Registro_en_detalle);
+            //    String bug = i.Registro_en_detalle;
+            //}
+            List<BITACORA> encriptada = bITACORAs.ToList();
+            foreach(BITACORA i in encriptada)
+            {
+
+                i.Registro_en_detalle = Util.Cypher.Decrypt(i.Registro_en_detalle);
+            }
             return View(bITACORAs.ToList());
+            //return View(encriptada);
         }
 
         // GET: Bitacora/Details/5
@@ -29,10 +46,13 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             BITACORA bITACORA = db.BITACORAs.Find(id);
+            
             if (bITACORA == null)
             {
                 return HttpNotFound();
             }
+            bITACORA.Registro_en_detalle = Util.Cypher.Decrypt(bITACORA.Registro_en_detalle);
+
             return View(bITACORA);
         }
 
@@ -77,6 +97,7 @@ namespace HotelMagnolia.UI.Controllers
             }
             ViewBag.TIPO = new SelectList(db.TIPO_BITACORA, "ID_TIPO_BITACORA", "NOMBRE", bITACORA.TIPO);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIOs, "ID_USUARIO", "NOMBRE", bITACORA.ID_USUARIO);
+            bITACORA.Registro_en_detalle = Util.Cypher.Decrypt(bITACORA.Registro_en_detalle);
             return View(bITACORA);
         }
 

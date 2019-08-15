@@ -17,7 +17,7 @@ namespace HotelMagnolia.UI.Models
         public string ID_BITACORA { get; set; }
         public string ID_USUARIO { get; set; }
         public System.DateTime FECHA { get; set; }
-        public int CODIGO { get; set; }
+        public string CODIGO { get; set; }
         public int TIPO { get; set; }
         public string Descripcion { get; set; }
         public string Registro_en_detalle { get; set; }

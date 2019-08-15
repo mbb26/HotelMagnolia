@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,8 +18,15 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Habitacion
         public ActionResult Index()
         {
-            var hABITACIONs = db.HABITACIONs.Include(h => h.PRECIO).Include(h => h.TIPO_HABITACION1);
-            return View(hABITACIONs.ToList());
+            //var hABITACIONs = db.HABITACIONs.Include(h => h.PRECIO).Include(h => h.TIPO_HABITACION1);
+            //return View(hABITACIONs.ToList());
+            List<HABITACION> encriptada = db.HABITACIONs.ToList();
+            foreach(HABITACION i in encriptada)
+            {
+                i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
+                i.DESCRIPCION = Util.Cypher.Decrypt(i.DESCRIPCION);   
+            }
+            return View(encriptada);
         }
 
         // GET: Habitacion/Details/5
@@ -29,6 +37,8 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             HABITACION hABITACION = db.HABITACIONs.Find(id);
+            hABITACION.NOMBRE = Util.Cypher.Decrypt(hABITACION.NOMBRE);
+            hABITACION.DESCRIPCION = Util.Cypher.Decrypt(hABITACION.DESCRIPCION);
             if (hABITACION == null)
             {
                 return HttpNotFound();
@@ -39,8 +49,11 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Habitacion/Create
         public ActionResult Create()
         {
+
             ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
+
             ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE");
+
             return View();
         }
 
@@ -54,10 +67,11 @@ namespace HotelMagnolia.UI.Controllers
             if (ModelState.IsValid)
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                //db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO);
-                db.InsertHabitacionTEST(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Agregar nueva habitacion");
-                //db.InsertBitacora(usuarioSesion.ID_USUARIO,DateTime.Now,1,"Agregar Habitacion",)
-                //db.HABITACIONs.Add(hABITACION);
+                String logDetalle = "Numero:" + hABITACION.NUMERO + "/Nombre:" + hABITACION.NOMBRE + "/Descripcion:" + hABITACION.DESCRIPCION + "/Foto:" + hABITACION.FOTO + "/Tipo Habitacion:" + hABITACION.TIPO_HABITACION + "/Precio:" + hABITACION.ID_PRECIO;
+                hABITACION.NOMBRE = Util.Cypher.Encrypt(hABITACION.NOMBRE);
+                hABITACION.DESCRIPCION = Util.Cypher.Encrypt(hABITACION.DESCRIPCION);
+                logDetalle = Util.Cypher.Encrypt(logDetalle);
+                db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO, usuarioSesion.ID_USUARIO, DateTime.Now, 01, "Nueva Habitacion", logDetalle);       
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,6 +89,8 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             HABITACION hABITACION = db.HABITACIONs.Find(id);
+            hABITACION.NOMBRE = Util.Cypher.Decrypt(hABITACION.NOMBRE);
+            hABITACION.DESCRIPCION = Util.Cypher.Decrypt(hABITACION.DESCRIPCION);
             if (hABITACION == null)
             {
                 return HttpNotFound();
@@ -93,6 +109,12 @@ namespace HotelMagnolia.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                String logDetalle = "IDHabitacion:"+ hABITACION .ID_HABITACION+ "Numero:" + hABITACION.NUMERO + "/Nombre:" + hABITACION.NOMBRE + "/Descripcion:" + hABITACION.DESCRIPCION + "/Foto:" + hABITACION.FOTO + "/Tipo Habitacion:" + hABITACION.TIPO_HABITACION + "/Precio:" + hABITACION.ID_PRECIO;
+                logDetalle = Util.Cypher.Encrypt(logDetalle);
+                hABITACION.NOMBRE = Util.Cypher.Encrypt(hABITACION.NOMBRE);
+                hABITACION.DESCRIPCION = Util.Cypher.Encrypt(hABITACION.DESCRIPCION);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 02, "Modificar Habitacion", logDetalle, hABITACION.ID_HABITACION);
                 db.Entry(hABITACION).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,6 +132,8 @@ namespace HotelMagnolia.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             HABITACION hABITACION = db.HABITACIONs.Find(id);
+            hABITACION.NOMBRE = Util.Cypher.Decrypt(hABITACION.NOMBRE);
+            hABITACION.DESCRIPCION = Util.Cypher.Decrypt(hABITACION.DESCRIPCION);
             if (hABITACION == null)
             {
                 return HttpNotFound();
@@ -123,6 +147,12 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             HABITACION hABITACION = db.HABITACIONs.Find(id);
+            USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            hABITACION.NOMBRE = Util.Cypher.Decrypt(hABITACION.NOMBRE);
+            hABITACION.DESCRIPCION = Util.Cypher.Decrypt(hABITACION.DESCRIPCION);
+            String logDetalle = "IDHabitacion:" + hABITACION.ID_HABITACION + "Numero:" + hABITACION.NUMERO + "/Nombre:" + hABITACION.NOMBRE + "/Descripcion:" + hABITACION.DESCRIPCION + "/Foto:" + hABITACION.FOTO + "/Tipo Habitacion:" + hABITACION.TIPO_HABITACION + "/Precio:" + hABITACION.PRECIO;
+            logDetalle = Util.Cypher.Encrypt(logDetalle);
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 03, "Eliminar Habitacion", logDetalle, hABITACION.ID_HABITACION);
             db.HABITACIONs.Remove(hABITACION);
             db.SaveChanges();
             return RedirectToAction("Index");
