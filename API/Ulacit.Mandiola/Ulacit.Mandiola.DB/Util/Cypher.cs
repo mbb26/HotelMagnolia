@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.IO;
+using System.Reflection;
 
 namespace Ulacit.Mandiola.DB.Util
 {
@@ -59,6 +60,36 @@ namespace Ulacit.Mandiola.DB.Util
             return new StreamReader(new CryptoStream(new MemoryStream(bytes), d, CryptoStreamMode.Read)).ReadToEnd();
         }
 
+        private static Boolean needsEncoding(string name)
+        {
+            return !name.Contains("ID_");
+        }
+
+        public static Object EncryptObject(Object myObject)
+        {
+            foreach (PropertyInfo propertyInfo in myObject.GetType().GetProperties())
+            {
+                if (propertyInfo.GetValue(myObject) is string && needsEncoding(propertyInfo.Name))
+                {
+                    System.Diagnostics.Debug.WriteLine("Encoding: " + propertyInfo.Name);
+                    propertyInfo.SetValue(myObject, Encrypt(propertyInfo.GetValue(myObject).ToString()));
+                }
+            }
+            return myObject;
+        }
+
+        public static Object DecryptObject(Object myObject)
+        {
+            foreach (PropertyInfo propertyInfo in myObject.GetType().GetProperties())
+            { 
+                if (propertyInfo.GetValue(myObject) is string && needsEncoding(propertyInfo.Name))
+                {
+                    System.Diagnostics.Debug.WriteLine("Decoding: " + propertyInfo.Name);
+                    propertyInfo.SetValue(myObject, Decrypt(propertyInfo.GetValue(myObject).ToString()));
+                }
+            }
+            return myObject;
+        }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         //// This size of the IV (in bytes) must = (keysize / 8).  Default keysize is 256, so the IV must be
