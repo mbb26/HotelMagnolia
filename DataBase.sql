@@ -590,7 +590,12 @@ EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_Detalle,@ID
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
         WHERE Nombre ='Actividad'
-    GO
+
+SELECT *
+FROM [dbo].[ACTIVIDAD]
+WHERE ID_ACTIVIDAD = @ID
+
+GO
 
 
 CREATE OR ALTER PROCEDURE InsertHabitacion
