@@ -8,6 +8,7 @@ using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.DB.MandiolaDb;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
+using Ulacit.Mandiola.DB.Util;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
@@ -40,24 +41,24 @@ namespace Ulacit.Mandiola.DB.Concrete
             var pNombre = new SqlParameter
             {
                 ParameterName = "nombre",
-                Value = aux.NOMBRE
+                Value = Cypher.Encrypt(aux.NOMBRE)
             };
 
             var pApellido1 = new SqlParameter
             {
                 ParameterName = "apellido1",
-                Value = aux.APELLIDO1
+                Value = Cypher.Encrypt(aux.APELLIDO1)
             };
             var pApellido2 = new SqlParameter
             {
                 ParameterName = "apellido2",
-                Value = aux.APELLIDO2
+                Value = Cypher.Encrypt(aux.APELLIDO2)
             };
 
             var pCorreo = new SqlParameter
             {
                 ParameterName = "correo",
-                Value = aux.CORREO
+                Value = Cypher.Encrypt(aux.CORREO)
             };
 
             var pTelefono = new SqlParameter
@@ -69,13 +70,13 @@ namespace Ulacit.Mandiola.DB.Concrete
             var pPassword = new SqlParameter
             {
                 ParameterName = "password",
-                Value = aux.PASSWORD
+                Value = Cypher.Encrypt(aux.PASSWORD)
             };
 
             var pUserName = new SqlParameter
             {
                 ParameterName = "User_name",
-                Value = aux.USER_NAME
+                Value = Cypher.Encrypt(aux.USER_NAME)
             };
             var pIdRol = new SqlParameter
             {
@@ -83,7 +84,7 @@ namespace Ulacit.Mandiola.DB.Concrete
                 Value = aux.ID_ROL
             };
 
-            aux = _mandiolaDbContext.Database.SqlQuery<USUARIO>("exec InsertUsuarioE @nombre, @apellido1, @apellido2, @correo, @telefono, @password, @User_name, @Id_rol", pNombre, pApellido1, pApellido2, pCorreo, pTelefono, pPassword, pUserName, pIdRol).FirstOrDefault();
+            aux = _mandiolaDbContext.Database.SqlQuery<USUARIO>("exec InsertUsuarios @nombre, @apellido1, @apellido2, @correo, @telefono, @password, @User_name, @Id_rol", pNombre, pApellido1, pApellido2, pCorreo, pTelefono, pPassword, pUserName, pIdRol).FirstOrDefault();
             return _mapper.Map<T>(aux);
         }
 
