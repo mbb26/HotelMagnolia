@@ -876,3 +876,73 @@ BEGIN
       SELECT '0'
    END
 END
+GO
+
+CREATE OR ALTER PROCEDURE InsertUsuarioE
+   (
+   @nombre varchar(200),
+   @apellido1 varchar(200),
+   @apellido2 varchar(200),
+   @correo varchar(200),
+   @telefono int,
+   @password varchar(200),
+   @User_name varchar(200),
+   @Id_rol int
+)
+AS
+DECLARE @ID varchar(200)
+DECLARE @nombreE varchar(200)
+DECLARE @apellido1E varchar(200)
+DECLARE @apellido2E varchar(200)
+DECLARE @correoE varchar(200)
+DECLARE @passwordE varchar(200)
+DECLARE @User_nameE varchar(200)
+
+EXEC @nombreE = EncodeString @nombre
+EXEC @apellido1E = EncodeString @apellido1
+EXEC @apellido2E = EncodeString @apellido2
+EXEC @correoE = EncodeString @correo
+EXEC @passwordE = EncodeString @password
+EXEC @User_nameE = EncodeString @User_name
+
+SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
+                CAST([valor]  AS VARCHAR(200))
+FROM [dbo].[CONSECUTIVO]
+WHERE Nombre = 'Usuario'
+
+INSERT INTO [dbo].[USUARIO]
+   ([ID_USUARIO],[NOMBRE],[APELLIDO1],[APELLIDO2],[CORREO],[TELEFONO],[PASSWORD],[USER_NAME],[ID_ROL])
+VALUES
+   (@ID, @nombreE, @apellido1E, @apellido2E, @correoE, @telefono, @passwordE, @User_nameE, @Id_rol)
+
+UPDATE [dbo].[CONSECUTIVO]
+        SET Valor = Valor + 1
+        WHERE Nombre ='Usuario'
+
+SELECT *
+FROM [dbo].[USUARIO]
+WHERE ID_USUARIO = @ID
+
+GO
+
+CREATE OR ALTER PROCEDURE EncodeString
+(
+   @EncodeIn NVARCHAR(200)
+)
+AS
+BEGIN
+   DECLARE      
+      @EncodeOut VARCHAR(500)  
+
+   SELECT @EncodeOut = 
+      CAST(N'' AS XML).value(
+            'xs:base64Binary(xs:hexBinary(sql:column("bin")))'
+         , 'VARCHAR(MAX)'
+      )
+   FROM (
+      SELECT CAST(@EncodeIn AS VARBINARY(MAX)) AS bin
+   ) AS bin_sql_server_temp;
+
+   SELECT @EncodeOut
+END
+GO
