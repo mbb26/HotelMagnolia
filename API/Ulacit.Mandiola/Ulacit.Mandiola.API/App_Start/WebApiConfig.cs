@@ -14,6 +14,7 @@ namespace Ulacit.Mandiola.API
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+            config.EnableCors();
 
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));
