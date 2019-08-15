@@ -83,7 +83,7 @@ namespace Ulacit.Mandiola.DB.Concrete
                 Value = aux.ID_ROL
             };
 
-            aux = _mandiolaDbContext.Database.SqlQuery<USUARIO>("exec InsertUsuarios @nombre, @apellido1, @apellido2, @correo, @telefono, @password, @User_name, @Id_rol", pNombre, pApellido1, pApellido2, pCorreo, pTelefono, pPassword, pUserName, pIdRol).FirstOrDefault();
+            aux = _mandiolaDbContext.Database.SqlQuery<USUARIO>("exec InsertUsuarioE @nombre, @apellido1, @apellido2, @correo, @telefono, @password, @User_name, @Id_rol", pNombre, pApellido1, pApellido2, pCorreo, pTelefono, pPassword, pUserName, pIdRol).FirstOrDefault();
             return _mapper.Map<T>(aux);
         }
 
