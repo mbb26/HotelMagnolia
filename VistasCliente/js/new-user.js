@@ -7,18 +7,20 @@ APP.newUser = (function() {
     var bindButtons = function() {
         $('.create-user').on('click', function(e) {
             e.preventDefault();
-            $('input[name="id_usuario"]').val(''+Math.floor(Math.random() * 100000)+10);
-            APP.functions.makeAPICall($api_user, 'create', 'POST', $('#create-user-form').serialize(),userCreated,userFailed);
+            if (APP.functions.validateForm($('#create-user-form'))) {
+                $('input[name="id_usuario"]').val(''+Math.floor(Math.random() * 100000)+10);
+                APP.functions.makeAPICall($api_user, 'create', 'POST', $('#create-user-form').serialize(),userCreated,userFailed);
+            }
         });
     };
 
     var userCreated = function(response) {
         console.log(response);
-    }
+    };
 
     var userFailed = function(response) {
         console.log(response);
-    }
+    };
 
     var init = function() {
         bindButtons();
@@ -26,9 +28,9 @@ APP.newUser = (function() {
 
     return {
         init: init
-    }
+    };
 }());
 
-window.onload = function() {
+$(window).on('load', function() {
     APP.newUser.init();
-}
+});

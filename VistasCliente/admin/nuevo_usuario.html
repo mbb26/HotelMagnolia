@@ -63,30 +63,81 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="hero-content">
-                        <form action="#" id="create-user-form">
+                        <form action="#" id="create-user-form" data-function="initialize">
                             <h2>Crear Nuevo Usuario</h2>
                             <h4>Nombre del Usuario:</h4>
                             <input type="hidden" name="id_rol" value="5" />
                             <input type="hidden" name="id_usuario" value="1">
-                            <input class="input" type="text" name="nombre" id="nombre"><br>
-                            <h4>Primer apellido:</h4>
-                            <input class="input" type="text" name="apellido1" id="apellido1"><br>
-                            <h4>Segundo apellido:</h4>
-                            <input class="input" type="text" name="apellido2" id="apellido2"><br>
-                            <h4>Email:</h4>
-                            <input class="input" type="text" name="correo" id="correo"><br>
-                            <h4>Telefono:</h4>
-                            <input class="input" type="number" name="telefono" id="telefono"><br>
-                            <h4>Nombre de Usuario:</h4>
-                            <input class="input" type="text" name="user_name" id="user_name">
-                            <a href="#" class="btn essence-btn">Confirmar exsistencia</a>
-                            <h4>Contraseña:</h4>
-                            <input class="input" type="password" name="password" id="password"><br>
-                            <h4>Confirmar Contraseña:</h4>
-                            <input class="input" type="password" name="confirmpass" id="confirmpass"><br>
-                            <a href="#" class="btn essence-btn create-user">Crear</a>
-                            <a href="#" class="btn">Cancelar</a>
-                            <br /><input type="reset" value="Restablecer" class="reset-form">
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="nombre">Nombre</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="nombre" name="nombre" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="nombre" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="apellido1">Primer Apellido</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="apellido1" name="apellido1" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="apellido1" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="apellido2">Segundo Apellido</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="apellido2" name="apellido2" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="apellido2" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="correo">Correo</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="correo" name="correo" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="correo" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="telefono">Teléfono</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="telefono" name="telefono" type="number">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="telefono" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="user_name">Nombre de Usuario</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="user_name" name="user_name" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="user_name" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a class="btn essence-btn check-availability" href="#">Verificar Disponibilidad</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="password">Contraseña</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="password" name="password" type="password">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="password" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="password-confirm">Verificar Contraseña</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank" id="password-confirm" name="password-confirm" type="password">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="password-confirm" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a class="btn essence-btn create-user" href="#">Crear</a>
+                                    <a class="btn btn-primary" href="/">Cancelar</a>
+                                </div>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="reset" value="Restablecer" class="reset-form">
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
