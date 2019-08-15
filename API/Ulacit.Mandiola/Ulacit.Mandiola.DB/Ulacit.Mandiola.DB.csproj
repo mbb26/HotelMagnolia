@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E037305B-81EF-4532-B66B-9B5F61D37C37}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ulacit.Mandiola.DB</RootNamespace>
+    <AssemblyName>Ulacit.Mandiola.DB</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\IActivityContext.cs" />
+    <Compile Include="Abstract\IArticleContext.cs" />
+    <Compile Include="Abstract\IBinacleTypeContext.cs" />
+    <Compile Include="Abstract\IBinnacleContext.cs" />
+    <Compile Include="Abstract\IClientContext.cs" />
+    <Compile Include="Abstract\IConsecutiveContext.cs" />
+    <Compile Include="Abstract\IPriceContext.cs" />
+    <Compile Include="Abstract\IReservationContext.cs" />
+    <Compile Include="Abstract\IReservationStateContext.cs" />
+    <Compile Include="Abstract\IRolContext.cs" />
+    <Compile Include="Abstract\IRoomContext.cs" />
+    <Compile Include="Abstract\IRoomTypeContext.cs" />
+    <Compile Include="Abstract\IUserContext.cs" />
+    <Compile Include="Concrete\UserContext.cs" />
+    <Compile Include="Concrete\RoomTypeContext.cs" />
+    <Compile Include="Concrete\BinacleTypeContext.cs" />
+    <Compile Include="Concrete\RolContext.cs" />
+    <Compile Include="Concrete\ReservationContext.cs" />
+    <Compile Include="Concrete\PriceContext.cs" />
+    <Compile Include="Concrete\RoomContext.cs" />
+    <Compile Include="Concrete\ReservationStateContext.cs" />
+    <Compile Include="Concrete\ClientContext.cs" />
+    <Compile Include="Concrete\BinnacleContext.cs" />
+    <Compile Include="Concrete\ArticleContext.cs" />
+    <Compile Include="Concrete\ActivityContext.cs" />
+    <Compile Include="Concrete\ConsecutiveContext.cs" />
+    <Compile Include="MandiolaDb\ACTIVIDAD.cs" />
+    <Compile Include="MandiolaDb\ARTICULO.cs" />
+    <Compile Include="MandiolaDb\BITACORA.cs" />
+    <Compile Include="MandiolaDb\CLIENTE.cs" />
+    <Compile Include="MandiolaDb\CONSECUTIVO.cs" />
+    <Compile Include="MandiolaDb\ESTADO_RESERVACION.cs" />
+    <Compile Include="MandiolaDb\HABITACION.cs" />
+    <Compile Include="MandiolaDb\MandiolaDbContext.cs" />
+    <Compile Include="MandiolaDb\PRECIO.cs" />
+    <Compile Include="MandiolaDb\RESERVACION.cs" />
+    <Compile Include="MandiolaDb\ROL.cs" />
+    <Compile Include="MandiolaDb\TIPO_BITACORA.cs" />
+    <Compile Include="MandiolaDb\TIPO_HABITACION.cs" />
+    <Compile Include="MandiolaDb\USUARIO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Ulacit.Mandiola.Common\Ulacit.Mandiola.Common.csproj">
+      <Project>{c95811e7-0ab1-496e-8081-541a53d9f942}</Project>
+      <Name>Ulacit.Mandiola.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ulacit.Mandiola.IoC\Ulacit.Mandiola.IoC.csproj">
+      <Project>{a1ce4839-006c-4c55-842d-01e088b7ca16}</Project>
+      <Name>Ulacit.Mandiola.IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ulacit.Mandiola.Model\Ulacit.Mandiola.Model.csproj">
+      <Project>{ecd25d23-c099-43b3-bde6-c41db620c421}</Project>
+      <Name>Ulacit.Mandiola.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
