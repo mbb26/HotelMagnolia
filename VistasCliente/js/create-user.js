@@ -11,7 +11,7 @@ APP.createUser = (function() {
             e.preventDefault();
             if (APP.functions.validateForm($form)) {
                 $('input[name="id_usuario"]').val(''+(Math.floor(Math.random() * 1000000)+9000000));
-                APP.functions.makeAPICall($api_user, 'create', 'POST', $form.serialize(),userCreated,userFailed);
+                APP.functions.makeAPICall($api_user, 'create', 'POST', $form.serialize(), userCreated, userFailed);
             }
         });
     };
