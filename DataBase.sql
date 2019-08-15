@@ -878,6 +878,49 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROCEDURE EncodeString
+(
+   @EncodeIn VARCHAR(200),
+   @EncodeOut VARCHAR(200) output
+)
+AS
+BEGIN
+
+   SELECT @EncodeOut = 
+      CAST(N'' AS XML).value(
+            'xs:base64Binary(xs:hexBinary(sql:column("bin")))'
+         , 'VARCHAR(MAX)'
+      )
+   FROM (
+      SELECT CAST(@EncodeIn AS VARBINARY(MAX)) AS bin
+   ) AS bin_sql_server_temp;
+
+END
+GO
+
+CREATE OR ALTER PROCEDURE DecodeString
+(
+   @DecodeIn VARCHAR(200),
+   @DecodeOut VARCHAR(200) output
+)
+AS
+BEGIN
+
+   SELECT @DecodeOut = 
+   CAST(
+      CAST(N'' AS XML).value(
+         'xs:base64Binary(sql:column("bin"))'
+         , 'VARBINARY(MAX)'
+      ) 
+      AS VARCHAR(MAX)
+   ) 
+   FROM (
+      SELECT CAST(@DecodeIn AS VARCHAR(MAX)) AS bin
+   ) AS bin_sql_server_temp;
+
+END
+GO
+
 CREATE OR ALTER PROCEDURE InsertUsuarioE
    (
    @nombre varchar(200),
@@ -898,12 +941,12 @@ DECLARE @correoE varchar(200)
 DECLARE @passwordE varchar(200)
 DECLARE @User_nameE varchar(200)
 
-EXEC @nombreE = EncodeString @nombre
-EXEC @apellido1E = EncodeString @apellido1
-EXEC @apellido2E = EncodeString @apellido2
-EXEC @correoE = EncodeString @correo
-EXEC @passwordE = EncodeString @password
-EXEC @User_nameE = EncodeString @User_name
+EXEC EncodeString @nombre, @nombreE output
+EXEC EncodeString @apellido1, @apellido1E output
+EXEC EncodeString @apellido2, @apellido2E output
+EXEC EncodeString @correo, @correoE output
+EXEC EncodeString @password, @passwordE output
+EXEC EncodeString @User_name, @User_nameE output
 
 SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
@@ -923,26 +966,4 @@ SELECT *
 FROM [dbo].[USUARIO]
 WHERE ID_USUARIO = @ID
 
-GO
-
-CREATE OR ALTER PROCEDURE EncodeString
-(
-   @EncodeIn NVARCHAR(200)
-)
-AS
-BEGIN
-   DECLARE      
-      @EncodeOut VARCHAR(500)  
-
-   SELECT @EncodeOut = 
-      CAST(N'' AS XML).value(
-            'xs:base64Binary(xs:hexBinary(sql:column("bin")))'
-         , 'VARCHAR(MAX)'
-      )
-   FROM (
-      SELECT CAST(@EncodeIn AS VARBINARY(MAX)) AS bin
-   ) AS bin_sql_server_temp;
-
-   SELECT @EncodeOut
-END
 GO
