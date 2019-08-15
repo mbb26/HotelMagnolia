@@ -37,28 +37,29 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Create<T>(T entity)
         {
             var aux = _mapper.Map<USUARIO>(entity);
+            aux = Cypher.EncryptObject(aux) as USUARIO;
 
             var pNombre = new SqlParameter
             {
                 ParameterName = "nombre",
-                Value = Cypher.Encrypt(aux.NOMBRE)
+                Value = aux.NOMBRE
             };
 
             var pApellido1 = new SqlParameter
             {
                 ParameterName = "apellido1",
-                Value = Cypher.Encrypt(aux.APELLIDO1)
+                Value = aux.APELLIDO1
             };
             var pApellido2 = new SqlParameter
             {
                 ParameterName = "apellido2",
-                Value = Cypher.Encrypt(aux.APELLIDO2)
+                Value = aux.APELLIDO2
             };
 
             var pCorreo = new SqlParameter
             {
                 ParameterName = "correo",
-                Value = Cypher.Encrypt(aux.CORREO)
+                Value = aux.CORREO
             };
 
             var pTelefono = new SqlParameter
@@ -70,13 +71,13 @@ namespace Ulacit.Mandiola.DB.Concrete
             var pPassword = new SqlParameter
             {
                 ParameterName = "password",
-                Value = Cypher.Encrypt(aux.PASSWORD)
+                Value = aux.PASSWORD
             };
 
             var pUserName = new SqlParameter
             {
                 ParameterName = "User_name",
-                Value = Cypher.Encrypt(aux.USER_NAME)
+                Value = aux.USER_NAME
             };
             var pIdRol = new SqlParameter
             {
@@ -85,6 +86,8 @@ namespace Ulacit.Mandiola.DB.Concrete
             };
 
             aux = _mandiolaDbContext.Database.SqlQuery<USUARIO>("exec InsertUsuarios @nombre, @apellido1, @apellido2, @correo, @telefono, @password, @User_name, @Id_rol", pNombre, pApellido1, pApellido2, pCorreo, pTelefono, pPassword, pUserName, pIdRol).FirstOrDefault();
+            aux = Cypher.DecryptObject(aux) as USUARIO;
+
             return _mapper.Map<T>(aux);
         }
 
