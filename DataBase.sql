@@ -898,8 +898,8 @@ GO
 
 CREATE OR ALTER PROCEDURE ValidateUser
 (
-   @Username NVARCHAR(20),
-   @Password NVARCHAR(20)
+   @Username NVARCHAR(200),
+   @Password NVARCHAR(200)
 )
 AS
 BEGIN
