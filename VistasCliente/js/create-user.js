@@ -1,21 +1,26 @@
 var APP = window.APP || {};
 
-APP.newUser = (function() {
+APP.createUser = (function() {
 
     var $api_user = 'User';
+    var $form_selector = '#create-user-form';
+    var $form = null;
 
     var bindButtons = function() {
         $('.create-user').on('click', function(e) {
             e.preventDefault();
-            if (APP.functions.validateForm($('#create-user-form'))) {
-                $('input[name="id_usuario"]').val(''+Math.floor(Math.random() * 100000)+10);
-                APP.functions.makeAPICall($api_user, 'create', 'POST', $('#create-user-form').serialize(),userCreated,userFailed);
+            if (APP.functions.validateForm($form)) {
+                $('input[name="id_usuario"]').val(''+(Math.floor(Math.random() * 1000000)+9000000));
+                APP.functions.makeAPICall($api_user, 'create', 'POST', $form.serialize(),userCreated,userFailed);
             }
         });
     };
 
     var userCreated = function(response) {
         console.log(response);
+        if ($form.length > 0) {
+            $form[0].reset();
+        }
     };
 
     var userFailed = function(response) {
@@ -23,6 +28,7 @@ APP.newUser = (function() {
     };
 
     var init = function() {
+        $form = $($form_selector);
         bindButtons();
     };
 
@@ -32,5 +38,5 @@ APP.newUser = (function() {
 }());
 
 $(window).on('load', function() {
-    APP.newUser.init();
+    APP.createUser.init();
 });
