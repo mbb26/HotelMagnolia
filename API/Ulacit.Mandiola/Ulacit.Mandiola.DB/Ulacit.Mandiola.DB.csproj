@@ -97,6 +97,7 @@
     <Compile Include="MandiolaDb\TIPO_HABITACION.cs" />
     <Compile Include="MandiolaDb\USUARIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Cypher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
