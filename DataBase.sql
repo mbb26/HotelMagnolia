@@ -832,7 +832,6 @@ CREATE OR ALTER PROCEDURE InsertUsuarios
    @password varchar(200),
    @User_name varchar(200),
    @Id_rol int
-
 )
 AS
 DECLARE @ID varchar(200)
@@ -850,7 +849,12 @@ VALUES
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
         WHERE Nombre ='Usuario'
-    GO
+
+SELECT *
+FROM [dbo].[USUARIO]
+WHERE ID_USUARIO = @ID
+
+GO
 
 CREATE OR ALTER PROCEDURE ValidateUser
    (
