@@ -1,4 +1,34 @@
-var Functions = (function() {
+var APP = window.APP || {};
+
+APP.functions = (function() {
+
+    var API_KEYS = {
+        root: 'http://localhost:44364/API/',
+        getAll: 'GetAll',
+        getById: 'GetById/',
+        create: 'Create',
+        update: 'Update',
+        delete: 'Delete'
+    }
+
+    var makeAPICall = function(apiName, apiCall, method, params, onSuccess, onError) {
+        $.ajax({
+            type: method,
+            url: API_KEYS.root+apiName+'/'+API_KEYS[apiCall],
+            data: params,
+            success: function (response) {
+                if (typeof(onSuccess) === 'function') {
+                    onSuccess(response);
+                }
+            },
+            error: function (error) {
+                if (typeof(onError) === 'function') {
+                    onError(error);
+                }
+            }
+        });
+    } 
+
     var bindButtons = function() {
         $('input:checkbox').each(function() {
             var $action = $(this).attr('data-action');
@@ -34,15 +64,20 @@ var Functions = (function() {
         }
     }
 
+    var getAPIKey = function(key) {
+        return API_KEYS[key];
+    }
+
     var init = function() {
         bindButtons();
     };
 
     return {
-        init: init
+        init: init,
+        makeAPICall: makeAPICall
     }
 }());
 
 window.onload = function() {
-    Functions.init();
+    APP.functions.init();
 }

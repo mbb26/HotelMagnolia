@@ -4,11 +4,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Ulacit.Mandiola.API.Models;
 
 namespace Ulacit.Mandiola.API.Controllers
 {
     /// <summary>A controller for handling base apis.</summary>
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BaseApiController : ApiController
     {
         /// <summary>The server watch.</summary>

@@ -16,6 +16,7 @@
     <script src="../js/jquery-3.4.1.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/functions.js"></script>
+    <script src="../js/new-user.js"></script>
 
 </head>
 
@@ -62,25 +63,29 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="hero-content">
-                        <form action="#">
+                        <form action="#" id="create-user-form">
                             <h2>Crear Nuevo Usuario</h2>
                             <h4>Nombre del Usuario:</h4>
-                            <input class="input" type="text" name="txtUser" id="txtUser"><br>
+                            <input type="hidden" name="id_rol" value="5" />
+                            <input type="hidden" name="id_usuario" value="1">
+                            <input class="input" type="text" name="nombre" id="nombre"><br>
                             <h4>Primer apellido:</h4>
-                            <input class="input" type="password" name="password" id="password"><br>
+                            <input class="input" type="text" name="apellido1" id="apellido1"><br>
                             <h4>Segundo apellido:</h4>
-                            <input class="input" type="password" name="password" id="password"><br>
+                            <input class="input" type="text" name="apellido2" id="apellido2"><br>
                             <h4>Email:</h4>
-                            <input class="input" type="text" name="email" id="email"><br>
+                            <input class="input" type="text" name="correo" id="correo"><br>
+                            <h4>Telefono:</h4>
+                            <input class="input" type="number" name="telefono" id="telefono"><br>
                             <h4>Nombre de Usuario:</h4>
-                            <input class="input" type="password" name="confirmpass" id="confirmpass">
-                            <a href="lista_usuarios.html" class="btn essence-btn">Confirmar exsistencia</a>
+                            <input class="input" type="text" name="user_name" id="user_name">
+                            <a href="#" class="btn essence-btn">Confirmar exsistencia</a>
                             <h4>Contraseña:</h4>
-                            <input class="input" type="password" name="confirmpass" id="confirmpass"><br>
+                            <input class="input" type="password" name="password" id="password"><br>
                             <h4>Confirmar Contraseña:</h4>
                             <input class="input" type="password" name="confirmpass" id="confirmpass"><br>
-                            <a href="lista_usuarios.html" class="btn essence-btn">Crear</a>
-                            <a href="lista_usuarios.html" class="btn">Cancelar</a>
+                            <a href="#" class="btn essence-btn create-user">Crear</a>
+                            <a href="#" class="btn">Cancelar</a>
                             <br /><input type="reset" value="Restablecer" class="reset-form">
                         </form>
                     </div>
