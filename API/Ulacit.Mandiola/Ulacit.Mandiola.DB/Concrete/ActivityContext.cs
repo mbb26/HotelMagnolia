@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using AutoMapper;
 using Ulacit.Mandiola.DB.Abstract;
@@ -35,8 +36,54 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Create<T>(T entity)
         {
             var aux = _mapper.Map<ACTIVIDAD>(entity);
-            _mandiolaDbContext.ACTIVIDADs.Add(aux);
-            _mandiolaDbContext.SaveChanges();
+
+            var pName = new SqlParameter
+            {
+                ParameterName = "Nombre",
+                Value = aux.NOMBRE
+            };
+            var pDescription = new SqlParameter
+            {
+                ParameterName = "Descripcion",
+                Value = aux.DESCRIPCION
+            };
+
+            var pImage = new SqlParameter
+            {
+                ParameterName = "Img",
+                Value = aux.IMG
+            };
+
+            var pLogUserId = new SqlParameter
+            {
+                ParameterName = "LOG_UserID",
+                Value = 1
+            };
+
+            var pLogDate = new SqlParameter
+            {
+                ParameterName = "LOG_fecha",
+                Value = DateTime.Now
+            };
+
+            var pLogType = new SqlParameter
+            {
+                ParameterName = "LOG_Tipo",
+                Value = 1
+            };
+            var pLogDesc = new SqlParameter
+            {
+                ParameterName = "LOG_Desc",
+                Value = "Testing"
+            };
+
+            var pLogDetail = new SqlParameter
+            {
+                ParameterName = "LOG_Detalle",
+                Value = "Testing"
+            };
+
+            aux = _mandiolaDbContext.Database.SqlQuery<ACTIVIDAD>("exec InsertActividad @Nombre, @Descripcion, @Img, @LOG_UserID, @LOG_fecha, @LOG_Tipo, @LOG_Desc, @LOG_Detalle", pName, pDescription, pImage, pLogUserId, pLogDate, pLogType, pLogDesc, pLogDetail).FirstOrDefault();
             return _mapper.Map<T>(aux);
         }
 
