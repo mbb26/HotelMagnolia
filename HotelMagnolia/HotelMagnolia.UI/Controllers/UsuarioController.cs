@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HotelMagnolia.UI.Models;
+using HotelMagnolia.UI.Util;
 
 namespace HotelMagnolia.UI.Controllers
 {
@@ -100,7 +101,11 @@ namespace HotelMagnolia.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogIn([Bind(Include = "PASSWORD,USER_NAME")] USUARIO uSUARIO)
         {
-            string result = db.ValidateUser(uSUARIO.USER_NAME, uSUARIO.PASSWORD).FirstOrDefault();
+            System.Diagnostics.Debug.WriteLine("User: " + Cypher.Encrypt(uSUARIO.USER_NAME));
+            System.Diagnostics.Debug.WriteLine("Pass: " + Cypher.Encrypt(uSUARIO.PASSWORD));
+            string result = db.ValidateUser(Cypher.Encrypt(uSUARIO.USER_NAME), Cypher.Encrypt(uSUARIO.PASSWORD)).FirstOrDefault();
+
+            System.Diagnostics.Debug.WriteLine("Result: " + result);
             USUARIO User = db.USUARIOs.Find(result);
 
             if (User != null) {
