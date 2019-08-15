@@ -853,31 +853,6 @@ WHERE ID_USUARIO = @ID
 
 GO
 
-CREATE OR ALTER PROCEDURE ValidateUser
-   (
-   @Username NVARCHAR(20),
-   @Password NVARCHAR(20)
-)
-AS
-BEGIN
-   SET NOCOUNT ON;
-   DECLARE @UserId VARCHAR(max)
-
-   SELECT @UserId = ID_USUARIO
-   FROM [dbo].[USUARIO]
-   WHERE USER_NAME = @Username AND [Password] = @Password
-
-   IF @UserId IS NOT NULL
-         BEGIN
-      SELECT @UserId [UserId]
-   END
-         ELSE
-         BEGIN
-      SELECT '0'
-   END
-END
-GO
-
 CREATE OR ALTER PROCEDURE EncodeString
 (
    @EncodeIn VARCHAR(200),
@@ -921,6 +896,37 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROCEDURE ValidateUser
+(
+   @Username NVARCHAR(20),
+   @Password NVARCHAR(20)
+)
+AS
+BEGIN
+   SET NOCOUNT ON;
+   DECLARE 
+      @UserId VARCHAR(MAX),
+      @UsernameE VARCHAR(200),
+      @PasswordE VARCHAR(200)
+
+   EXEC EncodeString @Username, @UsernameE output
+   EXEC EncodeString @Password, @PasswordE output
+
+   SELECT @UserId = ID_USUARIO
+   FROM [dbo].[USUARIO]
+   WHERE USER_NAME = @Username AND [Password] = @Password
+
+   IF @UserId IS NOT NULL
+         BEGIN
+      SELECT @UserId [UserId]
+   END
+         ELSE
+         BEGIN
+      SELECT '0'
+   END
+END
+GO
+
 CREATE OR ALTER PROCEDURE InsertUsuarioE
    (
    @nombre varchar(200),
@@ -933,13 +939,14 @@ CREATE OR ALTER PROCEDURE InsertUsuarioE
    @Id_rol int
 )
 AS
-DECLARE @ID varchar(200)
-DECLARE @nombreE varchar(200)
-DECLARE @apellido1E varchar(200)
-DECLARE @apellido2E varchar(200)
-DECLARE @correoE varchar(200)
-DECLARE @passwordE varchar(200)
-DECLARE @User_nameE varchar(200)
+DECLARE 
+   @ID varchar(200), 
+   @nombreE varchar(200),
+   @apellido1E varchar(200),
+   @apellido2E varchar(200),
+   @correoE varchar(200),
+   @passwordE varchar(200),
+   @User_nameE varchar(200)
 
 EXEC EncodeString @nombre, @nombreE output
 EXEC EncodeString @apellido1, @apellido1E output
@@ -966,4 +973,12 @@ SELECT *
 FROM [dbo].[USUARIO]
 WHERE ID_USUARIO = @ID
 
+GO
+
+-- INSERT BASE USERS
+EXEC InsertUsuarioE 'Armando', 'Arias', 'Alvarado', 'admin@mandiola.com', 12345678, '1234','admin', 1
+EXEC InsertUsuarioE 'Sergio', 'Solera', 'Salas', 'seguridad@mandiola.com', 12345678, '1234','seguridad', 2
+EXEC InsertUsuarioE 'Catalina', 'Corella', 'Crespo', 'consecutivo@mandiola.com', 12345678, '1234','consecutivo', 3
+EXEC InsertUsuarioE 'Manfred', 'Mora', 'Molina', 'mantenimiento@mandiola.com', 12345678, '1234','mantenimiento', 4
+EXEC InsertUsuarioE 'Carmen', 'Carrillos', 'Carranza', 'consulta@mandiola.com', 12345678, '1234','consulta', 5
 GO
