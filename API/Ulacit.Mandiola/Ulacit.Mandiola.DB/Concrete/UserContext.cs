@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using AutoMapper;
 using Ulacit.Mandiola.DB.Abstract;
@@ -35,8 +36,54 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Create<T>(T entity)
         {
             var aux = _mapper.Map<USUARIO>(entity);
-            _mandiolaDbContext.USUARIOs.Add(aux);
-            _mandiolaDbContext.SaveChanges();
+
+            var pNombre = new SqlParameter
+            {
+                ParameterName = "nombre",
+                Value = aux.NOMBRE
+            };
+
+            var pApellido1 = new SqlParameter
+            {
+                ParameterName = "apellido1",
+                Value = aux.APELLIDO1
+            };
+            var pApellido2 = new SqlParameter
+            {
+                ParameterName = "apellido2",
+                Value = aux.APELLIDO2
+            };
+
+            var pCorreo = new SqlParameter
+            {
+                ParameterName = "correo",
+                Value = aux.CORREO
+            };
+
+            var pTelefono = new SqlParameter
+            {
+                ParameterName = "telefono",
+                Value = aux.TELEFONO
+            };
+
+            var pPassword = new SqlParameter
+            {
+                ParameterName = "password",
+                Value = aux.PASSWORD
+            };
+
+            var pUserName = new SqlParameter
+            {
+                ParameterName = "User_name",
+                Value = aux.USER_NAME
+            };
+            var pIdRol = new SqlParameter
+            {
+                ParameterName = "Id_rol",
+                Value = aux.ID_ROL
+            };
+
+            aux = _mandiolaDbContext.Database.SqlQuery<USUARIO>("exec InsertUsuarios @nombre, @apellido1, @apellido2, @correo, @telefono, @password, @User_name, @Id_rol", pNombre, pApellido1, pApellido2, pCorreo, pTelefono, pPassword, pUserName, pIdRol).FirstOrDefault();
             return _mapper.Map<T>(aux);
         }
 
