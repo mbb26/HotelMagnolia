@@ -499,27 +499,27 @@ VALUES(02, 'Reservacion Sin Paga');
 /* Table: USER*/
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(01, 'Juanito', 'Pacheco', 'Mora', 'admin@hotelmandiola.com', 22222222, '123', 'admin', 01);
+VALUES(01, 'Y5FrHuiJOeErdCkpPswXQg==', 'VgIrRi6JlvRbEMoR4OFjlw==', 'WZedEVww1hvcXr/P0KzRFw==', 'ISItMpbtDt0ywpulp9JmSZEFvbdoLI4zfcxKYUCq2iM=', 22222222, 'nq41fV2izSIbZijx4QojzA==', 'lK8zoyxCYvGqfjHlaxngBQ==', 01);
  GO
 
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(02, 'Pedro', 'Pacheco', 'Mora', 'seguridad@hotelmandiola.com', 22222222, '123', 'seguridad', 02);
+VALUES(02, 'oHNO3thWk+7el20CVXbVVw==', 'VgIrRi6JlvRbEMoR4OFjlw==', 'WZedEVww1hvcXr/P0KzRFw==', 'FxlINjFKRiDHOg7isJzxxI02t9pI1yxikUMZRuvGaqc=', 22222222, 'nq41fV2izSIbZijx4QojzA==', 'ikJNAMkyczGDsuUQmAL+Yg==', 02);
  GO
 
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(03, 'Jose', 'Gomez', 'Ramirez', 'consecutivo@hotelmandiola.com', 22222222, '123', 'consecutivo', 03);
+VALUES(03, 'XxVx+SvMm9N+CFcazfxQzg==', 'XxVx+SvMm9N+CFcazfxQzg==', 'kPmdfW8iTfXiVubEnqc89w==', 'TKlqo1kKZoyFrYyrx9x+3HUdVA6J6ZQ9G8VS2YVnUzQ=', 22222222, 'nq41fV2izSIbZijx4QojzA==', 'MhKjc4KM1KUBXpCe8l6KCg==', 03);
  GO
 
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(04, 'Nidia', 'Agapito', 'Samanta', 'mantenimiento@hotelmandiola.com', 22222222, '123', 'mantenimiento', 04);
+VALUES(04, 'Q08xU0kyV4jAL9WAYBZVLw==', 'lRL/ZH945+LM3tjTL1frnQ==', 'B8UiashgUeB2EoUOSW6ebA==', 'hrCjlXXyDHA07IKzSz9qdjry6zpr94vcl5fwGb+2eJI=', 22222222, 'nq41fV2izSIbZijx4QojzA==', '0hpu373H3ybfkdZld785SQ==', 04);
  GO
 
 INSERT INTO USUARIO
    (ID_USUARIO, NOMBRE,APELLIDO1,APELLIDO2,CORREO,TELEFONO,PASSWORD,USER_NAME,ID_ROL)
-VALUES(05, 'Laurita', 'Ruperta', 'Luisita', 'consulta@hotelmandiola.com', 22222222, '123', 'consulta', 05);
+VALUES(05, 'pozdVHfpUojpBB5ahU19kg==', '4jINuBjvWEiADoXOrKPmOw==', 'mwZCmnWbMY74uLZnRqtfig==', 'NRXmjveQnOdneonnyoumYWmQUnjncV2uEzCyfw2+q90=', 22222222, 'nq41fV2izSIbZijx4QojzA==', '5I27yKsLRWQoohgE4jmrew==', 05);
  GO
 
 /* Table: Precio*/
@@ -536,7 +536,6 @@ VALUES(05, 'Laurita', 'Ruperta', 'Luisita', 'consulta@hotelmandiola.com', 222222
 CREATE OR ALTER PROCEDURE InsertBitacora
    (
    @ID_Usuario varchar(200),
-   @Fecha smalldatetime,
    @Tipo int,
    @Descripcion varchar(200),
    @Registro_en_detalle varchar(200),
@@ -544,16 +543,19 @@ CREATE OR ALTER PROCEDURE InsertBitacora
 )
 AS
 DECLARE @ID varchar(200)
+DECLARE @Fecha SMALLDATETIME
 
 SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
 FROM [dbo].[CONSECUTIVO]
 WHERE Nombre = 'Bitacora'
 
+SELECT @Fecha = CAST(GETDATE() AS SMALLDATETIME)
+
 INSERT INTO [dbo].[BITACORA]
    ([ID_BITACORA],[ID_USUARIO],[Fecha],[Codigo],[Tipo],[Descripcion],[Registro_en_detalle])
 VALUES
-   (@ID, @ID_Usuario, @Fecha,@Codigo, @Tipo, @Descripcion, @Registro_en_detalle)
+   (@ID, @ID_Usuario, @Fecha, @Codigo, @Tipo, @Descripcion, @Registro_en_detalle)
 
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
@@ -566,7 +568,6 @@ CREATE OR ALTER PROCEDURE InsertActividad
    @Descripcion varchar(200),
    @Img varchar(max),
    @LOG_UserID varchar(200),
-   @LOG_fecha smalldatetime,
    @LOG_Tipo int,
    @LOG_Desc varchar(200),
    @LOG_Detalle varchar(200)
@@ -585,7 +586,7 @@ VALUES
    (@ID, @Nombre, @Descripcion, @Img)
 
 
-EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_Detalle,@ID
+EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_Detalle, @ID
 
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
@@ -607,7 +608,6 @@ CREATE OR ALTER PROCEDURE InsertHabitacion
    @Descripcion varchar(250),
    @Foto varchar(250),
    @LOG_UserID varchar(200),
-   @LOG_fecha smalldatetime,
    @LOG_Tipo int,
    @LOG_Desc varchar(200),
    @LOG_Detalle varchar(200)
@@ -627,8 +627,7 @@ VALUES
    (@ID, @Numero, @Nombre, @descripcion, @foto, @Tipo_Habitacion, @ID_Precio)
 
 
-
-EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle,@ID
+EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_detalle, @ID
 
 UPDATE [dbo].[CONSECUTIVO]
             SET Valor = Valor + 1
@@ -641,7 +640,6 @@ CREATE OR ALTER PROCEDURE InsertPrecios
    @Tipo_Precio varchar(200),
    @Precio int,
    @LOG_UserID varchar(200),
-   @LOG_fecha smalldatetime,
    @LOG_Tipo int,
    @LOG_Desc varchar(200),
    @LOG_Detalle varchar(200)
@@ -661,7 +659,7 @@ VALUES
    (@ID, @Tipo_Precio, @Precio)
 
 
-EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle,@ID
+EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_detalle, @ID
 
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
@@ -676,7 +674,6 @@ CREATE OR ALTER PROCEDURE InsertReservacion
    @Tipo_Habitacion int,
    @Estado int,
    @LOG_UserID varchar(200),
-   @LOG_fecha smalldatetime,
    @LOG_Tipo int,
    @LOG_Desc varchar(200),
    @LOG_Detalle varchar(200)
@@ -695,7 +692,7 @@ VALUES
    (@ID, @ID_Cliente, @Fecha_Entrada, @Fecha_Salida, @Tipo_Habitacion, @Estado)
 
 
-EXEC InsertBitacora @LOG_UserID,@LOG_fecha,@LOG_Tipo,@LOG_Desc, @LOG_detalle
+EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_detalle
 
 UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
