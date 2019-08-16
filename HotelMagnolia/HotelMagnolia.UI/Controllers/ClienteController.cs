@@ -62,7 +62,7 @@ namespace HotelMagnolia.UI.Controllers
                 cLIENTE.NOMBRE = Util.Cypher.Encrypt(cLIENTE.NOMBRE);
                 String logDetalle = "IDCliente:" + cLIENTE.ID_CLIENTE+ "Nombre" + cLIENTE.NOMBRE + "/Activo:" + cLIENTE.ACTIVO.ToString() +"/IDHabitacion:"+cLIENTE.ID_HABITACION;
                 logDetalle = Util.Cypher.Encrypt(logDetalle);
-                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 01, "Insertar cliente", logDetalle , cLIENTE.ID_CLIENTE.ToString());
+                db.InsertBitacora(usuarioSesion.ID_USUARIO,  01, "Insertar cliente", logDetalle , cLIENTE.ID_CLIENTE.ToString());
                 db.CLIENTEs.Add(cLIENTE);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -103,7 +103,7 @@ namespace HotelMagnolia.UI.Controllers
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
                 String logDetalle = "IDCliente:" + cLIENTE.ID_CLIENTE + "Nombre" + cLIENTE.NOMBRE + "/Activo:" + cLIENTE.ACTIVO.ToString() + "/IDHabitacion:" + cLIENTE.ID_HABITACION;
                 logDetalle = Util.Cypher.Encrypt(logDetalle);
-                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 02, "Modificar cliente", logDetalle, cLIENTE.ID_CLIENTE.ToString());
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, 02, "Modificar cliente", logDetalle, cLIENTE.ID_CLIENTE.ToString());
                 cLIENTE.NOMBRE = Util.Cypher.Encrypt(cLIENTE.NOMBRE);
                 db.Entry(cLIENTE).State = EntityState.Modified;
                 db.SaveChanges();
@@ -139,7 +139,7 @@ namespace HotelMagnolia.UI.Controllers
             USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
             String logDetalle = "IDCliente:" + cLIENTE.ID_CLIENTE + "Nombre" + cLIENTE.NOMBRE + "/Activo:" + cLIENTE.ACTIVO.ToString() + "/IDHabitacion:" + cLIENTE.ID_HABITACION;
             logDetalle = Util.Cypher.Encrypt(logDetalle);
-            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 03, "Eliminar cliente", logDetalle, cLIENTE.ID_CLIENTE.ToString());
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, 03, "Eliminar cliente", logDetalle, cLIENTE.ID_CLIENTE.ToString());
 
             db.CLIENTEs.Remove(cLIENTE);
             db.SaveChanges();
