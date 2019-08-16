@@ -36,6 +36,8 @@ namespace HotelMagnolia.UI.Controllers
         {
             ActionResult resultado = View();
             USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            string detalle = "Usuario:" + uSUARIO.USER_NAME + "/Contraseña anterior:" + current_password + "/Contaseña nueva:" + new_password;
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 2, "Cambio Contraseña", detalle, uSUARIO.ID_USUARIO);
             current_password = Util.Cypher.Encrypt(current_password);
             new_password = Util.Cypher.Encrypt(new_password);
             confirm_password = Util.Cypher.Encrypt(confirm_password);
