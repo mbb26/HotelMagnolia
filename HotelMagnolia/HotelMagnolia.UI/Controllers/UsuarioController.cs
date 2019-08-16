@@ -36,6 +36,9 @@ namespace HotelMagnolia.UI.Controllers
         {
             ActionResult resultado = View();
             USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+            current_password = Util.Cypher.Encrypt(current_password);
+            new_password = Util.Cypher.Encrypt(new_password);
+            confirm_password = Util.Cypher.Encrypt(confirm_password);
             if (usuarioSesion == null)
             {
                 resultado = RedirectToAction("Index", "Home");
@@ -62,7 +65,7 @@ namespace HotelMagnolia.UI.Controllers
                         {
                             usuarioSesion.PASSWORD = new_password;
                             Session["Usuario"] = usuarioSesion;
-
+                            
                             db.Entry(usuarioSesion).State = EntityState.Modified;
                             db.SaveChanges();
                             TempData["SuccessMessage"] = "La contraseña ha sido cambiada con éxito";
@@ -103,6 +106,7 @@ namespace HotelMagnolia.UI.Controllers
         {
             System.Diagnostics.Debug.WriteLine("User: " + Cypher.Encrypt(uSUARIO.USER_NAME));
             System.Diagnostics.Debug.WriteLine("Pass: " + Cypher.Encrypt(uSUARIO.PASSWORD));
+
             string result = db.ValidateUser(Cypher.Encrypt(uSUARIO.USER_NAME), Cypher.Encrypt(uSUARIO.PASSWORD)).FirstOrDefault();
 
             System.Diagnostics.Debug.WriteLine("Result: " + result);
@@ -127,6 +131,15 @@ namespace HotelMagnolia.UI.Controllers
             if (usuarioSesion != null && PERMISOS_ADMIN_SEGURIDAD.IndexOf(usuarioSesion.ID_ROL.ToString()) > -1)
             {
                 var uSUARIOs = db.USUARIOs.Include(u => u.ROL);
+                List<USUARIO> ListaUsers = uSUARIOs.ToList();
+                foreach(USUARIO i in ListaUsers)
+                {
+                    i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
+                    i.APELLIDO1 = Util.Cypher.Decrypt(i.APELLIDO1);
+                    i.APELLIDO2 = Util.Cypher.Decrypt(i.APELLIDO2);
+                    i.CORREO = Util.Cypher.Decrypt(i.CORREO);
+                    i.USER_NAME = Util.Cypher.Decrypt(i.USER_NAME);
+                }
                 return View(uSUARIOs.ToList());
             }
             else
