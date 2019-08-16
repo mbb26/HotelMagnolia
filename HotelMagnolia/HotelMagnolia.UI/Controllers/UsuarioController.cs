@@ -40,7 +40,6 @@ namespace HotelMagnolia.UI.Controllers
             string detalle = "Usuario:" + uSUARIO.USER_NAME + "/Contraseña anterior:" + current_password + "/Contaseña nueva:" + new_password;
             detalle = Util.Cypher.Encrypt(detalle);
             string userid = usuarioSesion.ID_USUARIO;
-            Debug.WriteLine("TEST" + userid);
             db.InsertBitacora(usuarioSesion.ID_USUARIO, 2, "Cambio Contraseña", detalle,userid);
             current_password = Util.Cypher.Encrypt(current_password);
             new_password = Util.Cypher.Encrypt(new_password);
