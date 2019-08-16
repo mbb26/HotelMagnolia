@@ -24,9 +24,9 @@
         <th>
             Tipo
         </th>
-        <th>
+        @*<th>
             Usuario
-        </th>
+        </th>*@
         <th colspan="3">Acciones</th>
     </tr>
 
@@ -47,9 +47,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.TIPO_BITACORA.NOMBRE)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.USUARIO.NOMBRE)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.ID_BITACORA })
         </td>

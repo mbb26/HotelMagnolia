@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="mandiolaModel.CLIENTE" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="mandiolaModel.CONSECUTIVO" Width="1.5" PointX="9.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="mandiolaModel.ESTADO_RESERVACION" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="mandiolaModel.HABITACION" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="mandiolaModel.PRECIO" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mandiolaModel.RESERVACION" Width="1.5" PointX="10.5" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="mandiolaModel.ROL" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
@@ -21,13 +20,13 @@
         <AssociationConnector Association="mandiolaModel.FK_ARTICULO_REFERENCE_PRECIO" ManuallyRouted="false" />
         <AssociationConnector Association="mandiolaModel.FK_BITACORA_REFERENCE_TIPO_BITACORA" ManuallyRouted="false" />
         <AssociationConnector Association="mandiolaModel.FK_BITACORA_REFERENCE_USER" ManuallyRouted="false" />
-        <AssociationConnector Association="mandiolaModel.FK_CLIENTE_REFERENCE_HABITACION" ManuallyRouted="false" />
         <AssociationConnector Association="mandiolaModel.FK_RESERVAC_REFERENCE_CLIENTE" ManuallyRouted="false" />
         <AssociationConnector Association="mandiolaModel.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" ManuallyRouted="false" />
-        <AssociationConnector Association="mandiolaModel.FK_HABITACI_REFERENCE_PRECIO" ManuallyRouted="false" />
-        <AssociationConnector Association="mandiolaModel.FK_HABITACI_REFERENCE_TIPO" ManuallyRouted="false" />
         <AssociationConnector Association="mandiolaModel.FK_RESERVAC_REFERENCE_TIPO" ManuallyRouted="false" />
         <AssociationConnector Association="mandiolaModel.FK_USUARIO_REFERENCE_ROL" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="mandiolaModel.HABITACION" Width="1.5" PointX="6" PointY="1.75" />
+        <AssociationConnector Association="mandiolaModel.FK_HABITACI_REFERENCE_PRECIO" />
+        <AssociationConnector Association="mandiolaModel.FK_HABITACI_REFERENCE_TIPO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

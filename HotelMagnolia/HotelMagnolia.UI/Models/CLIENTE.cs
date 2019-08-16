@@ -25,7 +25,6 @@ namespace HotelMagnolia.UI.Models
         public bool ACTIVO { get; set; }
         public string ID_HABITACION { get; set; }
     
-        public virtual HABITACION HABITACION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RESERVACION> RESERVACIONs { get; set; }
     }

@@ -64,7 +64,7 @@ namespace HotelMagnolia.UI.Controllers
                 aCTIVIDAD.NOMBRE = Util.Cypher.Encrypt(aCTIVIDAD.NOMBRE);
                 aCTIVIDAD.DESCRIPCION = Util.Cypher.Encrypt(aCTIVIDAD.DESCRIPCION);
                 logDetalle = Util.Cypher.Encrypt(logDetalle);
-                db.InsertActividad(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG, usuarioSesion.ID_USUARIO, DateTime.Now, 01, "Nueva actividad", logDetalle);
+                db.InsertActividad(aCTIVIDAD.NOMBRE, aCTIVIDAD.DESCRIPCION, aCTIVIDAD.IMG, usuarioSesion.ID_USUARIO, 01, "Nueva actividad", logDetalle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

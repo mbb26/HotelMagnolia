@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="mandiolaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="mandiolaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="ID_ACTIVIDAD" />
@@ -75,6 +75,7 @@
           <Property Name="FOTO" Type="varchar(max)" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="int" Nullable="false" />
           <Property Name="ID_PRECIO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DISPONIBLE" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PRECIO">
           <Key>
@@ -167,18 +168,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CLIENTE_REFERENCE_HABITACION">
-          <End Role="HABITACION" Type="Self.HABITACION" Multiplicity="0..1" />
-          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HABITACION">
-              <PropertyRef Name="ID_HABITACION" />
-            </Principal>
-            <Dependent Role="CLIENTE">
-              <PropertyRef Name="ID_HABITACION" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HABITACI_REFERENCE_PRECIO">
           <End Role="PRECIO" Type="Self.PRECIO" Multiplicity="1" />
           <End Role="HABITACION" Type="Self.HABITACION" Multiplicity="*" />
@@ -251,19 +240,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DecodeString" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DecodeIn" Type="varchar" Mode="In" />
+          <Parameter Name="DecodeOut" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="EncodeString" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EncodeIn" Type="varchar" Mode="In" />
+          <Parameter Name="EncodeOut" Type="varchar" Mode="InOut" />
+        </Function>
         <Function Name="InsertActividad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Img" Type="varchar(max)" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
-          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
           <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertBitacora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Usuario" Type="varchar" Mode="In" />
-          <Parameter Name="Fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="Tipo" Type="int" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Registro_en_detalle" Type="varchar" Mode="In" />
@@ -277,7 +272,6 @@
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Foto" Type="varchar" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
-          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
           <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
@@ -303,6 +297,16 @@
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
           <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="InsertUsuarioE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido1" Type="varchar" Mode="In" />
+          <Parameter Name="apellido2" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="int" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="User_name" Type="varchar" Mode="In" />
+          <Parameter Name="Id_rol" Type="int" Mode="In" />
+        </Function>
         <Function Name="InsertUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
           <Parameter Name="apellido1" Type="varchar" Mode="In" />
@@ -312,6 +316,9 @@
           <Parameter Name="password" Type="varchar" Mode="In" />
           <Parameter Name="User_name" Type="varchar" Mode="In" />
           <Parameter Name="Id_rol" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsernameAvailable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="ValidateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Username" Type="nvarchar" Mode="In" />
@@ -343,10 +350,6 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="BITACORA" EntitySet="BITACORA" />
           </AssociationSet>
-          <AssociationSet Name="FK_CLIENTE_REFERENCE_HABITACION" Association="Self.FK_CLIENTE_REFERENCE_HABITACION">
-            <End Role="HABITACION" EntitySet="HABITACION" />
-            <End Role="CLIENTE" EntitySet="CLIENTE" />
-          </AssociationSet>
           <AssociationSet Name="FK_HABITACI_REFERENCE_PRECIO" Association="Self.FK_HABITACI_REFERENCE_PRECIO">
             <End Role="PRECIO" EntitySet="PRECIO" />
             <End Role="HABITACION" EntitySet="HABITACION" />
@@ -372,8 +375,7 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="mandiolaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -418,7 +420,6 @@
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ACTIVO" Type="Boolean" Nullable="false" />
           <Property Name="ID_HABITACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="HABITACION" Relationship="Self.FK_CLIENTE_REFERENCE_HABITACION" FromRole="CLIENTE" ToRole="HABITACION" />
           <NavigationProperty Name="RESERVACIONs" Relationship="Self.FK_RESERVAC_REFERENCE_CLIENTE" FromRole="CLIENTE" ToRole="RESERVACION" />
         </EntityType>
         <EntityType Name="CONSECUTIVO">
@@ -442,21 +443,6 @@
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="RESERVACIONs" Relationship="Self.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" FromRole="ESTADO_RESERVACION" ToRole="RESERVACION" />
         </EntityType>
-        <EntityType Name="HABITACION">
-          <Key>
-            <PropertyRef Name="ID_HABITACION" />
-          </Key>
-          <Property Name="ID_HABITACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NUMERO" Type="Int32" Nullable="false" />
-          <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FOTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TIPO_HABITACION" Type="Int32" Nullable="false" />
-          <Property Name="ID_PRECIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="CLIENTEs" Relationship="Self.FK_CLIENTE_REFERENCE_HABITACION" FromRole="HABITACION" ToRole="CLIENTE" />
-          <NavigationProperty Name="PRECIO" Relationship="Self.FK_HABITACI_REFERENCE_PRECIO" FromRole="HABITACION" ToRole="PRECIO" />
-          <NavigationProperty Name="TIPO_HABITACION1" Relationship="Self.FK_HABITACI_REFERENCE_TIPO" FromRole="HABITACION" ToRole="TIPO_HABITACION" />
-        </EntityType>
         <EntityType Name="PRECIO">
           <Key>
             <PropertyRef Name="ID_PRECIO" />
@@ -465,7 +451,7 @@
           <Property Name="TIPO_PRECIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PRECIO1" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ARTICULOes" Relationship="Self.FK_ARTICULO_REFERENCE_PRECIO" FromRole="PRECIO" ToRole="ARTICULO" />
-          <NavigationProperty Name="HABITACIONs" Relationship="Self.FK_HABITACI_REFERENCE_PRECIO" FromRole="PRECIO" ToRole="HABITACION" />
+          <NavigationProperty Name="HABITACIONs" Relationship="mandiolaModel.FK_HABITACI_REFERENCE_PRECIO" FromRole="PRECIO" ToRole="HABITACION" />
         </EntityType>
         <EntityType Name="RESERVACION">
           <Key>
@@ -504,8 +490,8 @@
           <Property Name="ID_TIPO_HABITACION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="HABITACIONs" Relationship="Self.FK_HABITACI_REFERENCE_TIPO" FromRole="TIPO_HABITACION" ToRole="HABITACION" />
           <NavigationProperty Name="RESERVACIONs" Relationship="Self.FK_RESERVAC_REFERENCE_TIPO" FromRole="TIPO_HABITACION" ToRole="RESERVACION" />
+          <NavigationProperty Name="HABITACIONs" Relationship="mandiolaModel.FK_HABITACI_REFERENCE_TIPO" FromRole="TIPO_HABITACION" ToRole="HABITACION" />
         </EntityType>
         <EntityType Name="USUARIO">
           <Key>
@@ -559,18 +545,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CLIENTE_REFERENCE_HABITACION">
-          <End Role="HABITACION" Type="Self.HABITACION" Multiplicity="0..1" />
-          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HABITACION">
-              <PropertyRef Name="ID_HABITACION" />
-            </Principal>
-            <Dependent Role="CLIENTE">
-              <PropertyRef Name="ID_HABITACION" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RESERVAC_REFERENCE_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
           <End Role="RESERVACION" Type="Self.RESERVACION" Multiplicity="*" />
@@ -592,30 +566,6 @@
             </Principal>
             <Dependent Role="RESERVACION">
               <PropertyRef Name="ESTADO_RESERVACION" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HABITACI_REFERENCE_PRECIO">
-          <End Role="PRECIO" Type="Self.PRECIO" Multiplicity="1" />
-          <End Role="HABITACION" Type="Self.HABITACION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRECIO">
-              <PropertyRef Name="ID_PRECIO" />
-            </Principal>
-            <Dependent Role="HABITACION">
-              <PropertyRef Name="ID_PRECIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HABITACI_REFERENCE_TIPO">
-          <End Role="TIPO_HABITACION" Type="Self.TIPO_HABITACION" Multiplicity="1" />
-          <End Role="HABITACION" Type="Self.HABITACION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TIPO_HABITACION">
-              <PropertyRef Name="ID_TIPO_HABITACION" />
-            </Principal>
-            <Dependent Role="HABITACION">
-              <PropertyRef Name="TIPO_HABITACION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -650,7 +600,6 @@
           <EntitySet Name="CLIENTEs" EntityType="Self.CLIENTE" />
           <EntitySet Name="CONSECUTIVOes" EntityType="Self.CONSECUTIVO" />
           <EntitySet Name="ESTADO_RESERVACION" EntityType="Self.ESTADO_RESERVACION" />
-          <EntitySet Name="HABITACIONs" EntityType="Self.HABITACION" />
           <EntitySet Name="PRECIOs" EntityType="Self.PRECIO" />
           <EntitySet Name="RESERVACIONs" EntityType="Self.RESERVACION" />
           <EntitySet Name="ROLs" EntityType="Self.ROL" />
@@ -669,10 +618,6 @@
             <End Role="USUARIO" EntitySet="USUARIOs" />
             <End Role="BITACORA" EntitySet="BITACORAs" />
           </AssociationSet>
-          <AssociationSet Name="FK_CLIENTE_REFERENCE_HABITACION" Association="Self.FK_CLIENTE_REFERENCE_HABITACION">
-            <End Role="HABITACION" EntitySet="HABITACIONs" />
-            <End Role="CLIENTE" EntitySet="CLIENTEs" />
-          </AssociationSet>
           <AssociationSet Name="FK_RESERVAC_REFERENCE_CLIENTE" Association="Self.FK_RESERVAC_REFERENCE_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTEs" />
             <End Role="RESERVACION" EntitySet="RESERVACIONs" />
@@ -680,14 +625,6 @@
           <AssociationSet Name="FK_RESERVAC_REFERENCE_ESTADO_RESERVACION" Association="Self.FK_RESERVAC_REFERENCE_ESTADO_RESERVACION">
             <End Role="ESTADO_RESERVACION" EntitySet="ESTADO_RESERVACION" />
             <End Role="RESERVACION" EntitySet="RESERVACIONs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HABITACI_REFERENCE_PRECIO" Association="Self.FK_HABITACI_REFERENCE_PRECIO">
-            <End Role="PRECIO" EntitySet="PRECIOs" />
-            <End Role="HABITACION" EntitySet="HABITACIONs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HABITACI_REFERENCE_TIPO" Association="Self.FK_HABITACI_REFERENCE_TIPO">
-            <End Role="TIPO_HABITACION" EntitySet="TIPO_HABITACION" />
-            <End Role="HABITACION" EntitySet="HABITACIONs" />
           </AssociationSet>
           <AssociationSet Name="FK_RESERVAC_REFERENCE_TIPO" Association="Self.FK_RESERVAC_REFERENCE_TIPO">
             <End Role="TIPO_HABITACION" EntitySet="TIPO_HABITACION" />
@@ -702,14 +639,12 @@
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Img" Mode="In" Type="String" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
-            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
             <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertBitacora">
             <Parameter Name="ID_Usuario" Mode="In" Type="String" />
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
             <Parameter Name="Tipo" Mode="In" Type="Int32" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Registro_en_detalle" Mode="In" Type="String" />
@@ -723,7 +658,6 @@
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Foto" Mode="In" Type="String" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
-            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
             <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
@@ -763,7 +697,87 @@
             <Parameter Name="Username" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="HABITACIONs" EntityType="mandiolaModel.HABITACION" />
+          <AssociationSet Name="FK_HABITACI_REFERENCE_PRECIO" Association="mandiolaModel.FK_HABITACI_REFERENCE_PRECIO">
+            <End Role="PRECIO" EntitySet="PRECIOs" />
+            <End Role="HABITACION" EntitySet="HABITACIONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HABITACI_REFERENCE_TIPO" Association="mandiolaModel.FK_HABITACI_REFERENCE_TIPO">
+            <End Role="TIPO_HABITACION" EntitySet="TIPO_HABITACION" />
+            <End Role="HABITACION" EntitySet="HABITACIONs" />
+          </AssociationSet>
+          <FunctionImport Name="DecodeString">
+            <Parameter Name="DecodeIn" Mode="In" Type="String" />
+            <Parameter Name="DecodeOut" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EncodeString">
+            <Parameter Name="EncodeIn" Mode="In" Type="String" />
+            <Parameter Name="EncodeOut" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUsuarioE" ReturnType="Collection(mandiolaModel.InsertUsuarioE_Result)">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido1" Mode="In" Type="String" />
+            <Parameter Name="apellido2" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="Int32" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="User_name" Mode="In" Type="String" />
+            <Parameter Name="Id_rol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsernameAvailable" ReturnType="Collection(String)">
+            <Parameter Name="Username" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="HABITACION">
+          <Key>
+            <PropertyRef Name="ID_HABITACION" />
+          </Key>
+          <Property Name="ID_HABITACION" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FOTO" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_HABITACION" Type="Int32" Nullable="false" />
+          <Property Name="ID_PRECIO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DISPONIBLE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PRECIO" Relationship="mandiolaModel.FK_HABITACI_REFERENCE_PRECIO" FromRole="HABITACION" ToRole="PRECIO" />
+          <NavigationProperty Name="TIPO_HABITACION1" Relationship="mandiolaModel.FK_HABITACI_REFERENCE_TIPO" FromRole="HABITACION" ToRole="TIPO_HABITACION" />
+        </EntityType>
+        <Association Name="FK_HABITACI_REFERENCE_PRECIO">
+          <End Type="mandiolaModel.PRECIO" Role="PRECIO" Multiplicity="1" />
+          <End Type="mandiolaModel.HABITACION" Role="HABITACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRECIO">
+              <PropertyRef Name="ID_PRECIO" />
+            </Principal>
+            <Dependent Role="HABITACION">
+              <PropertyRef Name="ID_PRECIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HABITACI_REFERENCE_TIPO">
+          <End Type="mandiolaModel.TIPO_HABITACION" Role="TIPO_HABITACION" Multiplicity="1" />
+          <End Type="mandiolaModel.HABITACION" Role="HABITACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_HABITACION">
+              <PropertyRef Name="ID_TIPO_HABITACION" />
+            </Principal>
+            <Dependent Role="HABITACION">
+              <PropertyRef Name="TIPO_HABITACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="InsertUsuarioE_Result">
+          <Property Type="String" Name="ID_USUARIO" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" />
+          <Property Type="String" Name="APELLIDO1" Nullable="false" />
+          <Property Type="String" Name="APELLIDO2" Nullable="false" />
+          <Property Type="String" Name="CORREO" Nullable="false" />
+          <Property Type="Int32" Name="TELEFONO" Nullable="false" />
+          <Property Type="String" Name="PASSWORD" Nullable="false" />
+          <Property Type="String" Name="USER_NAME" Nullable="false" />
+          <Property Type="Int32" Name="ID_ROL" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -835,19 +849,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HABITACIONs">
-            <EntityTypeMapping TypeName="mandiolaModel.HABITACION">
-              <MappingFragment StoreEntitySet="HABITACION">
-                <ScalarProperty Name="ID_HABITACION" ColumnName="ID_HABITACION" />
-                <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
-                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
-                <ScalarProperty Name="TIPO_HABITACION" ColumnName="TIPO_HABITACION" />
-                <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PRECIOs">
             <EntityTypeMapping TypeName="mandiolaModel.PRECIO">
               <MappingFragment StoreEntitySet="PRECIO">
@@ -916,6 +917,38 @@
           <FunctionImportMapping FunctionImportName="InsertReservacion" FunctionName="mandiolaModel.Store.InsertReservacion" />
           <FunctionImportMapping FunctionImportName="InsertUsuarios" FunctionName="mandiolaModel.Store.InsertUsuarios" />
           <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="mandiolaModel.Store.ValidateUser" />
+          <EntitySetMapping Name="HABITACIONs">
+            <EntityTypeMapping TypeName="mandiolaModel.HABITACION">
+              <MappingFragment StoreEntitySet="HABITACION">
+                <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
+                <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
+                <ScalarProperty Name="TIPO_HABITACION" ColumnName="TIPO_HABITACION" />
+                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+                <ScalarProperty Name="ID_HABITACION" ColumnName="ID_HABITACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DecodeString" FunctionName="mandiolaModel.Store.DecodeString" />
+          <FunctionImportMapping FunctionImportName="EncodeString" FunctionName="mandiolaModel.Store.EncodeString" />
+          <FunctionImportMapping FunctionImportName="InsertUsuarioE" FunctionName="mandiolaModel.Store.InsertUsuarioE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="mandiolaModel.InsertUsuarioE_Result">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="APELLIDO1" ColumnName="APELLIDO1" />
+                <ScalarProperty Name="APELLIDO2" ColumnName="APELLIDO2" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsernameAvailable" FunctionName="mandiolaModel.Store.UsernameAvailable" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

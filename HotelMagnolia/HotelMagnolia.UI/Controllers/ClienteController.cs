@@ -17,13 +17,14 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Cliente
         public ActionResult Index()
         {
-            var cLIENTEs = db.CLIENTEs.Include(c => c.HABITACION);
+            //var cLIENTEs = db.CLIENTEs.Include(c => c.ID_HABITACION);
+            var cLIENTEs = db.CLIENTEs.ToList();
             List<CLIENTE> encriptada = cLIENTEs.ToList();
             foreach(CLIENTE i in encriptada)
             {
                 i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
             }
-            return View(cLIENTEs.ToList());
+            return View(encriptada);
         }
 
         // GET: Cliente/Details/5

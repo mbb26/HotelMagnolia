@@ -33,6 +33,10 @@ namespace HotelMagnolia.UI.Controllers
             {
 
                 i.Registro_en_detalle = Util.Cypher.Decrypt(i.Registro_en_detalle);
+                Debug.WriteLine("Original: " + i.USUARIO.NOMBRE);
+                Debug.WriteLine("Decrypt: " + Util.Cypher.Decrypt(i.USUARIO.NOMBRE));
+                //i.USUARIO.NOMBRE = Util.Cypher.Decrypt(i.USUARIO.NOMBRE);
+                
             }
             return View(bITACORAs.ToList());
             //return View(encriptada);
