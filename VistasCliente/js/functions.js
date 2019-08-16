@@ -33,15 +33,17 @@ APP.functions = (function() {
     };
 
     var getSessionUser = function() {
-        return JSON.parse($.cookie($user_in_session));
+        return JSON.parse($.cookie($user_in_session) || null);
     };
 
     var setSessionUser = function(user) {
         $.cookie($user_in_session, JSON.stringify(user));
+        loadMenu();
     };
 
     var removeSessionUser = function() {
         $.removeCookie($user_in_session);
+        loadMenu();
     };
 
     var bindButtons = function() {
@@ -68,6 +70,65 @@ APP.functions = (function() {
                 validateFormAndSubmit(this, e);
             }
         });
+    };
+
+    var bindLogout = function() {        
+        $('.logout-user').on('click', function(e) {
+            e.preventDefault();
+            APP.functions.removeSessionUser();
+            alert('Ha cerrado su sesión');
+            loadMenu();
+            $(location).attr('href','./index.html');
+        });
+    };
+
+    var loadMenu = function() {
+        var $navContent = $('#navbarSupportedContent');
+        var $htmlContent = '';
+        var $sessionUser = getSessionUser();
+        
+        if (getSessionUser() != null) {
+            $htmlContent += '<ul class="navbar-nav mr-auto">';
+            $htmlContent += '<li class="nav-item dropdown">';
+            $htmlContent += '<a class="nav-link dropdown-toggle" href="#" id="menuUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cuenta</a>';
+            $htmlContent += '<div class="dropdown-menu" aria-labelledby="menuUsuario">';
+            $htmlContent += '<a class="dropdown-item" href="cambiar_password.html">Cambio de Contraseña</a>';
+            $htmlContent += '<a class="dropdown-item logout-user" href="#">Logout</a>';
+            $htmlContent += '</div>';
+            $htmlContent += '</li>';
+            $htmlContent += '<li class="nav-item dropdown">';
+            $htmlContent += '<a class="nav-link dropdown-toggle" href="#" id="menuAdministracion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Servicios</a>';
+            $htmlContent += '<div class="dropdown-menu" aria-labelledby="menuAdministracion">';
+            $htmlContent += '<a class="dropdown-item" href="resevaciones.html">Reservacion</a>';
+            $htmlContent += '</div>';
+            $htmlContent += '</li>';
+            $htmlContent += '</ul>';
+            $htmlContent += '<ul id="carrito" class="nav navbar-nav navbar-right">';
+            $htmlContent += '<li class="nav-item nav-link"><span class="glyphicon glyphicon-user text-white">Bienvenido(a) '+$sessionUser.name+'</span></li>';
+            $htmlContent += '<li class="nav-item"><a href="Carrito.html" class="nav-link"><span class="glyphicon glyphicon-user"></span>Carrito</a></li>';
+            $htmlContent += '</ul>';
+        }        
+        else {
+            $htmlContent += '<ul class="navbar-nav mr-auto">';
+            $htmlContent += '<li class="nav-item dropdown">';
+            $htmlContent += '<a class="nav-link dropdown-toggle" href="#" id="menuUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>';
+            $htmlContent += '<div class="dropdown-menu" aria-labelledby="menuUsuario">';
+            $htmlContent += '<a class="dropdown-item" href="login.html">Login</a>';
+            $htmlContent += '</div>';
+            $htmlContent += '</li>';
+            $htmlContent += '<li class="nav-item dropdown">';
+            $htmlContent += '<a class="nav-link dropdown-toggle" href="#" id="menuAdministracion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Servicios</a>';
+            $htmlContent += '<div class="dropdown-menu" aria-labelledby="menuAdministracion">';
+            $htmlContent += '<a class="dropdown-item" href="resevaciones.html">Reservacion</a>';
+            $htmlContent += '</div>';
+            $htmlContent += '</li>';
+            $htmlContent += '</ul>';
+            $htmlContent += '<ul id="carrito" class="nav navbar-nav navbar-right">';
+            $htmlContent += '<li><a href="Carrito.html"><span class="glyphicon glyphicon-user"></span>Carrito</a></li>';
+            $htmlContent += '</ul>';
+        }
+        $navContent.html($htmlContent);
+        bindLogout();
     };
 
 	var resetForm = function(button) {
@@ -145,6 +206,7 @@ APP.functions = (function() {
 
     var init = function() {
         bindButtons();
+        loadMenu();
     };
 
     return {
