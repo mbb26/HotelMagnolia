@@ -3,10 +3,13 @@ using System.Web.Http;
 using Ulacit.Mandiola.API.Models;
 using Ulacit.Mandiola.Biz.Abstract;
 using Ulacit.Mandiola.Model;
+using System.Web.Http.Cors;
+using System;
 
 namespace Ulacit.Mandiola.API.Controllers
 {
     /// <summary>A controller for handling users.</summary>
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserController : BaseApiController
     {
         /// <summary>The user service.</summary>
@@ -47,5 +50,19 @@ namespace Ulacit.Mandiola.API.Controllers
         /// <returns>An ApiResultModel&lt;USUARIO&gt;</returns>
         [HttpPut]
         public ApiResultModel<USUARIO> Update([FromBody]USUARIO aux) => GetApiResultModel(() => _userService.Update(aux));
+
+        /// <summary>Logs the user in</summary>
+        /// <param name="aux">The auxiliary.</param>
+        /// <returns>An ApiResultModel&lt;USUARIO&gt;</returns>
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [HttpPost]
+        public ApiResultModel<USUARIO> Login([FromBody]USUARIO aux) => GetApiResultModel(() => _userService.Login(aux));
+
+        /// <summary>Returns is an username is available</summary>
+        /// <param name="user_name">The username to be checked.</param>
+        /// <returns>An ApiResultModel&lt;bool&gt;</returns>
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [HttpGet]
+        public ApiResultModel<Boolean> IsUsernameAvailable([FromUri]string user_name) => GetApiResultModel(() => _userService.IsUsernameAvailable(user_name));
     }
 }

@@ -48,6 +48,8 @@ namespace Ulacit.Mandiola.Common.Concrete
         /// <param name="entity">The entity.</param>
         /// <returns>A T.</returns>
         public T Update<T>(T entity)
-            => _ctx.Update(entity);
+        {
+            return _ctx.Update(entity);
+        }
     }
 }

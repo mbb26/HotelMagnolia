@@ -8,8 +8,11 @@ APP.functions = (function() {
         getById: 'GetById/',
         create: 'Create',
         update: 'Update',
-        delete: 'Delete'
+        delete: 'Delete',
+        login: 'Login',
+        availability: 'IsUsernameAvailable/'
     };
+    var $user_in_session = 'userInSession';
 
     var makeAPICall = function(apiName, apiCall, method, params, onSuccess, onError) {
         $.ajax({
@@ -29,7 +32,20 @@ APP.functions = (function() {
         });
     };
 
+    var getSessionUser = function() {
+        return JSON.parse($.cookie($user_in_session));
+    };
+
+    var setSessionUser = function(user) {
+        $.cookie($user_in_session, JSON.stringify(user));
+    };
+
+    var removeSessionUser = function() {
+        $.removeCookie($user_in_session);
+    };
+
     var bindButtons = function() {
+        getSessionUser();
         $('input:checkbox').each(function() {
             var $action = $(this).attr('data-function');
             if ($action === 'toggleEnable') {
@@ -134,7 +150,10 @@ APP.functions = (function() {
     return {
         init: init,
         makeAPICall: makeAPICall,
-        validateForm: validateForm
+        validateForm: validateForm,
+        getSessionUser: getSessionUser,
+        setSessionUser: setSessionUser,
+        removeSessionUser: removeSessionUser
     };
 }());
 
