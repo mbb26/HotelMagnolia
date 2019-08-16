@@ -64,10 +64,7 @@ APP.userFunctions = (function() {
         var $available = response.result;
         alert('El nombre de usuario '+($available?' ':'NO ')+'se encuentra disponible');
     };
-
-    var loginFailed = function(response) {
-        console.log(response);
-    };
+    
     var init = function() {
         $create_user_form = $($create_user_form_selector);
         $login_form = $($login_form_selector);
