@@ -100,7 +100,7 @@ namespace HotelMagnolia.UI.Controllers
 
                 String LogDetalle = "IDCliente:" + rESERVACION.ID_CLIENTE + "/Fecha Entrada:" + rESERVACION.FECHA_ENTRADA + "/Fecha Salida:" + rESERVACION.FECHA_SALIDA + "/Tipo Habitacion:" + rESERVACION.TIPO_HABITACION + "/Estado:" + rESERVACION.ESTADO_RESERVACION;
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 2, "Modificar Reservacion", LogDetalle, rESERVACION.ID_RESERVACION);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, 2, "Modificar Reservacion", LogDetalle, rESERVACION.ID_RESERVACION);
                 db.Entry(rESERVACION).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -135,7 +135,7 @@ namespace HotelMagnolia.UI.Controllers
             USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
             String LogDetalle = "IDCliente:" + rESERVACION.ID_CLIENTE + "/Fecha Entrada:" + rESERVACION.FECHA_ENTRADA + "/Fecha Salida:" + rESERVACION.FECHA_SALIDA + "/Tipo Habitacion:" + rESERVACION.TIPO_HABITACION + "/Estado:" + rESERVACION.ESTADO_RESERVACION;
             LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 3, "EliminarReservacion", LogDetalle, rESERVACION.ID_RESERVACION);
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, 3, "EliminarReservacion", LogDetalle, rESERVACION.ID_RESERVACION);
             db.RESERVACIONs.Remove(rESERVACION);
             db.SaveChanges();
             return RedirectToAction("Index");

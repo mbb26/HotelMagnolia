@@ -98,7 +98,7 @@ namespace HotelMagnolia.UI.Controllers
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
                 String LogDetalle = "Tipo Precio:" + pRECIO.TIPO_PRECIO + "/Precio:" + pRECIO.PRECIO1;
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 2, "Modificar Precio", LogDetalle, pRECIO.ID_PRECIO);
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, 2, "Modificar Precio", LogDetalle, pRECIO.ID_PRECIO);
                 pRECIO.TIPO_PRECIO = Util.Cypher.Encrypt(pRECIO.TIPO_PRECIO);
                 db.Entry(pRECIO).State = EntityState.Modified;
                 db.SaveChanges();
@@ -133,7 +133,7 @@ namespace HotelMagnolia.UI.Controllers
             pRECIO.TIPO_PRECIO = Util.Cypher.Decrypt(pRECIO.TIPO_PRECIO);
             String LogDetalle = "Tipo Precio:" + pRECIO.TIPO_PRECIO + "/Precio:" + pRECIO.PRECIO1;
             LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 3, "Eliminar Precio", LogDetalle, pRECIO.ID_PRECIO);
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, 3, "Eliminar Precio", LogDetalle, pRECIO.ID_PRECIO);
 
             db.PRECIOs.Remove(pRECIO);
             db.SaveChanges();

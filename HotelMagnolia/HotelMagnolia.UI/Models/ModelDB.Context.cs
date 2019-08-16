@@ -78,15 +78,12 @@ namespace HotelMagnolia.UI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertActividad", nombreParameter, descripcionParameter, imgParameter, lOG_UserIDParameter, lOG_fechaParameter, lOG_TipoParameter, lOG_DescParameter, lOG_DetalleParameter);
         }
     
-        public virtual int InsertBitacora(string iD_Usuario, Nullable<System.DateTime> fecha, Nullable<int> tipo, string descripcion, string registro_en_detalle, string codigo)
+        public virtual int InsertBitacora(string iD_Usuario, Nullable<int> tipo, string descripcion, string registro_en_detalle, string codigo)
         {
             var iD_UsuarioParameter = iD_Usuario != null ?
                 new ObjectParameter("ID_Usuario", iD_Usuario) :
                 new ObjectParameter("ID_Usuario", typeof(string));
-    
-            var fechaParameter = fecha.HasValue ?
-                new ObjectParameter("Fecha", fecha) :
-                new ObjectParameter("Fecha", typeof(System.DateTime));
+   
     
             var tipoParameter = tipo.HasValue ?
                 new ObjectParameter("Tipo", tipo) :
@@ -104,7 +101,7 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("codigo", codigo) :
                 new ObjectParameter("codigo", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertBitacora", iD_UsuarioParameter, fechaParameter, tipoParameter, descripcionParameter, registro_en_detalleParameter, codigoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertBitacora", iD_UsuarioParameter, tipoParameter, descripcionParameter, registro_en_detalleParameter, codigoParameter);
         }
     
         public virtual int InsertHabitacion(Nullable<int> numero, string nombre, Nullable<int> tipo_Habitacion, string iD_Precio, string descripcion, string foto, string lOG_UserID, Nullable<System.DateTime> lOG_fecha, Nullable<int> lOG_Tipo, string lOG_Desc, string lOG_Detalle)

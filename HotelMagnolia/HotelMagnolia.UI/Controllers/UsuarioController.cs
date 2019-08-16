@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -37,7 +38,10 @@ namespace HotelMagnolia.UI.Controllers
             ActionResult resultado = View();
             USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
             string detalle = "Usuario:" + uSUARIO.USER_NAME + "/Contraseña anterior:" + current_password + "/Contaseña nueva:" + new_password;
-            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 2, "Cambio Contraseña", detalle, uSUARIO.ID_USUARIO);
+            detalle = Util.Cypher.Encrypt(detalle);
+            string userid = usuarioSesion.ID_USUARIO;
+            Debug.WriteLine("TEST" + userid);
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, 2, "Cambio Contraseña", detalle,userid);
             current_password = Util.Cypher.Encrypt(current_password);
             new_password = Util.Cypher.Encrypt(new_password);
             confirm_password = Util.Cypher.Encrypt(confirm_password);
@@ -200,7 +204,7 @@ namespace HotelMagnolia.UI.Controllers
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
                 String LogDetalle = "Nombre:" + uSUARIO.NOMBRE + "/Apellido1:" + uSUARIO.APELLIDO1 + "/Apellido2:" + uSUARIO.APELLIDO2 + "/Correo:" + uSUARIO.CORREO + "/Telefono:" + uSUARIO.TELEFONO + "/Rol:" + uSUARIO.ROL;
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nuevo Usuario", LogDetalle, "N/A");
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, 1, "Nuevo Usuario", LogDetalle, "N/A");
                 uSUARIO.NOMBRE = Util.Cypher.Encrypt(uSUARIO.NOMBRE);
                 uSUARIO.APELLIDO1=Util.Cypher.Encrypt(uSUARIO.APELLIDO1);
                 uSUARIO.APELLIDO2=Util.Cypher.Encrypt(uSUARIO.APELLIDO2);
@@ -262,7 +266,8 @@ namespace HotelMagnolia.UI.Controllers
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
                 String LogDetalle = "Nombre:" + uSUARIO.NOMBRE + "/Apellido1:" + uSUARIO.APELLIDO1 + "/Apellido2:" + uSUARIO.APELLIDO2 + "/Correo:" + uSUARIO.CORREO + "/Telefono:" + uSUARIO.TELEFONO + "/Rol:" + uSUARIO.ROL;
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-                db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 2, "Modificar Usuario", LogDetalle, uSUARIO.ID_USUARIO);
+                
+                db.InsertBitacora(usuarioSesion.ID_USUARIO, 2, "Modificar Usuario", LogDetalle, usuarioSesion.ID_USUARIO);
                 db.Entry(uSUARIO).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -314,7 +319,7 @@ namespace HotelMagnolia.UI.Controllers
             USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
             String LogDetalle = "Nombre:" + uSUARIO.NOMBRE + "/Apellido1:" + uSUARIO.APELLIDO1 + "/Apellido2:" + uSUARIO.APELLIDO2 + "/Correo:" + uSUARIO.CORREO + "/Telefono:" + uSUARIO.TELEFONO + "/Rol:" + uSUARIO.ROL;
             LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-            db.InsertBitacora(usuarioSesion.ID_USUARIO, DateTime.Now, 3, "Eliminar Usuario", LogDetalle, uSUARIO.ID_USUARIO);
+            db.InsertBitacora(usuarioSesion.ID_USUARIO, 3, "Eliminar Usuario", LogDetalle, uSUARIO.ID_USUARIO);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
