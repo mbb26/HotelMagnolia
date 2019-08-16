@@ -1,23 +1,25 @@
 var APP = window.APP || {};
 
-APP.createUser = (function() {
+APP.userFunctions = (function() {
 
     var $api_user = 'User';
-    var $form_selector = '#create-user-form';
-    var $form = null;
+    var $create_user_form_selector = '#create-user-form';
+    var $create_user_form = null;
+    var $login_form_selector = '#login-form';
+    var $login_form = null;
 
     var bindButtons = function() {
         $('.create-user').on('click', function(e) {
             e.preventDefault();
-            if (APP.functions.validateForm($form)) {
+            if (APP.functions.validateForm($create_user_form)) {
                 $('input[name="id_usuario"]').val(''+(Math.floor(Math.random() * 1000000)+9000000));
-                APP.functions.makeAPICall($api_user, 'create', 'POST', $form.serialize(), userCreated, callFailed);
+                APP.functions.makeAPICall($api_user, 'create', 'POST', $create_user_form.serialize(), userCreated, callFailed);
             }
         });
         
-        $('.create-user-cancel').on('click', function(e) {
+        $('.login-user').on('click', function(e) {
             e.preventDefault();
-            APP.functions.makeAPICall($api_user, 'login', 'POST', $form.serialize(), userLogged, callFailed);
+            APP.functions.makeAPICall($api_user, 'login', 'POST', $login_form.serialize(), userLogged, callFailed);
         });
         
         $('.check-availability').on('click', function(e) {
@@ -33,8 +35,8 @@ APP.createUser = (function() {
     var userCreated = function(response) {
         alert('El usuario '+response.result.username+' se ha creado con éxito');
 
-        if ($form.length > 0) {
-            $form[0].reset();
+        if ($create_user_form.length > 0) {
+            $create_user_form[0].reset();
         }
     };
 
@@ -49,7 +51,8 @@ APP.createUser = (function() {
             };
             APP.functions.setSessionUser($user);
             var sessionUser = APP.functions.getSessionUser();
-            alert('El usuario '+sessionUser.username+' se ha logueado');
+            alert('El usuario '+sessionUser.username+' se ha logueado correctamente.');
+            $(location).attr('href','./index.html');
         }
         else {
             alert('Usuario o contraseña incorrectos');
@@ -66,7 +69,8 @@ APP.createUser = (function() {
         console.log(response);
     };
     var init = function() {
-        $form = $($form_selector);
+        $create_user_form = $($create_user_form_selector);
+        $login_form = $($login_form_selector);
         bindButtons();
     };
 
@@ -76,5 +80,5 @@ APP.createUser = (function() {
 }());
 
 $(window).on('load', function() {
-    APP.createUser.init();
+    APP.userFunctions.init();
 });

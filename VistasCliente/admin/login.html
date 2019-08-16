@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Hotel Mandiola | Admin | Ingresar</title>
+
+    <link rel="icon" href="../img/core-img/favicon.png">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <script src="../js/jquery-3.4.1.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../js/user-functions.js"></script>
+
+</head>
+
+<body>
+    <header class="header_area">
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="index.html"><img src="../img/core-img/logo.png" alt="Hotel Mandiola Logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            </div>
+        </nav>
+    </header>
+
+
+
+    <section class="welcome_area bg-img background-overlay">
+        <div class="container h-50">
+            <div class="row h-100 align-items-center">
+                <div class="col-8">
+                    <div class="hero-content">
+                        <form action="#" id="login-form" data-function="initialize">
+                            <h2>Ingresar</h2>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="user_name">Nombre de Usuario</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="user_name" name="user_name" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="user_name"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="password">Contraseña</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="password" name="password" type="password">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="password"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a class="btn essence-btn login-user" href="#">Login</a>
+                                </div>
+                            </div>
+                        </form>                        
+                        <a href="nuevo_usuario.html">Crear Usuario</a>
+                        <br/>
+                        <br/>
+                        <div class="hero-content">
+                            <ul class="social_icons">
+                                <li>
+                                    <a href="https://www.facebook.com/"><img class="social_icon" src="../img/proyecto/facebook.jpg" alt="Facebook" /></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/"><img class="social_icon" src="../img/proyecto/insta.png" alt="Facebook" /></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer_area clearfix">
+        <div class="container">
+            <div class="footer-logo mr-50">
+                <a href="#"><img src="../img/core-img/logo.png" alt=""></a>
+            </div>
+            <h1 class "hero-content"> Creado por:</h1>
+            <h4>Melanie Benavides</h4>
+            <h4>Allan Marin</h4>
+            <h4>Thomas White</h4>
+
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
