@@ -927,6 +927,31 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROCEDURE UsernameAvailable
+(
+   @Username NVARCHAR(200)
+)
+AS
+BEGIN
+   SET NOCOUNT ON;
+   DECLARE 
+      @UserId VARCHAR(MAX)
+
+   SELECT @UserId = ID_USUARIO
+   FROM [dbo].[USUARIO]
+   WHERE USER_NAME = @Username
+
+   IF @UserId IS NOT NULL
+   BEGIN
+      SELECT 'false'
+   END
+   ELSE
+   BEGIN
+      SELECT 'true'
+   END
+END
+GO
+
 CREATE OR ALTER PROCEDURE InsertUsuarioE
    (
    @nombre varchar(200),

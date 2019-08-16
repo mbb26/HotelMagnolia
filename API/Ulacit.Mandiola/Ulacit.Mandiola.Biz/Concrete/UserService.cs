@@ -3,10 +3,12 @@ using Ulacit.Mandiola.Common.Concrete;
 using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
+using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.Biz.Concrete
 {
     /// <summary>A service for accessing users information.</summary>
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Dependency(DependencyScope.Transient)]
     public class UserService : BasicService, IUserService
     {
@@ -18,6 +20,16 @@ namespace Ulacit.Mandiola.Biz.Concrete
         public UserService(IUserContext userContext) : base(userContext)
         {
             _userContext = userContext;
+        }
+
+        public T Login<T>(T entity)
+        {
+            return _userContext.Login<T>(entity);
+        }
+
+        public bool IsUsernameAvailable(string username)
+        {
+            return _userContext.IsUsernameAvailable(username);
         }
     }
 }

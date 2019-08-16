@@ -79,6 +79,7 @@ namespace Ulacit.Mandiola.DB.Concrete
                 ParameterName = "User_name",
                 Value = aux.USER_NAME
             };
+
             var pIdRol = new SqlParameter
             {
                 ParameterName = "Id_rol",
@@ -134,6 +135,48 @@ namespace Ulacit.Mandiola.DB.Concrete
             _mandiolaDbContext.Entry(aux).State = EntityState.Modified;
             _mandiolaDbContext.SaveChanges();
             return _mapper.Map<T>(aux);
+        }
+
+        public T Login<T>(T entity)
+        {
+            var aux = _mapper.Map<USUARIO>(entity);
+            aux = Cypher.EncryptObject(aux) as USUARIO;
+
+            var pPassword = new SqlParameter
+            {
+                ParameterName = "@Password",
+                Value = aux.PASSWORD
+            };
+
+            var pUserName = new SqlParameter
+            {
+                ParameterName = "@Username",
+                Value = aux.USER_NAME
+            };
+            string userId = _mandiolaDbContext.Database.SqlQuery<string>("exec ValidateUser @Username, @Password ", pUserName, pPassword).FirstOrDefault();
+            aux = _mapper.Map<USUARIO>(_mandiolaDbContext.USUARIOs.FirstOrDefault(x => x.ID_USUARIO == userId));
+            if (aux != null)
+            {
+                aux.PASSWORD = null;
+                aux = Cypher.DecryptObject(aux) as USUARIO;
+            }
+            return _mapper.Map<T>(aux);
+        }
+
+        public bool IsUsernameAvailable(string username)
+        {
+            string usernameE = Cypher.Encrypt(username);
+
+            var pUserName = new SqlParameter
+            {
+                ParameterName = "@Username",
+                Value = usernameE
+            };
+
+            string available = _mandiolaDbContext.Database.SqlQuery<string>("exec UsernameAvailable @Username", pUserName).FirstOrDefault();
+            System.Diagnostics.Debug.WriteLine("AVailable SR Result: " + available);
+
+            return available.Equals("true");
         }
     }
 }
