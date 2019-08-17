@@ -271,6 +271,7 @@
           <Parameter Name="ID_Precio" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Foto" Type="varchar" Mode="In" />
+          <Parameter Name="Disponible" Type="bit" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
@@ -657,6 +658,7 @@
             <Parameter Name="ID_Precio" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Foto" Mode="In" Type="String" />
+            <Parameter Name="Disponible" Mode="In" Type="Boolean" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
@@ -725,7 +727,7 @@
             <Parameter Name="Id_rol" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsernameAvailable" ReturnType="Collection(String)">
-            <Parameter Name="Username" Mode="In" Type="String" />
+          <Parameter Name="Username" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="HABITACION">

@@ -99,7 +99,7 @@ namespace HotelMagnolia.UI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertBitacora", iD_UsuarioParameter, tipoParameter, descripcionParameter, registro_en_detalleParameter, codigoParameter);
         }
     
-        public virtual int InsertHabitacion(Nullable<int> numero, string nombre, Nullable<int> tipo_Habitacion, string iD_Precio, string descripcion, string foto, string lOG_UserID, Nullable<int> lOG_Tipo, string lOG_Desc, string lOG_Detalle)
+        public virtual int InsertHabitacion(Nullable<int> numero, string nombre, Nullable<int> tipo_Habitacion, string iD_Precio, string descripcion, string foto, Nullable<bool> disponible, string lOG_UserID, Nullable<int> lOG_Tipo, string lOG_Desc, string lOG_Detalle)
         {
             var numeroParameter = numero.HasValue ?
                 new ObjectParameter("Numero", numero) :
@@ -125,6 +125,10 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("Foto", foto) :
                 new ObjectParameter("Foto", typeof(string));
     
+            var disponibleParameter = disponible.HasValue ?
+                new ObjectParameter("Disponible", disponible) :
+                new ObjectParameter("Disponible", typeof(bool));
+    
             var lOG_UserIDParameter = lOG_UserID != null ?
                 new ObjectParameter("LOG_UserID", lOG_UserID) :
                 new ObjectParameter("LOG_UserID", typeof(string));
@@ -141,7 +145,7 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("LOG_Detalle", lOG_Detalle) :
                 new ObjectParameter("LOG_Detalle", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHabitacion", numeroParameter, nombreParameter, tipo_HabitacionParameter, iD_PrecioParameter, descripcionParameter, fotoParameter, lOG_UserIDParameter, lOG_TipoParameter, lOG_DescParameter, lOG_DetalleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHabitacion", numeroParameter, nombreParameter, tipo_HabitacionParameter, iD_PrecioParameter, descripcionParameter, fotoParameter, disponibleParameter, lOG_UserIDParameter, lOG_TipoParameter, lOG_DescParameter, lOG_DetalleParameter);
         }
     
         public virtual int InsertPrecios(string tipo_Precio, Nullable<int> precio, string lOG_UserID, Nullable<System.DateTime> lOG_fecha, Nullable<int> lOG_Tipo, string lOG_Desc, string lOG_Detalle)

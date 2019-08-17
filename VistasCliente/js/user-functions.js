@@ -33,7 +33,8 @@ APP.userFunctions = (function() {
     };
 
     var userCreated = function(response) {
-        alert('El usuario '+response.result.username+' se ha creado con éxito');
+        console.log(response);
+        alert('El usuario '+response.result.useR_NAME+' se ha creado con éxito');
 
         if ($create_user_form.length > 0) {
             $create_user_form[0].reset();

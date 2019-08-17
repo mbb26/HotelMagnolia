@@ -30,6 +30,9 @@
         <th>
             Tipo
         </th>
+        <th>
+            Disponible
+        </th>
         <th colspan="3">Acciones</th>
     </tr>
 
@@ -55,6 +58,9 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.TIPO_HABITACION)
+    </td>
+    <td>
+        @Html.DisplayFor(ModelItem => item.DISPONIBLE)
     </td>
     <td>
         @Html.ActionLink("Editar", "Edit", new { id = item.ID_HABITACION })

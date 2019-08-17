@@ -93,7 +93,8 @@ namespace HotelMagnolia.UI.Controllers
                 hABITACION.NOMBRE = Util.Cypher.Encrypt(hABITACION.NOMBRE);
                 hABITACION.DESCRIPCION = Util.Cypher.Encrypt(hABITACION.DESCRIPCION);
                 logDetalle = Util.Cypher.Encrypt(logDetalle);
-                db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO, usuarioSesion.ID_USUARIO, 01, "Nueva Habitacion", logDetalle);       
+
+                db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO, hABITACION.DISPONIBLE, usuarioSesion.ID_USUARIO, 1, "Crear Habitacion", logDetalle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -607,6 +607,7 @@ CREATE OR ALTER PROCEDURE InsertHabitacion
    @ID_Precio varchar(100),
    @Descripcion varchar(250),
    @Foto varchar(250),
+   @Disponible bit,
    @LOG_UserID varchar(200),
    @LOG_Tipo int,
    @LOG_Desc varchar(200),
