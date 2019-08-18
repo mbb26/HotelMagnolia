@@ -61,8 +61,8 @@
         @Html.LabelFor(model => model.DISPONIBLE, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EditorFor(model => model.DISPONIBLE, new { htmlAttributes = new { data_function = "toggleEnable", data_target = "[name='DISPONIBLE']" } })
-                @Html.ValidationMessageFor(model => model.DISPONIBLE, "", new { @class = "text-danger" })
+                @Html.CheckBoxFor(model => model.DISPONIBLE)
+                @Html.ValidationMessageFor(model => model.DISPONIBLE, "")
             </div>
         </div>
     </div>
