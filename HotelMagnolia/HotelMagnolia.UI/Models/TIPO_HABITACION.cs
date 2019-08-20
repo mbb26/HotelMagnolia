@@ -17,8 +17,8 @@ namespace HotelMagnolia.UI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TIPO_HABITACION()
         {
-            this.RESERVACIONs = new HashSet<RESERVACION>();
             this.HABITACIONs = new HashSet<HABITACION>();
+            this.RESERVACIONs = new HashSet<RESERVACION>();
         }
     
         public int ID_TIPO_HABITACION { get; set; }
@@ -26,8 +26,8 @@ namespace HotelMagnolia.UI.Models
         public string DESCRIPCION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RESERVACION> RESERVACIONs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HABITACION> HABITACIONs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RESERVACION> RESERVACIONs { get; set; }
     }
 }

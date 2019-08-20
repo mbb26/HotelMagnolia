@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,7 +13,6 @@ namespace HotelMagnolia.UI.Controllers
     public class HabitacionController : Controller
     {
         private HotelMagnoliaEntities db = new HotelMagnoliaEntities();
-        private object dabug;
 
         // GET: Habitacion
         public ActionResult Index()
@@ -22,10 +20,10 @@ namespace HotelMagnolia.UI.Controllers
             //var hABITACIONs = db.HABITACIONs.Include(h => h.PRECIO).Include(h => h.TIPO_HABITACION1);
             //return View(hABITACIONs.ToList());
             List<HABITACION> encriptada = db.HABITACIONs.ToList();
-            foreach(HABITACION i in encriptada)
+            foreach (HABITACION i in encriptada)
             {
                 i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
-                i.DESCRIPCION = Util.Cypher.Decrypt(i.DESCRIPCION);   
+                i.DESCRIPCION = Util.Cypher.Decrypt(i.DESCRIPCION);
             }
             return View(encriptada);
         }
@@ -50,14 +48,11 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Habitacion/Create
         public ActionResult Create()
         {
-
             //ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
-
             //ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE");
-
             var PreciosNuevo = new List<SelectListItem>();
             List<PRECIO> precios = db.PRECIOs.ToList();
-            foreach(PRECIO i in precios)
+            foreach (PRECIO i in precios)
             {
                 var nuevo = new SelectListItem();
                 nuevo.Value = i.ID_PRECIO;
@@ -85,17 +80,17 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,FOTO,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
+        public ActionResult Create([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,FOTO,TIPO_HABITACION,ID_PRECIO,DISPONIBLE")] HABITACION hABITACION)
         {
             if (ModelState.IsValid)
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                String logDetalle = "Numero:" + hABITACION.NUMERO + "/Nombre:" + hABITACION.NOMBRE + "/Descripcion:" + hABITACION.DESCRIPCION + "/Foto:" + hABITACION.FOTO + "/Tipo Habitacion:" + hABITACION.TIPO_HABITACION + "/Precio:" + hABITACION.ID_PRECIO;
+                String logDetalle = "Numero:" + hABITACION.NUMERO + "/Nombre:" + hABITACION.NOMBRE + "/Descripcion:" + hABITACION.DESCRIPCION + "/Disponible: " + hABITACION.DISPONIBLE + "/Foto:" + hABITACION.FOTO + "/Tipo Habitacion:" + hABITACION.TIPO_HABITACION + "/Precio:" + hABITACION.ID_PRECIO;
                 hABITACION.NOMBRE = Util.Cypher.Encrypt(hABITACION.NOMBRE);
                 hABITACION.DESCRIPCION = Util.Cypher.Encrypt(hABITACION.DESCRIPCION);
                 logDetalle = Util.Cypher.Encrypt(logDetalle);
-                Debug.WriteLine("disponible: " + hABITACION.DISPONIBLE);
                 db.InsertHabitacion(hABITACION.NUMERO, hABITACION.NOMBRE, hABITACION.TIPO_HABITACION, hABITACION.ID_PRECIO, hABITACION.DESCRIPCION, hABITACION.FOTO, hABITACION.DISPONIBLE, usuarioSesion.ID_USUARIO, 1, "Crear Habitacion", logDetalle);
+                //db.HABITACIONs.Add(hABITACION);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -104,7 +99,6 @@ namespace HotelMagnolia.UI.Controllers
             ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE", hABITACION.TIPO_HABITACION);
             return View(hABITACION);
         }
-
         // GET: Habitacion/Edit/5
         public ActionResult Edit(string id)
         {
@@ -119,8 +113,28 @@ namespace HotelMagnolia.UI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO", hABITACION.ID_PRECIO);
-            ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE", hABITACION.TIPO_HABITACION);
+            var PreciosNuevo = new List<SelectListItem>();
+            List<PRECIO> precios = db.PRECIOs.ToList();
+            foreach (PRECIO i in precios)
+            {
+                var nuevo = new SelectListItem();
+                nuevo.Value = i.ID_PRECIO;
+                nuevo.Text = Util.Cypher.Decrypt(i.TIPO_PRECIO);
+                PreciosNuevo.Add(nuevo);
+            }
+
+            var TipoHabitacionNuevo = new List<SelectListItem>();
+            List<TIPO_HABITACION> Tipos = db.TIPO_HABITACION.ToList();
+            foreach (TIPO_HABITACION i in Tipos)
+            {
+                var nuevo = new SelectListItem();
+                nuevo.Value = (i.ID_TIPO_HABITACION).ToString();
+                nuevo.Text = Util.Cypher.Decrypt(i.NOMBRE);
+                TipoHabitacionNuevo.Add(nuevo);
+            }
+
+            ViewBag.TIPO_HABITACION = TipoHabitacionNuevo;
+            ViewBag.ID_PRECIO = PreciosNuevo;
             return View(hABITACION);
         }
 
@@ -129,12 +143,12 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,FOTO,TIPO_HABITACION,ID_PRECIO")] HABITACION hABITACION)
+        public ActionResult Edit([Bind(Include = "ID_HABITACION,NUMERO,NOMBRE,DESCRIPCION,FOTO,TIPO_HABITACION,ID_PRECIO,DISPONIBLE")] HABITACION hABITACION)
         {
             if (ModelState.IsValid)
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                String logDetalle = "IDHabitacion:"+ hABITACION .ID_HABITACION+ "Numero:" + hABITACION.NUMERO + "/Nombre:" + hABITACION.NOMBRE + "/Descripcion:" + hABITACION.DESCRIPCION + "/Foto:" + hABITACION.FOTO + "/Tipo Habitacion:" + hABITACION.TIPO_HABITACION + "/Precio:" + hABITACION.ID_PRECIO;
+                String logDetalle = "IDHabitacion:" + hABITACION.ID_HABITACION + "Numero:" + hABITACION.NUMERO + "/Nombre:" + hABITACION.NOMBRE + "/Descripcion:" + hABITACION.DESCRIPCION + "/Foto:" + hABITACION.FOTO + "/Tipo Habitacion:" + hABITACION.TIPO_HABITACION + "/Precio:" + hABITACION.ID_PRECIO;
                 logDetalle = Util.Cypher.Encrypt(logDetalle);
                 hABITACION.NOMBRE = Util.Cypher.Encrypt(hABITACION.NOMBRE);
                 hABITACION.DESCRIPCION = Util.Cypher.Encrypt(hABITACION.DESCRIPCION);
