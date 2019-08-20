@@ -48,12 +48,14 @@
     <Compile Include="CONSECUTIVO.cs" />
     <Compile Include="ESTADO_RESERVACION.cs" />
     <Compile Include="HABITACION.cs" />
+    <Compile Include="PaymentMethod.cs" />
     <Compile Include="PRECIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESERVACION.cs" />
     <Compile Include="ROL.cs" />
     <Compile Include="TIPO_BITACORA.cs" />
     <Compile Include="TIPO_HABITACION.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="USUARIO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

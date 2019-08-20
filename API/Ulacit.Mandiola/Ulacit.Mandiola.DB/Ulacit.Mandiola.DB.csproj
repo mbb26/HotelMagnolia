@@ -83,7 +83,11 @@
     <Compile Include="Abstract\IRolContext.cs" />
     <Compile Include="Abstract\IRoomContext.cs" />
     <Compile Include="Abstract\IRoomTypeContext.cs" />
+    <Compile Include="Abstract\IPaymentMethodContext.cs" />
+    <Compile Include="Abstract\IUserEasyPayContext.cs" />
     <Compile Include="Abstract\IUserContext.cs" />
+    <Compile Include="Concrete\PaymentMethod.cs" />
+    <Compile Include="Concrete\UserEasyPayContext.cs" />
     <Compile Include="Concrete\UserContext.cs" />
     <Compile Include="Concrete\RoomTypeContext.cs" />
     <Compile Include="Concrete\BinacleTypeContext.cs" />
@@ -97,6 +101,9 @@
     <Compile Include="Concrete\ArticleContext.cs" />
     <Compile Include="Concrete\ActivityContext.cs" />
     <Compile Include="Concrete\ConsecutiveContext.cs" />
+    <Compile Include="EasyPayDb\EasyPayDbContext.cs" />
+    <Compile Include="EasyPayDb\PaymentMethod.cs" />
+    <Compile Include="EasyPayDb\User.cs" />
     <Compile Include="MandiolaDb\ACTIVIDAD.cs" />
     <Compile Include="MandiolaDb\ARTICULO.cs" />
     <Compile Include="MandiolaDb\BITACORA.cs" />
@@ -118,7 +125,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Ulacit.Mandiola.Common\Ulacit.Mandiola.Common.csproj">
       <Project>{c95811e7-0ab1-496e-8081-541a53d9f942}</Project>
@@ -132,6 +138,9 @@
       <Project>{ecd25d23-c099-43b3-bde6-c41db620c421}</Project>
       <Name>Ulacit.Mandiola.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
