@@ -267,6 +267,7 @@ create table HABITACION
    FOTO varchar(max) not null,
    TIPO_HABITACION int not null,
    ID_PRECIO varchar(100) not null,
+   DISPONIBLE bit null,
    constraint PK_HABITACION primary key (ID_HABITACION)
 )
 go
@@ -634,7 +635,10 @@ UPDATE [dbo].[CONSECUTIVO]
             SET Valor = Valor + 1
             WHERE Nombre ='Habitacion'
             
-        GO
+GO
+
+
+
 
 CREATE OR ALTER PROCEDURE InsertPrecios
    (
@@ -699,7 +703,37 @@ UPDATE [dbo].[CONSECUTIVO]
         SET Valor = Valor + 1
         WHERE Nombre ='Reservacion'
         
-    GO
+GO
+
+CREATE OR ALTER PROCEDURE EditReservacion
+(
+   @ID_Reservacion varchar(200),
+   @Fecha_Entrada date,
+   @Fecha_Salida date,
+   @Tipo_Habitacion int,
+   @Estado int
+)
+AS
+UPDATE [dbo].[RESERVACION] SET 
+      FECHA_ENTRADA = @Fecha_Entrada,
+      FECHA_SALIDA = @Fecha_Salida,
+      TIPO_HABITACION = @Tipo_Habitacion,
+      ESTADO_RESERVACION = @Estado
+WHERE 
+ID_RESERVACION = @ID_Reservacion
+
+go
+
+CREATE OR ALTER PROCEDURE GetDisponibles
+AS
+SELECT NOMBRE,ID_PRECIO,TIPO_HABITACION
+FROM [dbo].[HABITACION]
+WHERE DISPONIBLE != 0
+
+go
+
+
+
 
 
 
