@@ -24,6 +24,7 @@ namespace HotelMagnolia.UI.Controllers
             {
                 i.NOMBRE = Util.Cypher.Decrypt(i.NOMBRE);
                 i.DESCRIPCION = Util.Cypher.Decrypt(i.DESCRIPCION);
+                i.TIPO_HABITACION1.NOMBRE = Util.Cypher.Decrypt(i.TIPO_HABITACION1.NOMBRE);
             }
             return View(encriptada);
         }
