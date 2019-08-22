@@ -168,6 +168,9 @@
     <Compile Include="Models\ESTADO_RESERVACION.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetDisponibles_Result.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HABITACION.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>

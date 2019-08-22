@@ -46,7 +46,17 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Cliente/Create
         public ActionResult Create()
         {
-            ViewBag.ID_HABITACION = new SelectList(db.HABITACIONs, "ID_HABITACION", "NOMBRE");
+            //ViewBag.ID_HABITACION = new SelectList(db.HABITACIONs, "ID_HABITACION", "NOMBRE");
+            var IDHabitacionNuevo = new List<SelectListItem>();
+            List<HABITACION> Habitaciones = db.HABITACIONs.ToList();
+            foreach (HABITACION i in Habitaciones)
+            {
+                var nuevo = new SelectListItem();
+                nuevo.Value = (i.ID_HABITACION).ToString();
+                nuevo.Text = Util.Cypher.Decrypt(i.NOMBRE);
+                IDHabitacionNuevo.Add(nuevo);
+            }
+            ViewBag.ID_HABITACION = IDHabitacionNuevo;
             return View();
         }
 
@@ -60,10 +70,10 @@ namespace HotelMagnolia.UI.Controllers
             if (ModelState.IsValid)
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-                cLIENTE.NOMBRE = Util.Cypher.Encrypt(cLIENTE.NOMBRE);
                 String logDetalle = "IDCliente:" + cLIENTE.ID_CLIENTE+ "Nombre" + cLIENTE.NOMBRE + "/Activo:" + cLIENTE.ACTIVO.ToString() +"/IDHabitacion:"+cLIENTE.ID_HABITACION;
                 logDetalle = Util.Cypher.Encrypt(logDetalle);
                 db.InsertBitacora(usuarioSesion.ID_USUARIO,  01, "Insertar cliente", logDetalle , cLIENTE.ID_CLIENTE.ToString());
+                cLIENTE.NOMBRE = Util.Cypher.Encrypt(cLIENTE.NOMBRE);
                 db.CLIENTEs.Add(cLIENTE);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -39,9 +39,30 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Reservacion/Create
         public ActionResult Create()
         {
-            ViewBag.ID_CLIENTE = new SelectList(db.CLIENTEs, "ID_CLIENTE", "NOMBRE");
+            //ViewBag.ID_CLIENTE = new SelectList(db.CLIENTEs, "ID_CLIENTE", "NOMBRE");
             ViewBag.ESTADO_RESERVACION = new SelectList(db.ESTADO_RESERVACION, "ID_ESTADO", "NOMBRE");
-            ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE");
+            //ViewBag.TIPO_HABITACION = new SelectList(db.TIPO_HABITACION, "ID_TIPO_HABITACION", "NOMBRE");
+            var ClientesNuevo = new List<SelectListItem>();
+            List<CLIENTE> clientes = db.CLIENTEs.ToList();
+            foreach (CLIENTE i in clientes)
+            {
+                var nuevo = new SelectListItem();
+                nuevo.Value = (i.ID_CLIENTE).ToString();
+                nuevo.Text = Util.Cypher.Decrypt(i.NOMBRE);
+                ClientesNuevo.Add(nuevo);
+            }
+
+            var TipoHabitacionNuevo = new List<SelectListItem>();
+            List<TIPO_HABITACION> Tipos = db.TIPO_HABITACION.ToList();
+            foreach (TIPO_HABITACION i in Tipos)
+            {
+                var nuevo = new SelectListItem();
+                nuevo.Value = (i.ID_TIPO_HABITACION).ToString();
+                nuevo.Text = Util.Cypher.Decrypt(i.NOMBRE);
+                TipoHabitacionNuevo.Add(nuevo);
+            }
+            ViewBag.ID_CLIENTE = ClientesNuevo;
+            ViewBag.TIPO_HABITACION = TipoHabitacionNuevo;
             return View();
         }
 
@@ -58,7 +79,8 @@ namespace HotelMagnolia.UI.Controllers
 
                 String LogDetalle = "IDCliente:" + rESERVACION.ID_CLIENTE + "/Fecha Entrada:" + rESERVACION.FECHA_ENTRADA + "/Fecha Salida:" + rESERVACION.FECHA_SALIDA + "/Tipo Habitacion:" + rESERVACION.TIPO_HABITACION + "/Estado:" + rESERVACION.ESTADO_RESERVACION;
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-                db.InsertReservacion(rESERVACION.ID_CLIENTE, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nueva Reservacion", LogDetalle);
+                //db.InsertReservacion(rESERVACION.ID_CLIENTE, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nueva Reservacion", LogDetalle);
+                db.InsertReservacion(rESERVACION.ID_CLIENTE, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nueva reservacion", LogDetalle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

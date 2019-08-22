@@ -192,7 +192,7 @@ go
 create table ARTICULO
 (
    ID_ARTICULO int not null,
-   DESCRIPCION_ varchar(Max) not null,
+   DESCRIPCION varchar(200) not null,
    ID_PRECIO varchar(100) not null,
    IMG Varchar(Max) null,
    constraint PK_ARTICULO primary key (ID_ARTICULO)
@@ -466,6 +466,9 @@ VALUES(06, 'Bitacora', 100, 1, 'BTN', 1, 100, 500);
 INSERT INTO CONSECUTIVO
    (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL)
 VALUES(07, 'Usuario', 100, 0, '', 0, 100, 500);
+INSERT INTO CONSECUTIVO
+   (ID_CONSECUTIVOS, NOMBRE,VALOR,TIENE_PREFIJO,PREFIJO,POSEE_RANGO,RANGO_INICIAL,RANGO_FINAL)
+VALUES(08, 'Articulo', 100, 0, '', 0, 100, 500);
 
 /* Table: Tipo Habitacion*/
 INSERT INTO TIPO_HABITACION
@@ -599,6 +602,12 @@ WHERE ID_ACTIVIDAD = @ID
 
 GO
 
+CREATE OR ALTER PROCEDURE InsertArticulo
+(
+   @Descripcion int,
+   
+)
+
 
 CREATE OR ALTER PROCEDURE InsertHabitacion
    (
@@ -724,6 +733,15 @@ ID_RESERVACION = @ID_Reservacion
 
 go
 
+CREATE OR ALTER PROCEDURE DeleteReservacion
+(
+   @ID_Reservacion varchar(200)
+)
+AS
+DELETE FROM [dbo].[RESERVACION]
+WHERE ID_RESERVACION = @ID_Reservacion
+GO
+
 CREATE OR ALTER PROCEDURE GetDisponibles
 AS
 SELECT NOMBRE,ID_PRECIO,TIPO_HABITACION
@@ -731,7 +749,6 @@ FROM [dbo].[HABITACION]
 WHERE DISPONIBLE != 0
 
 go
-
 
 
 
