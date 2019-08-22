@@ -18,7 +18,7 @@ namespace HotelMagnolia.UI.Models
     public partial class HotelMagnoliaEntities : DbContext
     {
         public HotelMagnoliaEntities()
-            : base("name=HotelMagnoliaEntities")
+            : base("name=HotelMagnoliaEntitiesEntities")
         {
         }
     
@@ -50,6 +50,40 @@ namespace HotelMagnolia.UI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DecodeString", decodeInParameter, decodeOut);
         }
     
+        public virtual int DeleteReservacion(string iD_Reservacion)
+        {
+            var iD_ReservacionParameter = iD_Reservacion != null ?
+                new ObjectParameter("ID_Reservacion", iD_Reservacion) :
+                new ObjectParameter("ID_Reservacion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteReservacion", iD_ReservacionParameter);
+        }
+    
+        public virtual int EditReservacion(string iD_Reservacion, Nullable<System.DateTime> fecha_Entrada, Nullable<System.DateTime> fecha_Salida, Nullable<int> tipo_Habitacion, Nullable<int> estado)
+        {
+            var iD_ReservacionParameter = iD_Reservacion != null ?
+                new ObjectParameter("ID_Reservacion", iD_Reservacion) :
+                new ObjectParameter("ID_Reservacion", typeof(string));
+    
+            var fecha_EntradaParameter = fecha_Entrada.HasValue ?
+                new ObjectParameter("Fecha_Entrada", fecha_Entrada) :
+                new ObjectParameter("Fecha_Entrada", typeof(System.DateTime));
+    
+            var fecha_SalidaParameter = fecha_Salida.HasValue ?
+                new ObjectParameter("Fecha_Salida", fecha_Salida) :
+                new ObjectParameter("Fecha_Salida", typeof(System.DateTime));
+    
+            var tipo_HabitacionParameter = tipo_Habitacion.HasValue ?
+                new ObjectParameter("Tipo_Habitacion", tipo_Habitacion) :
+                new ObjectParameter("Tipo_Habitacion", typeof(int));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditReservacion", iD_ReservacionParameter, fecha_EntradaParameter, fecha_SalidaParameter, tipo_HabitacionParameter, estadoParameter);
+        }
+    
         public virtual int EncodeString(string encodeIn, ObjectParameter encodeOut)
         {
             var encodeInParameter = encodeIn != null ?
@@ -57,6 +91,11 @@ namespace HotelMagnolia.UI.Models
                 new ObjectParameter("EncodeIn", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EncodeString", encodeInParameter, encodeOut);
+        }
+    
+        public virtual ObjectResult<GetDisponibles_Result> GetDisponibles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDisponibles_Result>("GetDisponibles");
         }
     
         public virtual ObjectResult<InsertActividad_Result> InsertActividad(string nombre, string descripcion, string img, string lOG_UserID, Nullable<int> lOG_Tipo, string lOG_Desc, string lOG_Detalle)

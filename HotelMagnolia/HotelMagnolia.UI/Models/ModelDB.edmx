@@ -244,10 +244,21 @@
           <Parameter Name="DecodeIn" Type="varchar" Mode="In" />
           <Parameter Name="DecodeOut" Type="varchar" Mode="InOut" />
         </Function>
+        <Function Name="DeleteReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Reservacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="EditReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Reservacion" Type="varchar" Mode="In" />
+          <Parameter Name="Fecha_Entrada" Type="date" Mode="In" />
+          <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
+          <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
         <Function Name="EncodeString" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EncodeIn" Type="varchar" Mode="In" />
           <Parameter Name="EncodeOut" Type="varchar" Mode="InOut" />
         </Function>
+        <Function Name="GetDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="InsertActividad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
@@ -288,8 +299,8 @@
         </Function>
         <Function Name="InsertReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Cliente" Type="int" Mode="In" />
-          <Parameter Name="Fecha_Entrada" Type="date" Mode="In" />
-          <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
+          <Parameter Name="Fecha_Entrada" Type="smalldatetime" Mode="In" />
+          <Parameter Name="Fecha_Salida" Type="smalldatetime" Mode="In" />
           <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
@@ -634,7 +645,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HotelMagnoliaEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="HotelMagnoliaEntitiesEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ACTIVIDADs" EntityType="Self.ACTIVIDAD" />
           <EntitySet Name="ARTICULOes" EntityType="Self.ARTICULO" />
           <EntitySet Name="BITACORAs" EntityType="Self.BITACORA" />
@@ -688,10 +699,21 @@
             <Parameter Name="DecodeIn" Mode="In" Type="String" />
             <Parameter Name="DecodeOut" Mode="InOut" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DeleteReservacion">
+            <Parameter Name="ID_Reservacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EditReservacion">
+            <Parameter Name="ID_Reservacion" Mode="In" Type="String" />
+            <Parameter Name="Fecha_Entrada" Mode="In" Type="DateTime" />
+            <Parameter Name="Fecha_Salida" Mode="In" Type="DateTime" />
+            <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="EncodeString">
             <Parameter Name="EncodeIn" Mode="In" Type="String" />
             <Parameter Name="EncodeOut" Mode="InOut" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetDisponibles" ReturnType="Collection(HotelMagnoliaModel.GetDisponibles_Result)" />
           <FunctionImport Name="InsertActividad" ReturnType="Collection(HotelMagnoliaModel.InsertActividad_Result)">
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
@@ -770,6 +792,11 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetDisponibles_Result">
+          <Property Type="String" Name="NOMBRE" Nullable="false" />
+          <Property Type="String" Name="ID_PRECIO" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="TIPO_HABITACION" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="InsertActividad_Result">
           <Property Type="String" Name="ID_ACTIVIDAD" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="NOMBRE" Nullable="true" />
@@ -803,7 +830,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HotelMagnoliaModelStoreContainer" CdmEntityContainer="HotelMagnoliaEntities">
+        <EntityContainerMapping StorageEntityContainer="HotelMagnoliaModelStoreContainer" CdmEntityContainer="HotelMagnoliaEntitiesEntities">
           <EntitySetMapping Name="ACTIVIDADs">
             <EntityTypeMapping TypeName="HotelMagnoliaModel.ACTIVIDAD">
               <MappingFragment StoreEntitySet="ACTIVIDAD">
@@ -945,7 +972,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DecodeString" FunctionName="HotelMagnoliaModel.Store.DecodeString" />
+          <FunctionImportMapping FunctionImportName="DeleteReservacion" FunctionName="HotelMagnoliaModel.Store.DeleteReservacion" />
+          <FunctionImportMapping FunctionImportName="EditReservacion" FunctionName="HotelMagnoliaModel.Store.EditReservacion" />
           <FunctionImportMapping FunctionImportName="EncodeString" FunctionName="HotelMagnoliaModel.Store.EncodeString" />
+          <FunctionImportMapping FunctionImportName="GetDisponibles" FunctionName="HotelMagnoliaModel.Store.GetDisponibles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HotelMagnoliaModel.GetDisponibles_Result">
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
+                <ScalarProperty Name="TIPO_HABITACION" ColumnName="TIPO_HABITACION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertActividad" FunctionName="HotelMagnoliaModel.Store.InsertActividad">
             <ResultMapping>
               <ComplexTypeMapping TypeName="HotelMagnoliaModel.InsertActividad_Result">
