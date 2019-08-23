@@ -18,6 +18,13 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult Index()
         {
             var rESERVACIONs = db.RESERVACIONs.Include(r => r.CLIENTE).Include(r => r.ESTADO_RESERVACION1).Include(r => r.TIPO_HABITACION1);
+            //List<RESERVACION> listaReservacion = db.RESERVACIONs.ToList();
+
+            //foreach(RESERVACION i in listaReservacion)
+            //{
+                
+            //}
+
             return View(rESERVACIONs.ToList());
         }
 
@@ -80,7 +87,7 @@ namespace HotelMagnolia.UI.Controllers
                 String LogDetalle = "IDCliente:" + rESERVACION.ID_CLIENTE + "/Fecha Entrada:" + rESERVACION.FECHA_ENTRADA + "/Fecha Salida:" + rESERVACION.FECHA_SALIDA + "/Tipo Habitacion:" + rESERVACION.TIPO_HABITACION + "/Estado:" + rESERVACION.ESTADO_RESERVACION;
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
                 //db.InsertReservacion(rESERVACION.ID_CLIENTE, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nueva Reservacion", LogDetalle);
-                db.InsertReservacion(rESERVACION.ID_CLIENTE, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Nueva reservacion", LogDetalle);
+                db.InsertReservacion(rESERVACION.ID_CLIENTE, rESERVACION.FECHA_ENTRADA, rESERVACION.FECHA_SALIDA, rESERVACION.TIPO_HABITACION, rESERVACION.ESTADO_RESERVACION, usuarioSesion.ID_USUARIO, 1, "Nueva Reservacion", LogDetalle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

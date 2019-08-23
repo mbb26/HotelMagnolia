@@ -60,7 +60,7 @@ namespace HotelMagnolia.UI.Controllers
                 String LogDetalle= "Tipo Precio:" + pRECIO.TIPO_PRECIO + "/Precio:" + pRECIO.PRECIO1;
                 pRECIO.TIPO_PRECIO = Util.Cypher.Encrypt(pRECIO.TIPO_PRECIO);
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
-                db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1, usuarioSesion.ID_USUARIO, DateTime.Now, 01, "Nuevo Precio", LogDetalle);
+                db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1, usuarioSesion.ID_USUARIO,1, "Nuevo Precio", LogDetalle);
                 //db.InsertPrecios(pRECIO.TIPO_PRECIO, pRECIO.PRECIO1, usuarioSesion.ID_USUARIO, DateTime.Now, 1, "Agregar Precio");
                 
                 db.SaveChanges();

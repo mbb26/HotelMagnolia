@@ -14,8 +14,8 @@ namespace HotelMagnolia.UI.Models
     
     public partial class ARTICULO
     {
-        public int ID_ARTICULO { get; set; }
-        public string DESCRIPCION_ { get; set; }
+        public string ID_ARTICULO { get; set; }
+        public string DESCRIPCION { get; set; }
         public string ID_PRECIO { get; set; }
         public string IMG { get; set; }
     

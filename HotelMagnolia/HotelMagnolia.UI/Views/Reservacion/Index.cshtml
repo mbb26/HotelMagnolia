@@ -42,13 +42,13 @@
             @Html.DisplayFor(modelItem => item.FECHA_SALIDA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRE)
+            @Html.DisplayFor(modelItem => item.ID_CLIENTE)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ESTADO_RESERVACION1.NOMBRE)
+            @Html.DisplayFor(modelItem => item.ESTADO_RESERVACION)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TIPO_HABITACION1.NOMBRE)
+            @Html.DisplayFor(modelItem => item.TIPO_HABITACION)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID_RESERVACION })

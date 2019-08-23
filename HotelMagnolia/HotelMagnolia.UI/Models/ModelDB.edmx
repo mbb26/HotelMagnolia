@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelMagnoliaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelMagnoliaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="ID_ACTIVIDAD" />
@@ -18,8 +18,8 @@
           <Key>
             <PropertyRef Name="ID_ARTICULO" />
           </Key>
-          <Property Name="ID_ARTICULO" Type="int" Nullable="false" />
-          <Property Name="DESCRIPCION_" Type="varchar(max)" Nullable="false" />
+          <Property Name="ID_ARTICULO" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ID_PRECIO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IMG" Type="varchar(max)" />
         </EntityType>
@@ -244,6 +244,9 @@
           <Parameter Name="DecodeIn" Type="varchar" Mode="In" />
           <Parameter Name="DecodeOut" Type="varchar" Mode="InOut" />
         </Function>
+        <Function Name="DeleteArticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Articulo" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="DeleteReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Reservacion" Type="varchar" Mode="In" />
         </Function>
@@ -263,6 +266,15 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Img" Type="varchar(max)" Mode="In" />
+          <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
+          <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
+          <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertArticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="ID_precio" Type="varchar" Mode="In" />
+          <Parameter Name="Image" Type="varchar(max)" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
@@ -292,7 +304,6 @@
           <Parameter Name="Tipo_Precio" Type="varchar" Mode="In" />
           <Parameter Name="Precio" Type="int" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
-          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
           <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
@@ -304,7 +315,6 @@
           <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
           <Parameter Name="LOG_UserID" Type="varchar" Mode="In" />
-          <Parameter Name="LOG_fecha" Type="smalldatetime" Mode="In" />
           <Parameter Name="LOG_Tipo" Type="int" Mode="In" />
           <Parameter Name="LOG_Desc" Type="varchar" Mode="In" />
           <Parameter Name="LOG_Detalle" Type="varchar" Mode="In" />
@@ -387,8 +397,7 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelMagnoliaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -405,8 +414,8 @@
           <Key>
             <PropertyRef Name="ID_ARTICULO" />
           </Key>
-          <Property Name="ID_ARTICULO" Type="Int32" Nullable="false" />
-          <Property Name="DESCRIPCION_" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_ARTICULO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_PRECIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PRECIO" Relationship="Self.FK_ARTICULO_REFERENCE_PRECIO" FromRole="ARTICULO" ToRole="PRECIO" />
@@ -645,7 +654,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HotelMagnoliaEntitiesEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="HotelMagnoliaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ACTIVIDADs" EntityType="Self.ACTIVIDAD" />
           <EntitySet Name="ARTICULOes" EntityType="Self.ARTICULO" />
           <EntitySet Name="BITACORAs" EntityType="Self.BITACORA" />
@@ -699,8 +708,11 @@
             <Parameter Name="DecodeIn" Mode="In" Type="String" />
             <Parameter Name="DecodeOut" Mode="InOut" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DeleteArticulo">
+          <Parameter Name="ID_Articulo" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="DeleteReservacion">
-            <Parameter Name="ID_Reservacion" Mode="In" Type="String" />
+          <Parameter Name="ID_Reservacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EditReservacion">
             <Parameter Name="ID_Reservacion" Mode="In" Type="String" />
@@ -718,6 +730,15 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Img" Mode="In" Type="String" />
+            <Parameter Name="LOG_UserID" Mode="In" Type="String" />
+            <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="LOG_Desc" Mode="In" Type="String" />
+            <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertArticulo">
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="ID_precio" Mode="In" Type="String" />
+            <Parameter Name="Image" Mode="In" Type="String" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
@@ -747,7 +768,6 @@
             <Parameter Name="Tipo_Precio" Mode="In" Type="String" />
             <Parameter Name="Precio" Mode="In" Type="Int32" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
-            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
             <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
@@ -759,7 +779,6 @@
             <Parameter Name="Tipo_Habitacion" Mode="In" Type="Int32" />
             <Parameter Name="Estado" Mode="In" Type="Int32" />
             <Parameter Name="LOG_UserID" Mode="In" Type="String" />
-            <Parameter Name="LOG_fecha" Mode="In" Type="DateTime" />
             <Parameter Name="LOG_Tipo" Mode="In" Type="Int32" />
             <Parameter Name="LOG_Desc" Mode="In" Type="String" />
             <Parameter Name="LOG_Detalle" Mode="In" Type="String" />
@@ -785,7 +804,7 @@
             <Parameter Name="Id_rol" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsernameAvailable" ReturnType="Collection(String)">
-            <Parameter Name="Username" Mode="In" Type="String" />
+          <Parameter Name="Username" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ValidateUser" ReturnType="Collection(String)">
             <Parameter Name="Username" Mode="In" Type="String" />
@@ -830,7 +849,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HotelMagnoliaModelStoreContainer" CdmEntityContainer="HotelMagnoliaEntitiesEntities">
+        <EntityContainerMapping StorageEntityContainer="HotelMagnoliaModelStoreContainer" CdmEntityContainer="HotelMagnoliaEntities">
           <EntitySetMapping Name="ACTIVIDADs">
             <EntityTypeMapping TypeName="HotelMagnoliaModel.ACTIVIDAD">
               <MappingFragment StoreEntitySet="ACTIVIDAD">
@@ -845,7 +864,7 @@
             <EntityTypeMapping TypeName="HotelMagnoliaModel.ARTICULO">
               <MappingFragment StoreEntitySet="ARTICULO">
                 <ScalarProperty Name="ID_ARTICULO" ColumnName="ID_ARTICULO" />
-                <ScalarProperty Name="DESCRIPCION_" ColumnName="DESCRIPCION_" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="ID_PRECIO" ColumnName="ID_PRECIO" />
                 <ScalarProperty Name="IMG" ColumnName="IMG" />
               </MappingFragment>
@@ -972,6 +991,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DecodeString" FunctionName="HotelMagnoliaModel.Store.DecodeString" />
+          <FunctionImportMapping FunctionImportName="DeleteArticulo" FunctionName="HotelMagnoliaModel.Store.DeleteArticulo" />
           <FunctionImportMapping FunctionImportName="DeleteReservacion" FunctionName="HotelMagnoliaModel.Store.DeleteReservacion" />
           <FunctionImportMapping FunctionImportName="EditReservacion" FunctionName="HotelMagnoliaModel.Store.EditReservacion" />
           <FunctionImportMapping FunctionImportName="EncodeString" FunctionName="HotelMagnoliaModel.Store.EncodeString" />
@@ -994,6 +1014,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertArticulo" FunctionName="HotelMagnoliaModel.Store.InsertArticulo" />
           <FunctionImportMapping FunctionImportName="InsertBitacora" FunctionName="HotelMagnoliaModel.Store.InsertBitacora" />
           <FunctionImportMapping FunctionImportName="InsertHabitacion" FunctionName="HotelMagnoliaModel.Store.InsertHabitacion" />
           <FunctionImportMapping FunctionImportName="InsertPrecios" FunctionName="HotelMagnoliaModel.Store.InsertPrecios" />
