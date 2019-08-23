@@ -22,7 +22,7 @@ namespace HotelMagnolia.UI.Controllers
         }
 
         // GET: Articulo/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -39,7 +39,19 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Articulo/Create
         public ActionResult Create()
         {
-            ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
+            //ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
+
+            var PrecioNuevo = new List<SelectListItem>();
+            List<PRECIO> Tipos = db.PRECIOs.ToList();
+            foreach (PRECIO i in Tipos)
+            {
+                var nuevo = new SelectListItem();
+                nuevo.Value = (i.ID_PRECIO);
+                nuevo.Text = Util.Cypher.Decrypt(i.TIPO_PRECIO);
+                PrecioNuevo.Add(nuevo);
+            }
+
+            ViewBag.ID_PRECIO = PrecioNuevo;
             return View();
         }
 
@@ -48,11 +60,15 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_ARTICULO,DESCRIPCION_,ID_PRECIO,IMG")] ARTICULO aRTICULO)
+        public ActionResult Create([Bind(Include = "ID_ARTICULO,DESCRIPCION,ID_PRECIO,IMG")] ARTICULO aRTICULO)
         {
             if (ModelState.IsValid)
             {
-                db.ARTICULOes.Add(aRTICULO);
+                USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
+                //db.ARTICULOes.Add(aRTICULO);
+                String LogDetalle = "Descripcion:" + aRTICULO.DESCRIPCION + "/Precio:" + aRTICULO.PRECIO.PRECIO1;
+                LogDetalle = Util.Cypher.Encrypt(LogDetalle);
+                db.InsertArticulo(aRTICULO.DESCRIPCION, aRTICULO.ID_PRECIO, aRTICULO.IMG, usuarioSesion.ID_USUARIO, 1, "Nuevo Articulo", LogDetalle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -62,7 +78,7 @@ namespace HotelMagnolia.UI.Controllers
         }
 
         // GET: Articulo/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -82,7 +98,7 @@ namespace HotelMagnolia.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_ARTICULO,DESCRIPCION_,ID_PRECIO,IMG")] ARTICULO aRTICULO)
+        public ActionResult Edit([Bind(Include = "ID_ARTICULO,DESCRIPCION,ID_PRECIO,IMG")] ARTICULO aRTICULO)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +111,7 @@ namespace HotelMagnolia.UI.Controllers
         }
 
         // GET: Articulo/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -112,7 +128,7 @@ namespace HotelMagnolia.UI.Controllers
         // POST: Articulo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             ARTICULO aRTICULO = db.ARTICULOes.Find(id);
             db.ARTICULOes.Remove(aRTICULO);

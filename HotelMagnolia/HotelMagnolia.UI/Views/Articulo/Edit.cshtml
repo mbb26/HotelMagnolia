@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { data_function = "initialize" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -18,15 +18,15 @@
         @Html.HiddenFor(model => model.ID_ARTICULO)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DESCRIPCION_, htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DESCRIPCION_, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DESCRIPCION_, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ID_PRECIO, "ID_PRECIO", htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.ID_PRECIO, "ID_PRECIO", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ID_PRECIO", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ID_PRECIO, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IMG, htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.IMG, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.IMG, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.IMG, "", new { @class = "text-danger" })
@@ -43,12 +43,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
