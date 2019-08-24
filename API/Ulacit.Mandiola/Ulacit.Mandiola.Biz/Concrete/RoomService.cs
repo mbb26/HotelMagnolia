@@ -1,12 +1,16 @@
-﻿using Ulacit.Mandiola.Biz.Abstract;
+﻿using System.Collections.Generic;
+using Ulacit.Mandiola.Biz.Abstract;
 using Ulacit.Mandiola.Common.Concrete;
 using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
+using System.Web.Http.Cors;
+
 
 namespace Ulacit.Mandiola.Biz.Concrete
 {
     /// <summary>A service for accessing rooms information.</summary>
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Dependency(DependencyScope.Transient)]
     public class RoomService : BasicService, IRoomService
     {
@@ -20,9 +24,9 @@ namespace Ulacit.Mandiola.Biz.Concrete
             _roomContext = roomContext;
         }
 
-        public List<T> GetAvailable()
+        public List<T> GetAvailable<T>()
         {
-            return _roomContext.GetAvailable();
+            return _roomContext.GetAvailable<T>();
 
         }
     }
