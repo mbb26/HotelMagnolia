@@ -720,7 +720,7 @@ CREATE OR ALTER PROCEDURE EditReservacion
    @Fecha_Entrada date,
    @Fecha_Salida date,
    @Tipo_Habitacion int,
-   @Estado int
+   @Estado int,
 )
 AS
 UPDATE [dbo].[RESERVACION] SET 
@@ -729,13 +729,21 @@ UPDATE [dbo].[RESERVACION] SET
       TIPO_HABITACION = @Tipo_Habitacion,
       ESTADO_RESERVACION = @Estado
 WHERE 
-ID_RESERVACION = @ID_Reservacion
+
+
+
+
+EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_detalle
 
 go
 
 CREATE OR ALTER PROCEDURE DeleteReservacion
 (
-   @ID_Reservacion varchar(200)
+   @ID_Reservacion varchar(200),
+   @LOG_UserID varchar(200),
+   @LOG_Tipo int,
+   @LOG_Desc varchar(200),
+   @LOG_Detalle varchar(200)
 )
 AS
 DELETE FROM [dbo].[RESERVACION]
@@ -1051,6 +1059,38 @@ FROM [dbo].[USUARIO]
 WHERE ID_USUARIO = @ID
 
 GO
+
+CREATE OR ALTER PROCEDURE InsertReservacionAPI
+   (
+   @ID_Cliente int,
+   @Fecha_Entrada date,
+   @Fecha_Salida date,
+   @Tipo_Habitacion int,
+   @Estado int
+)
+AS
+@ID varchar(200)
+ 
+SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
+                CAST([valor]  AS VARCHAR(200))
+FROM [dbo].[CONSECUTIVO]
+WHERE Nombre = 'Reservacion'
+
+INSERT INTO [dbo].[RESERVACION]
+   ([ID_RESERVACION],[ID_CLIENTE],[FECHA_ENTRADA],[FECHA_SALIDA],[TIPO_HABITACION],[ESTADO_RESERVACION])
+VALUES
+   (@ID, @ID_Cliente, @Fecha_Entrada, @Fecha_Salida, @Tipo_Habitacion, @Estado)
+
+UPDATE [dbo].[CONSECUTIVO]
+        SET Valor = Valor + 1
+        WHERE Nombre ='Reservacion'
+
+SELECT *
+FROM [dbo].[RESERVACION]
+WHERE ID_RESERVACION = @ID
+
+GO
+
 
 -- INSERT BASE USERS
 EXEC InsertUsuarioE 'Armando', 'Arias', 'Alvarado', 'admin@mandiola.com', 12345678, '1234','admin', 1
