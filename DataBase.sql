@@ -714,205 +714,10 @@ UPDATE [dbo].[CONSECUTIVO]
         
 GO
 
-CREATE OR ALTER PROCEDURE EditReservacion
-(
-   @ID_Reservacion varchar(200),
-   @Fecha_Entrada date,
-   @Fecha_Salida date,
-   @Tipo_Habitacion int,
-   @Estado int,
-)
-AS
-UPDATE [dbo].[RESERVACION] SET 
-      FECHA_ENTRADA = @Fecha_Entrada,
-      FECHA_SALIDA = @Fecha_Salida,
-      TIPO_HABITACION = @Tipo_Habitacion,
-      ESTADO_RESERVACION = @Estado
-WHERE 
 
+-------------------------------------------------------
 
-
-
-EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_detalle
-
-go
-
-CREATE OR ALTER PROCEDURE DeleteReservacion
-(
-   @ID_Reservacion varchar(200),
-   @LOG_UserID varchar(200),
-   @LOG_Tipo int,
-   @LOG_Desc varchar(200),
-   @LOG_Detalle varchar(200)
-)
-AS
-DELETE FROM [dbo].[RESERVACION]
-WHERE ID_RESERVACION = @ID_Reservacion
-GO
-
-CREATE OR ALTER PROCEDURE GetDisponibles
-AS
-SELECT NOMBRE,ID_PRECIO,TIPO_HABITACION
-FROM [dbo].[HABITACION]
-WHERE DISPONIBLE != 0
-
-go
-
-
-
-
-
-
-
-
-/*==============================================================*/
-/* Table: Stored Procedures    Backup - no Bitacora                                         
-==============================================================*/
-
-
-
-
-CREATE OR ALTER PROCEDURE InsertHabitacion
-   (
-   @Numero int,
-   @Nombre varchar(200),
-   @Tipo_Habitacion int,
-   @ID_Precio varchar(100),
-   @Descripcion varchar(250),
-   @Foto varchar(250)
-
-)
-AS
-DECLARE @ID varchar(200)
-
-SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
-                    CAST([valor]  AS VARCHAR(200))
-FROM [dbo].[CONSECUTIVO]
-WHERE Nombre = 'Habitacion'
-
-INSERT INTO [dbo].[HABITACION]
-   ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[TIPO_HABITACION],[ID_PRECIO])
-VALUES
-   (@ID, @Numero, @Nombre, @descripcion, @foto, @Tipo_Habitacion, @ID_Precio)
-
-
-UPDATE [dbo].[CONSECUTIVO]
-            SET Valor = Valor + 1
-            WHERE Nombre ='Habitacion'
-            
-        GO
-
-
-
-CREATE OR ALTER PROCEDURE InsertReservacion
-   (
-   @ID_Cliente int,
-   @Fecha_Entrada date,
-   @Fecha_Salida date,
-   @Tipo_Habitacion int,
-   @Estado int
-)
-AS
-DECLARE @ID varchar(200)
-
-SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
-                CAST([valor]  AS VARCHAR(200))
-FROM [dbo].[CONSECUTIVO]
-WHERE Nombre = 'Reservacion'
-
-INSERT INTO [dbo].[RESERVACION]
-   ([ID_RESERVACION],[ID_CLIENTE],[FECHA_ENTRADA],[FECHA_SALIDA],[TIPO_HABITACION],[ESTADO_RESERVACION])
-VALUES
-   (@ID, @ID_Cliente, @Fecha_Entrada, @Fecha_Salida, @Tipo_Habitacion, @Estado)
-
-UPDATE [dbo].[CONSECUTIVO]
-        SET Valor = Valor + 1
-        WHERE Nombre ='Reservacion'
-        
-    GO
-
-CREATE OR ALTER PROCEDURE InsertActividad
-   (
-   @Nombre varchar(200),
-   @Descripcion varchar(200),
-   @Img varchar(max)
-)
-AS
-DECLARE @ID varchar(200)
-
-SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
-                CAST([valor]  AS VARCHAR(200))
-FROM [dbo].[CONSECUTIVO]
-WHERE Nombre = 'Actividad'
-
-INSERT INTO [dbo].[ACTIVIDAD]
-   ([ID_ACTIVIDAD],[NOMBRE],[DESCRIPCION],[IMG])
-VALUES
-   (@ID, @Nombre, @Descripcion, @Img)
-
-UPDATE [dbo].[CONSECUTIVO]
-        SET Valor = Valor + 1
-        WHERE Nombre ='Actividad'
-    GO
-
-CREATE OR ALTER PROCEDURE InsertPrecios
-   (
-   @Tipo_Precio varchar(200),
-   @Precio int
-
-)
-AS
-DECLARE @ID varchar(200)
-
-SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
-                CAST([valor]  AS VARCHAR(200))
-FROM [dbo].[CONSECUTIVO]
-WHERE Nombre = 'Precio'
-
-INSERT INTO [dbo].[PRECIO]
-   ([ID_PRECIO],[TIPO_PRECIO],[PRECIO])
-VALUES
-   (@ID, @Tipo_Precio, @Precio)
-
-UPDATE [dbo].[CONSECUTIVO]
-        SET Valor = Valor + 1
-        WHERE Nombre ='Precio'
-    GO
-
-CREATE OR ALTER PROCEDURE InsertUsuarios
-   (
-   @nombre varchar(200),
-   @apellido1 varchar(200),
-   @apellido2 varchar(200),
-   @correo varchar(200),
-   @telefono int,
-   @password varchar(200),
-   @User_name varchar(200),
-   @Id_rol int
-)
-AS
-DECLARE @ID varchar(200)
-
-SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
-                CAST([valor]  AS VARCHAR(200))
-FROM [dbo].[CONSECUTIVO]
-WHERE Nombre = 'Usuario'
-
-INSERT INTO [dbo].[USUARIO]
-   ([ID_USUARIO],[NOMBRE],[APELLIDO1],[APELLIDO2],[CORREO],[TELEFONO],[PASSWORD],[USER_NAME],[ID_ROL])
-VALUES
-   (@ID, @nombre, @apellido1, @apellido2, @correo, @telefono, @password, @User_name, @Id_rol)
-
-UPDATE [dbo].[CONSECUTIVO]
-        SET Valor = Valor + 1
-        WHERE Nombre ='Usuario'
-
-SELECT *
-FROM [dbo].[USUARIO]
-WHERE ID_USUARIO = @ID
-
-GO
-
+-------------------------------------------------------
 CREATE OR ALTER PROCEDURE EncodeString
 (
    @EncodeIn VARCHAR(200),
@@ -932,7 +737,7 @@ BEGIN
 
 END
 GO
-
+-------------------------------------------------------
 CREATE OR ALTER PROCEDURE DecodeString
 (
    @DecodeIn VARCHAR(200),
@@ -955,7 +760,7 @@ BEGIN
 
 END
 GO
-
+-------------------------------------------------------
 CREATE OR ALTER PROCEDURE ValidateUser
 (
    @Username NVARCHAR(200),
@@ -986,7 +791,7 @@ BEGIN
    END
 END
 GO
-
+-------------------------------------------------------
 CREATE OR ALTER PROCEDURE UsernameAvailable
 (
    @Username NVARCHAR(200)
@@ -1011,7 +816,7 @@ BEGIN
    END
 END
 GO
-
+-------------------------------------------------------
 CREATE OR ALTER PROCEDURE InsertUsuarioE
    (
    @nombre varchar(200),
@@ -1059,7 +864,7 @@ FROM [dbo].[USUARIO]
 WHERE ID_USUARIO = @ID
 
 GO
-
+-------------------------------------------------------
 CREATE OR ALTER PROCEDURE InsertReservacionAPI
    (
    @ID_Cliente int,
@@ -1069,7 +874,7 @@ CREATE OR ALTER PROCEDURE InsertReservacionAPI
    @Estado int
 )
 AS
-@ID varchar(200)
+DECLARE @ID varchar(200)
  
 SELECT @ID = CAST(ISNULL([Prefijo],'') AS VARCHAR(200)) + 
                 CAST([valor]  AS VARCHAR(200))
@@ -1090,6 +895,52 @@ FROM [dbo].[RESERVACION]
 WHERE ID_RESERVACION = @ID
 
 GO
+---------------------------------------------------------
+CREATE OR ALTER PROCEDURE EditReservacionAPI
+(
+   @ID_Reservacion varchar(200),
+   @Fecha_Entrada date,
+   @Fecha_Salida date,
+   @Tipo_Habitacion int,
+   @Estado int
+)
+AS
+UPDATE [dbo].[RESERVACION] SET 
+      FECHA_ENTRADA = @Fecha_Entrada,
+      FECHA_SALIDA = @Fecha_Salida,
+      TIPO_HABITACION = @Tipo_Habitacion,
+      ESTADO_RESERVACION = @Estado
+WHERE ID_RESERVACION = @ID_Reservacion
+
+GO
+-------------------------------------------------------
+CREATE OR ALTER PROCEDURE DeleteReservacionAPI
+(
+   @ID_Reservacion varchar(200)
+)
+AS
+DELETE FROM [dbo].[RESERVACION]
+WHERE ID_RESERVACION = @ID_Reservacion
+
+GO
+-------------------------------------------------------
+
+
+
+-------------------------------------------------------
+
+-------------------------------------------------------
+
+
+-------------------------------------------------------
+CREATE OR ALTER PROCEDURE GetDisponibles
+AS
+SELECT NOMBRE,ID_PRECIO,TIPO_HABITACION
+FROM [dbo].[HABITACION]
+WHERE DISPONIBLE != 0
+GO
+
+
 
 
 -- INSERT BASE USERS

@@ -59,6 +59,9 @@ namespace Ulacit.Mandiola.DB.Concrete
             }
         }
 
+        public List<T> GetAvailable<T>()
+            => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").FirstOrDefault());
+
         /// <summary>Gets all.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <returns>all.</returns>
@@ -84,5 +87,7 @@ namespace Ulacit.Mandiola.DB.Concrete
             _mandiolaDbContext.SaveChanges();
             return _mapper.Map<T>(aux);
         }
+
+        
     }
 }
