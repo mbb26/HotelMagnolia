@@ -60,7 +60,7 @@ namespace Ulacit.Mandiola.DB.Concrete
         }
 
         public List<T> GetAvailable<T>()
-            => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").FirstOrDefault());
+            => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").ToList());
 
         /// <summary>Gets all.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
