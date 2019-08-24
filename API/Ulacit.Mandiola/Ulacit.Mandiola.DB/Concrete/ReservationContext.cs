@@ -7,6 +7,8 @@ using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.DB.MandiolaDb;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
+using Ulacit.Mandiola.DB.Util;
+using System.Data.SqlClient;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
@@ -34,9 +36,49 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <returns>A T.</returns>
         public T Create<T>(T entity)
         {
+            //NEED HOW TO GET USER
             var aux = _mapper.Map<RESERVACION>(entity);
-            _mandiolaDbContext.RESERVACIONs.Add(aux);
-            _mandiolaDbContext.SaveChanges();
+            //_mandiolaDbContext.RESERVACIONs.Add(aux);
+            //_mandiolaDbContext.SaveChanges();
+            //return _mapper.Map<T>(aux);
+
+            aux = Cypher.EncryptObject(aux) as RESERVACION;
+
+
+
+            var pIDCliente = new SqlParameter
+            {
+                ParameterName = "ID_Cliente",
+                Value = aux.ID_CLIENTE
+            };
+
+            var pFechaEntrada = new SqlParameter
+            {
+                ParameterName = "Fecha_Entrada",
+                Value = aux.FECHA_ENTRADA
+            };
+
+            var pFechaSalida = new SqlParameter
+            {
+                ParameterName = "Fecha_Salida",
+                Value = aux.FECHA_SALIDA
+            };
+
+            var pTipoHabitacion = new SqlParameter
+            {
+                ParameterName = "Tipo_Habitacion",
+                Value = aux.TIPO_HABITACION
+            };
+
+            var pEstado = new SqlParameter
+            {
+                ParameterName = "Estado",
+                Value = aux.ESTADO_RESERVACION
+            };
+
+            aux = _mandiolaDbContext.Database.SqlQuery<RESERVACION>("exec InsertReservacionAPI @ID_Cliente,@Fecha_Entrada,@Fecha_Salida,@Tipo_Habitacion,@Estado", pIDCliente, pFechaEntrada, pFechaSalida, pTipoHabitacion, pEstado).FirstOrDefault();
+            aux = Cypher.DecryptObject(aux) as RESERVACION;
+
             return _mapper.Map<T>(aux);
         }
 
@@ -49,7 +91,14 @@ namespace Ulacit.Mandiola.DB.Concrete
             try
             {
                 var aux = _mapper.Map<RESERVACION>(entity);
-                _mandiolaDbContext.Entry(aux).State = EntityState.Deleted;
+                var pReservacionID = new SqlParameter
+                {
+                    ParameterName = "ID_RESERVACION",
+                    Value = aux.ID_RESERVACION
+                };
+
+                aux = _mandiolaDbContext.Database.SqlQuery<RESERVACION>("exec DeleteReservacionAPI @ID_Reservacion",pReservacionID).FirstOrDefault();
+                //_mandiolaDbContext.Entry(aux).State = EntityState.Deleted;
                 _mandiolaDbContext.SaveChanges();
                 return true;
             }
