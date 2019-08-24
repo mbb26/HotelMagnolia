@@ -19,5 +19,10 @@ namespace Ulacit.Mandiola.Biz.Concrete
         {
             _roomContext = roomContext;
         }
+
+        public T GetAvailable<T>()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

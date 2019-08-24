@@ -59,6 +59,8 @@ namespace Ulacit.Mandiola.DB.Concrete
             }
         }
 
+        /// <summary>(An Action that handles HTTP GET requests) gets Available Rooms.</summary>
+        /// <returns>The by availability.</returns>
         public List<T> GetAvailable<T>()
             => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").ToList());
 
