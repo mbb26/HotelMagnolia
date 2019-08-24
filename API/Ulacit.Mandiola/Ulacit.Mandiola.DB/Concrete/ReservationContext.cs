@@ -45,7 +45,6 @@ namespace Ulacit.Mandiola.DB.Concrete
             aux = Cypher.EncryptObject(aux) as RESERVACION;
 
 
-
             var pIDCliente = new SqlParameter
             {
                 ParameterName = "ID_Cliente",
@@ -125,11 +124,51 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="entity">The entity.</param>
         /// <returns>A T.</returns>
+        
+
+        
+
+
         public T Update<T>(T entity)
         {
             var aux = _mapper.Map<RESERVACION>(entity);
-            _mandiolaDbContext.RESERVACIONs.Attach(aux);
-            _mandiolaDbContext.Entry(aux).State = EntityState.Modified;
+
+            aux = Cypher.EncryptObject(aux) as RESERVACION;
+
+
+            var pIDReservacion = new SqlParameter
+            {
+                ParameterName = "ID_Reservacion",
+                Value = aux.ID_RESERVACION
+            };
+
+            var pFechaEntrada = new SqlParameter
+            {
+                ParameterName = "Fecha_Entrada",
+                Value = aux.FECHA_ENTRADA
+            };
+
+            var pFechaSalida = new SqlParameter
+            {
+                ParameterName = "Fecha_Salida",
+                Value = aux.FECHA_SALIDA
+            };
+
+            var pTipoHabitacion = new SqlParameter
+            {
+                ParameterName = "Tipo_Habitacion",
+                Value = aux.TIPO_HABITACION
+            };
+
+            var pEstado = new SqlParameter
+            {
+                ParameterName = "Estado",
+                Value = aux.ESTADO_RESERVACION
+            };
+
+            //_mandiolaDbContext.RESERVACIONs.Attach(aux);
+            //_mandiolaDbContext.Entry(aux).State = EntityState.Modified;
+             aux = _mandiolaDbContext.Database.SqlQuery<RESERVACION>("exec EditReservacionAPI @ID_Reservacion,@Fecha_Entrada,@Fecha_Salida,@Tipo_Habitacion,@Estado", pIDReservacion,pFechaEntrada,pFechaSalida,pTipoHabitacion,pEstado).FirstOrDefault();
             _mandiolaDbContext.SaveChanges();
             return _mapper.Map<T>(aux);
         }
