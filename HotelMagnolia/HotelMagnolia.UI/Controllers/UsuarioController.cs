@@ -118,6 +118,7 @@ namespace HotelMagnolia.UI.Controllers
             USUARIO User = db.USUARIOs.Find(result);
 
             if (User != null) {
+                User = Cypher.DecryptObject(User) as USUARIO;
                 Session["Usuario"] = User;
                 return RedirectToAction("Index", "Home");
             }

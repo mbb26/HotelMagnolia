@@ -823,4 +823,8 @@ footer {
   footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
     color: inherit; }
 
+.ui-dialog-titlebar-close::before {
+  content: 'x';
+  color: #fff; }
+
 /*# sourceMappingURL=style.css.map */

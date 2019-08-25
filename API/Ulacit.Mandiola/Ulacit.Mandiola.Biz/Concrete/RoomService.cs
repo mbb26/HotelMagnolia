@@ -1,4 +1,5 @@
-﻿using Ulacit.Mandiola.Biz.Abstract;
+﻿using System.Collections.Generic;
+using Ulacit.Mandiola.Biz.Abstract;
 using Ulacit.Mandiola.Common.Concrete;
 using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.IoC.Concrete;
@@ -18,6 +19,11 @@ namespace Ulacit.Mandiola.Biz.Concrete
         public RoomService(IRoomContext roomContext) : base(roomContext)
         {
             _roomContext = roomContext;
+        }
+
+        public List<T> GetAvailable<T>()
+        {
+            return _roomContext.GetAvailable<T>();
         }
     }
 }

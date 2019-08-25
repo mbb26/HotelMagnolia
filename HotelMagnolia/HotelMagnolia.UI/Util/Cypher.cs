@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.IO;
+using System.Reflection;
 
 namespace HotelMagnolia.UI.Util
 {
@@ -57,6 +58,43 @@ namespace HotelMagnolia.UI.Util
             ICryptoTransform d = new RijndaelManaged().CreateDecryptor(key.GetBytes(32), key.GetBytes(16));
             byte[] bytes = Convert.FromBase64String(base64Text);
             return new StreamReader(new CryptoStream(new MemoryStream(bytes), d, CryptoStreamMode.Read)).ReadToEnd();
+        }
+
+        private static bool needsEncoding(string name)
+        {
+            string[] excludedNames = {"ID_"};
+            bool needs = true;
+            foreach (string excluded in excludedNames)
+            {
+                needs = needs && !name.Contains(excluded);
+            }
+            return needs;
+        }
+
+        public static Object EncryptObject(Object myObject)
+        {
+            foreach (PropertyInfo propertyInfo in myObject.GetType().GetProperties())
+            {
+                if (propertyInfo.GetValue(myObject) is string && needsEncoding(propertyInfo.Name))
+                {
+                    System.Diagnostics.Debug.WriteLine("Encoding: " + propertyInfo.Name);
+                    propertyInfo.SetValue(myObject, Encrypt(propertyInfo.GetValue(myObject).ToString()));
+                }
+            }
+            return myObject;
+        }
+
+        public static Object DecryptObject(Object myObject)
+        {
+            foreach (PropertyInfo propertyInfo in myObject.GetType().GetProperties())
+            {
+                if (propertyInfo.GetValue(myObject) is string && needsEncoding(propertyInfo.Name))
+                {
+                    System.Diagnostics.Debug.WriteLine("Decoding: " + propertyInfo.Name);
+                    propertyInfo.SetValue(myObject, Decrypt(propertyInfo.GetValue(myObject).ToString()));
+                }
+            }
+            return myObject;
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
