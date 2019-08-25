@@ -3,22 +3,16 @@ var APP = window.APP || {};
 APP.functions = (function() {
 
     var API_KEYS = {
-        root: 'http://localhost:44364/API/',
-        getAll: 'GetAll',
-        getById: 'GetById/',
-        create: 'Create',
-        update: 'Update',
-        delete: 'Delete',
-        login: 'Login',
-        availability: 'IsUsernameAvailable/'
+        root: 'http://localhost:44364/API/'
     };
     var $user_in_session = 'userInSession';
 
-    var makeAPICall = function(apiName, apiCall, method, params, onSuccess, onError) {
+    var makeAPICall = function(apiRequest, method, params, onSuccess, onError) {
         $.ajax({
             type: method,
-            url: API_KEYS.root+apiName+'/'+API_KEYS[apiCall],
+            url: API_KEYS.root+apiRequest,
             data: params,
+            crossDomain: true,
             success: function (response) {
                 if (typeof(onSuccess) === 'function') {
                     onSuccess(response);

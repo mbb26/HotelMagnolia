@@ -8,6 +8,7 @@ using Ulacit.Mandiola.DB.MandiolaDb;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
 using System.Web.Http.Cors;
+using Ulacit.Mandiola.DB.Util;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
@@ -62,7 +63,17 @@ namespace Ulacit.Mandiola.DB.Concrete
         }
 
         public List<T> GetAvailable<T>()
-            => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").ToList());
+        {
+
+            List<HABITACION> aux = _mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").ToList<HABITACION>();
+            foreach (HABITACION hab in aux)
+            {
+                hab.NOMBRE = Cypher.Decrypt(hab.NOMBRE);
+                hab.DESCRIPCION = Cypher.Decrypt(hab.DESCRIPCION);
+            }
+
+            return _mapper.Map<List<T>>(aux);
+        }
 
         /// <summary>Gets all.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ulacit.Mandiola.Common.Abstract;
+using Ulacit.Mandiola.DB.MandiolaDb;
 
 namespace Ulacit.Mandiola.DB.Abstract
 {

@@ -267,7 +267,7 @@ create table HABITACION
    FOTO varchar(max) not null,
    TIPO_HABITACION int not null,
    ID_PRECIO varchar(100) not null,
-   DISPONIBLE bit null,
+   DISPONIBLE bit not null,
    constraint PK_HABITACION primary key (ID_HABITACION)
 )
 go
@@ -602,13 +602,6 @@ WHERE ID_ACTIVIDAD = @ID
 
 GO
 
-CREATE OR ALTER PROCEDURE InsertArticulo
-(
-   @Descripcion int,
-   
-)
-
-
 CREATE OR ALTER PROCEDURE InsertHabitacion
    (
    @Numero int,
@@ -935,7 +928,7 @@ GO
 -------------------------------------------------------
 CREATE OR ALTER PROCEDURE GetDisponibles
 AS
-SELECT NOMBRE,ID_PRECIO,TIPO_HABITACION
+SELECT *
 FROM [dbo].[HABITACION]
 WHERE DISPONIBLE != 0
 GO

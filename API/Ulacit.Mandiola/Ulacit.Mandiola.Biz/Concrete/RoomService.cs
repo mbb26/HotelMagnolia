@@ -4,6 +4,7 @@ using Ulacit.Mandiola.Common.Concrete;
 using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
+using Ulacit.Mandiola.DB.MandiolaDb;
 
 namespace Ulacit.Mandiola.Biz.Concrete
 {
