@@ -28,33 +28,10 @@
         <nav class="navbar navbar-expand-md">
             <a class="navbar-brand" href="index.html"><img src="../img/core-img/logo.png" alt="Hotel Mandiola Logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				  <span class="navbar-toggler-icon"></span>
-				</button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuSeguridad" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Cuenta
-					  </a>
-                        <div class="dropdown-menu" aria-labelledby="menuSeguridad">
-                            <a class="dropdown-item" href="cambiar_password.html">Cambio de Contraseña</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuAdministracion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Servicios
-					  </a>
-                        <div class="dropdown-menu" aria-labelledby="menuAdministracion">
-                            <a class="dropdown-item" href="resevaciones.html">Reservacion</a>
-                        </div>
-                    </li>
-                </ul>
-                
-                <ul id="carrito" class="nav navbar-nav navbar-right">
-                    <li><a href="Carrito.html"><span class="glyphicon glyphicon-user"></span> Carrito</a></li>
-                </ul>
-               
             </div>
         </nav>
     </header>
@@ -66,20 +43,19 @@
             <div class="row h-100 align-items-center">
                 <div class="col-8">
                     <div class="hero-content">
-
-                        <form action="#" id="login-form" data-function="initialize">
+                        <form action="#" id="reservation-form" data-function="initialize">
                             <h2>Bienvenido</h2>
                             <h2>Haga su reservación aquí</h2>
                             
                             <div class="form-group">
-                                <label class="control-label col-md-6" for="TIPO_HABITACION">Seleccione su tipo de habitación</label>
+                                <label class="control-label col-md-6" for="tipo_habitacion_search">Seleccione su tipo de habitación</label>
                                 <div class="col-md-10">
-                                    <select class="form-control" id="TIPO_HABITACION" name="TIPO_HABITACION">
+                                    <select class="form-control" id="tipo_habitacion_search" name="tipo_habitacion_search">
                                         <option value="1">Normal</option>
                                         <option value="2">Deluxe</option>
                                         <option value="3">Condominio</option>
                                     </select>
-                                    <span class="field-validation-valid text-danger" data-valmsg-for="TIPO_HABITACION"
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="tipo_habitacion_search"
                                         data-valmsg-replace="true"></span>
                                 </div>
                             </div>
@@ -87,7 +63,7 @@
                                 <label class="control-label col-md-6" for="cantidad_adultos">Cantidad de adultos que ingresarán:</label>
                                 <div class="col-md-10">
                                     <input class="form-control text-box single-line" data-function="noBlank"
-                                        id="cantidad_adultos" name="cantidad_adultos" type="text">
+                                        id="cantidad_adultos" name="cantidad_adultos" type="number">
                                     <span class="field-validation-valid text-danger" data-valmsg-for="cantidad_adultos"
                                         data-valmsg-replace="true"></span>
                                 </div>
@@ -96,7 +72,7 @@
                                 <label class="control-label col-md-6" for="cantidad_ninos">Cantidad de niños que ingresarán:</label>
                                 <div class="col-md-10">
                                     <input class="form-control text-box single-line" data-function="noBlank"
-                                        id="cantidad_ninos" name="cantidad_ninos" type="text">
+                                        id="cantidad_ninos" name="cantidad_ninos" type="number">
                                     <span class="field-validation-valid text-danger" data-valmsg-for="cantidad_ninos"
                                         data-valmsg-replace="true"></span>
                                 </div>
@@ -133,6 +109,16 @@
                                     <button type="submit">Reservar</button>
                                 </div>
                             </div>
+                        </form>
+                        <form id="room-form">
+                            <input type="hidden" name="ID_HABITACION" id="ID_HABITACION" />
+                            <input type="hidden" name="NUMERO" id="NUMERO" />
+                            <input type="hidden" name="NOMBRE" id="NOMBRE" />
+                            <input type="hidden" name="DESCRIPCION" id="DESCRIPCION" />
+                            <input type="hidden" name="FOTO" id="FOTO" />
+                            <input type="hidden" name="TIPO_HABITACION" id="TIPO_HABITACION" />
+                            <input type="hidden" name="ID_PRECIO" id="ID_PRECIO" />
+                            <input type="hidden" name="DISPONIBLE" id="DISPONIBLE" />
                         </form>
                     </div>
                 </div>
