@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.API
 {
@@ -11,10 +12,10 @@ namespace Ulacit.Mandiola.API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            var cors = new EnableCorsAttribute("*", "*", "GET,POST");
+            config.EnableCors(cors);
             // Web API routes
             config.MapHttpAttributeRoutes();
-            config.EnableCors();
 
             config.Formatters.JsonFormatter.SupportedMediaTypes
                 .Add(new MediaTypeHeaderValue("text/html"));

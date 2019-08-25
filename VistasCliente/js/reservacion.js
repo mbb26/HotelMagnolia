@@ -1,32 +1,20 @@
 var APP = window.APP || {};
 
-APP.userFunctions = (function() {
+APP.reservacion = (function() {
 
-    var $api_user = 'User/';
+    var $api_reservation = 'Reservation/';
+    var $api_room = 'Room/';
     var $create_user_form_selector = '#create-user-form';
     var $create_user_form = null;
     var $login_form_selector = '#login-form';
     var $login_form = null;
+    var $available_rooms = null;
+    var $tipo_habitacion_selector = "#TIPO_HABITACION";
 
-    var bindButtons = function() {
-        $('.create-user').on('click', function(e) {
-            e.preventDefault();
-            if (APP.functions.validateForm($create_user_form)) {
-                $('input[name="id_usuario"]').val(''+(Math.floor(Math.random() * 1000000)+9000000));
-                APP.functions.makeAPICall($api_user+'Create', 'POST', $create_user_form.serialize(), userCreated, callFailed);
-            }
-        });
-        
-        $('#login-form').on('submit', function(e) {
-            e.preventDefault();
-            if (APP.functions.validateForm(this)) {
-                APP.functions.makeAPICall($api_user+'Login', 'POST', $login_form.serialize(), userLogged, callFailed);
-            }
-        });
-        
+    var bindButtons = function() {        
         $('.check-availability').on('click', function(e) {
             e.preventDefault();
-            APP.functions.makeAPICall($api_user+'IsUsernameAvailable', 'GET', $('#user_name').serialize(), alertAvailable, callFailed);
+            APP.functions.makeAPICall($api_room+'GetAvailable', 'GET', null, alertAvailable, callFailed);
         });
     };
 
@@ -63,9 +51,13 @@ APP.userFunctions = (function() {
     };
 
     var alertAvailable = function(response) {
-        console.log(response);
-        var $available = response.result;
-        APP.functions.customAlert('El nombre de usuario '+($available?' ':'NO ')+'se encuentra disponible');
+        if (response.result && response.result.length > 0) {
+            var $tipo_habitacion = $($tipo_habitacion_selector).children("option:selected").val();
+            $available_rooms = response.result.filter(function(room) {
+                return room.tipO_HABITACION == parseInt($tipo_habitacion);
+            });
+        }
+        console.log($available_rooms);
     };
     
     var init = function() {
@@ -80,5 +72,5 @@ APP.userFunctions = (function() {
 }());
 
 $(window).on('load', function() {
-    APP.userFunctions.init();
+    APP.reservacion.init();
 });

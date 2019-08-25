@@ -169,7 +169,8 @@ namespace HotelMagnolia.UI.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(uSUARIO);
+                USUARIO nonencrypted = Cypher.DecryptObject(uSUARIO) as USUARIO;
+                return View(nonencrypted);
             }
             else
             {
@@ -268,6 +269,7 @@ namespace HotelMagnolia.UI.Controllers
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
                 
                 db.InsertBitacora(usuarioSesion.ID_USUARIO, 2, "Modificar Usuario", LogDetalle, usuarioSesion.ID_USUARIO);
+                uSUARIO = Cypher.EncryptObject(uSUARIO) as USUARIO;
                 db.Entry(uSUARIO).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -317,7 +319,7 @@ namespace HotelMagnolia.UI.Controllers
             USUARIO uSUARIO = db.USUARIOs.Find(id);
             db.USUARIOs.Remove(uSUARIO);
             USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
-            String LogDetalle = "Nombre:" + uSUARIO.NOMBRE + "/Apellido1:" + uSUARIO.APELLIDO1 + "/Apellido2:" + uSUARIO.APELLIDO2 + "/Correo:" + uSUARIO.CORREO + "/Telefono:" + uSUARIO.TELEFONO + "/Rol:" + uSUARIO.ROL;
+            String LogDetalle = "ID_Usuario:" + uSUARIO.ID_USUARIO;
             LogDetalle = Util.Cypher.Encrypt(LogDetalle);
             db.InsertBitacora(usuarioSesion.ID_USUARIO, 3, "Eliminar Usuario", LogDetalle, uSUARIO.ID_USUARIO);
             db.SaveChanges();
