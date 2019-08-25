@@ -626,9 +626,9 @@ FROM [dbo].[CONSECUTIVO]
 WHERE Nombre = 'Habitacion'
 
 INSERT INTO [dbo].[HABITACION]
-   ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[TIPO_HABITACION],[ID_PRECIO])
+   ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[DISPONIBLE],[TIPO_HABITACION],[ID_PRECIO])
 VALUES
-   (@ID, @Numero, @Nombre, @descripcion, @foto, @Tipo_Habitacion, @ID_Precio)
+   (@ID, @Numero, @Nombre, @descripcion, @foto, @Disponible, @Tipo_Habitacion, @ID_Precio)
 
 
 EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_detalle, @ID
