@@ -272,6 +272,18 @@ create table HABITACION
 )
 go
 
+/*==============================================================*/
+/* Table: Habitaciones En Reservacion                                             
+==============================================================*/
+CREATE TABLE HabitacionesEnReservacion
+(
+   ID_HabEnReserv int IDENTITY(1,1) not null,
+   ID_HABITACION varchar (100) not null,
+   ID_RESERVACION varchar(100) not null,
+   constraint PK_HABITACION primary key (ID_HabEnReserv)
+)
+go
+
 
 /*==============================================================*/
 /* Table: Precio                                             
@@ -400,6 +412,15 @@ alter table HABITACION
       references TIPO_HABITACION (ID_TIPO_HABITACION)
 go
 
+alter table HabitacionesEnReservacion
+   add CONSTRAINT FK_HABITENRESERV_REFERENCE_HABITACION FOREIGN KEY (ID_HABITACION)
+   references HABITACION(ID_HABITACION)
+go
+
+alter table HabitacionesEnReservacion
+   add CONSTRAINT FK_HABITENRESERV_REFERENCE_RESERVACION FOREIGN KEY (ID_RESERVACION)
+   references RESERVACION(ID_RESERVACION)
+go
 
 alter table RESERVACION
    add constraint FK_RESERVAC_REFERENCE_CLIENTE foreign key (ID_CLIENTE)
@@ -871,7 +892,8 @@ CREATE OR ALTER PROCEDURE InsertReservacionAPI
    @Fecha_Entrada date,
    @Fecha_Salida date,
    @Tipo_Habitacion int,
-   @Estado int
+   @Estado int,
+   @ID_Habitacion varchar(100)
 )
 AS
 DECLARE @ID varchar(200)
