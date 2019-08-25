@@ -10,6 +10,8 @@ using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
 using Ulacit.Mandiola.DB.Util;
 using System.Web.Http.Cors;
+using Ulacit.Mandiola.Model;
+using USUARIO = Ulacit.Mandiola.DB.MandiolaDb.USUARIO;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
@@ -179,6 +181,13 @@ namespace Ulacit.Mandiola.DB.Concrete
             System.Diagnostics.Debug.WriteLine("AVailable SR Result: " + available);
 
             return available.Equals("true");
+        }
+
+        public Model.USUARIO GetUserByEmail(string email)
+        {
+            email = Cypher.Encrypt(email);
+            var aux = Cypher.DecryptObject(_mandiolaDbContext.USUARIOs.FirstOrDefault(x => x.CORREO == email)) as USUARIO;
+            return _mapper.Map<Model.USUARIO>(aux);
         }
     }
 }

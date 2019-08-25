@@ -58,6 +58,15 @@ namespace Ulacit.Mandiola.API.Controllers
         [HttpPost]
         public ApiResultModel<USUARIO> Login([FromBody]USUARIO aux) => GetApiResultModel(() => _userService.Login(aux));
 
+        /// <summary>
+        /// Get user by email
+        /// </summary>
+        /// <param name="email">the email</param>
+        /// <returns>the user</returns>
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [HttpGet]
+        public ApiResultModel<USUARIO> GetUserByEmail([FromUri]string email) => GetApiResultModel(() => _userService.GetUserByEmail(email));
+
         /// <summary>Returns is an username is available</summary>
         /// <param name="user_name">The username to be checked.</param>
         /// <returns>An ApiResultModel&lt;bool&gt;</returns>
