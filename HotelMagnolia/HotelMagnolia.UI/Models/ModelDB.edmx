@@ -75,7 +75,7 @@
           <Property Name="FOTO" Type="varchar(max)" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="int" Nullable="false" />
           <Property Name="ID_PRECIO" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="DISPONIBLE" Type="bit" />
+          <Property Name="DISPONIBLE" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PRECIO">
           <Key>
@@ -246,16 +246,6 @@
         </Function>
         <Function Name="DeleteArticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Articulo" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="DeleteReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ID_Reservacion" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="EditReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ID_Reservacion" Type="varchar" Mode="In" />
-          <Parameter Name="Fecha_Entrada" Type="date" Mode="In" />
-          <Parameter Name="Fecha_Salida" Type="date" Mode="In" />
-          <Parameter Name="Tipo_Habitacion" Type="int" Mode="In" />
-          <Parameter Name="Estado" Type="int" Mode="In" />
         </Function>
         <Function Name="EncodeString" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EncodeIn" Type="varchar" Mode="In" />
@@ -476,7 +466,7 @@
           <Property Name="FOTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TIPO_HABITACION" Type="Int32" Nullable="false" />
           <Property Name="ID_PRECIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DISPONIBLE" Type="Boolean" />
+          <Property Name="DISPONIBLE" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="PRECIO" Relationship="Self.FK_HABITACI_REFERENCE_PRECIO" FromRole="HABITACION" ToRole="PRECIO" />
           <NavigationProperty Name="TIPO_HABITACION1" Relationship="Self.FK_HABITACI_REFERENCE_TIPO" FromRole="HABITACION" ToRole="TIPO_HABITACION" />
         </EntityType>
@@ -992,8 +982,6 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="DecodeString" FunctionName="HotelMagnoliaModel.Store.DecodeString" />
           <FunctionImportMapping FunctionImportName="DeleteArticulo" FunctionName="HotelMagnoliaModel.Store.DeleteArticulo" />
-          <FunctionImportMapping FunctionImportName="DeleteReservacion" FunctionName="HotelMagnoliaModel.Store.DeleteReservacion" />
-          <FunctionImportMapping FunctionImportName="EditReservacion" FunctionName="HotelMagnoliaModel.Store.EditReservacion" />
           <FunctionImportMapping FunctionImportName="EncodeString" FunctionName="HotelMagnoliaModel.Store.EncodeString" />
           <FunctionImportMapping FunctionImportName="GetDisponibles" FunctionName="HotelMagnoliaModel.Store.GetDisponibles">
             <ResultMapping>

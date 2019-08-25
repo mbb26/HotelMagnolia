@@ -71,26 +71,67 @@
                             <h2>Bienvenido</h2>
                             <h2>Haga su reservación aquí</h2>
                             
-                            <h3>Seleccione su tipo de habitación</h3>
-                            <select class="form-control" id="TIPO_HABITACION" name="TIPO_HABITACION">
-                                <option value="1">Normal</option>
-                                <option value="2">Deluxe</option>
-                                <option value="3">Condominio</option>
-                            </select>
-                            <h4>Cantidad de adultos que ingresaran:</h4>
-                            <input  type="number" name="from" id="from" size="2">
-                            <h4>Cantidad de niños que ingresaran:</h4>
-                            <input  type="number" name="from" id="from" size="2">
-                            <h4>Fecha de ingreso:</h4>
-                            <input class="date" type="date" name="from" id="from">
-                            <h4>Fecha de salida:</h4>
-                            <input class="date" type="date" name="to" id="to"><br>
-                            <br/>
-                            <br/>
-                            <button class="btn essence-btn check-availability">Comprobar disponibilidad</button>
-                            <br/>
-                            <br/>
-                            <a href="Carrito.html" class="btn essence-btn">Reservar</a>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="TIPO_HABITACION">Seleccione su tipo de habitación</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="TIPO_HABITACION" name="TIPO_HABITACION">
+                                        <option value="1">Normal</option>
+                                        <option value="2">Deluxe</option>
+                                        <option value="3">Condominio</option>
+                                    </select>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="TIPO_HABITACION"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="cantidad_adultos">Cantidad de adultos que ingresarán:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="cantidad_adultos" name="cantidad_adultos" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="cantidad_adultos"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="cantidad_ninos">Cantidad de niños que ingresarán:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="cantidad_ninos" name="cantidad_ninos" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="cantidad_ninos"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="fecha_ingreso">Cantidad de niños que ingresarán:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="fecha_ingreso" name="fecha_ingreso" type="date">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="fecha_ingreso"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="fecha_salida">Cantidad de niños que ingresarán:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="fecha_salida" name="fecha_salida" type="date">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="fecha_salida"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a class="btn essence-btn check-availability" href="#">Verificar Disponibilidad</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10" id="available-rooms">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit">Reservar</button>
+                                </div>
                             </div>
                         </form>
                     </div>

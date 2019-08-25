@@ -5,11 +5,10 @@ APP.reservacion = (function() {
     var $api_reservation = 'Reservation/';
     var $api_room = 'Room/';
     var $create_user_form_selector = '#create-user-form';
-    var $create_user_form = null;
     var $login_form_selector = '#login-form';
-    var $login_form = null;
     var $available_rooms = null;
-    var $tipo_habitacion_selector = "#TIPO_HABITACION";
+    var $tipo_habitacion_selector = '#TIPO_HABITACION';
+    var $available_rooms_selector = '#available-rooms';
 
     var bindButtons = function() {        
         $('.check-availability').on('click', function(e) {
@@ -22,34 +21,6 @@ APP.reservacion = (function() {
         console.log(response);
     };
 
-    var userCreated = function(response) {
-        console.log(response);
-
-        if ($create_user_form.length > 0) {
-            $create_user_form[0].reset();
-        }
-
-        APP.functions.customAlert('El usuario '+response.result.useR_NAME+' se ha creado con éxito', 'Usuario', './index.html');
-    };
-
-    var userLogged = function(response) {
-        console.log(response);
-        var $createdUser = response.result;
-        console.log($createdUser);
-        if ($createdUser != null) {
-            var $user = {
-                username: $createdUser.useR_NAME,
-                name: $createdUser.nombre
-            };
-            APP.functions.setSessionUser($user);
-            var sessionUser = APP.functions.getSessionUser();
-            APP.functions.customAlert('El usuario '+sessionUser.username+' se ha logueado correctamente.', 'Login', './index.html');
-        }
-        else {
-            APP.functions.customAlert('Usuario o contraseña incorrectos');
-        }
-    };
-
     var alertAvailable = function(response) {
         if (response.result && response.result.length > 0) {
             var $tipo_habitacion = $($tipo_habitacion_selector).children("option:selected").val();
@@ -58,6 +29,39 @@ APP.reservacion = (function() {
             });
         }
         console.log($available_rooms);
+        createAvailableRoomsForm();
+    };
+
+    var createAvailableRoomsForm = function() {
+        var $htmlContent = '';
+        
+        if ($available_rooms && $available_rooms.length > 0) {
+            $htmlContent += '<table class="table">';
+            $htmlContent += '<thead>';
+            $htmlContent += '<tr>';
+            $htmlContent += '<th scope="col">Reservar</th>';
+            $htmlContent += '<th scope="col">#</th>';
+            $htmlContent += '<th scope="col">Nombre</th>';
+            $htmlContent += '</tr>';
+            $htmlContent += '</thead>';
+            $htmlContent += '<tbody id="available-rooms-content">';
+
+            $available_rooms.forEach(function(room) {
+                $htmlContent += '<tr>';
+                $htmlContent += '<td><input type="checkbox" name="'+room.iD_HABITACION+'" /></td>';
+                $htmlContent += '<td>'+room.numero+'</td>';
+                $htmlContent += '<td>'+room.nombre+'</td>';
+                $htmlContent += '</tr>';
+            });
+
+            $htmlContent += '</tbody>';
+            $htmlContent += '</table>';
+        }
+        else {
+            $htmlContent += '<h5>No hay cuartos disponibles con los parámetros requeridos</h5>';
+        }
+
+        $($available_rooms_selector).html($htmlContent);
     };
     
     var init = function() {
