@@ -9,12 +9,33 @@ APP.reservacion = (function() {
     var $available_rooms = null;
     var $tipo_habitacion_selector = '#TIPO_HABITACION';
     var $available_rooms_selector = '#available-rooms';
+    var $dateFormat = 'mm/dd/yy';
+    var $from = null;
+    var $to = null;
 
     var bindButtons = function() {        
         $('.check-availability').on('click', function(e) {
             e.preventDefault();
             APP.functions.makeAPICall($api_room+'GetAvailable', 'GET', null, alertAvailable, callFailed);
         });
+
+        $from.on('change', function () {
+            $to.datepicker('option', 'minDate', getDate($from));
+        });
+
+        $to.on('change', function () {
+            $from.datepicker('option', 'maxDate', getDate($to));
+        });
+    };
+ 
+    var getDate = function( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( $dateFormat, element.val() );
+      } catch( error ) {
+        date = null;
+      }
+      return date;
     };
 
     var callFailed = function(response) {
@@ -67,6 +88,14 @@ APP.reservacion = (function() {
     var init = function() {
         $create_user_form = $($create_user_form_selector);
         $login_form = $($login_form_selector);
+        $from = $('#fecha_ingreso').datepicker({
+            minDate: 0,
+            changeMonth: true,
+        });
+        $to = $('#fecha_salida').datepicker({
+            minDate: 1,
+            changeMonth: true,
+        });
         bindButtons();
     };
 
