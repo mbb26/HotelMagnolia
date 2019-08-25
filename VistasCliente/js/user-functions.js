@@ -17,9 +17,11 @@ APP.userFunctions = (function() {
             }
         });
         
-        $('.login-user').on('click', function(e) {
+        $('#login-form').on('submit', function(e) {
             e.preventDefault();
-            APP.functions.makeAPICall($api_user, 'login', 'POST', $login_form.serialize(), userLogged, callFailed);
+            if (APP.functions.validateForm(this)) {
+                APP.functions.makeAPICall($api_user, 'login', 'POST', $login_form.serialize(), userLogged, callFailed);
+            }
         });
         
         $('.check-availability').on('click', function(e) {
@@ -34,11 +36,12 @@ APP.userFunctions = (function() {
 
     var userCreated = function(response) {
         console.log(response);
-        alert('El usuario '+response.result.useR_NAME+' se ha creado con éxito');
 
         if ($create_user_form.length > 0) {
             $create_user_form[0].reset();
         }
+
+        APP.functions.customAlert('El usuario '+response.result.useR_NAME+' se ha creado con éxito', 'Usuario', './index.html');
     };
 
     var userLogged = function(response) {
@@ -52,18 +55,17 @@ APP.userFunctions = (function() {
             };
             APP.functions.setSessionUser($user);
             var sessionUser = APP.functions.getSessionUser();
-            alert('El usuario '+sessionUser.username+' se ha logueado correctamente.');
-            $(location).attr('href','./index.html');
+            APP.functions.customAlert('El usuario '+sessionUser.username+' se ha logueado correctamente.', 'Login', './index.html');
         }
         else {
-            alert('Usuario o contraseña incorrectos');
+            APP.functions.customAlert('Usuario o contraseña incorrectos');
         }
     };
 
     var alertAvailable = function(response) {
         console.log(response);
         var $available = response.result;
-        alert('El nombre de usuario '+($available?' ':'NO ')+'se encuentra disponible');
+        APP.functions.customAlert('El nombre de usuario '+($available?' ':'NO ')+'se encuentra disponible');
     };
     
     var init = function() {

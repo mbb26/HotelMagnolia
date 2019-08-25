@@ -46,7 +46,7 @@ APP.functions = (function() {
         loadMenu();
     };
 
-    var customAlert = function (message, title) {
+    var customAlert = function (message, title, redirectURL) {
         if ( !title )
             title = 'Alert';
     
@@ -60,6 +60,9 @@ APP.functions = (function() {
             buttons: {
                 'Ok': function()  {
                     $( this ).dialog( 'close' );
+                    if (redirectURL) {
+                        $(location).attr('href', redirectURL);
+                    }
                 }
             }
         });
@@ -82,7 +85,7 @@ APP.functions = (function() {
         $('form[data-function="initialize"]').each(function() {
             initializeForm(this);
         })
-        $('form').on('submit', function (e, options) {
+        $('form[data-validation="validate"]').on('submit', function (e, options) {
             options = options || {};
             if (!options.validated) {
                 e.preventDefault();
@@ -95,9 +98,8 @@ APP.functions = (function() {
         $('.logout-user').on('click', function(e) {
             e.preventDefault();
             APP.functions.removeSessionUser();
-            alert('Ha cerrado su sesión');
+            APP.functions.customAlert('Ha cerrado su sesión', 'Usuario', './index.html');
             loadMenu();
-            $(location).attr('href','./index.html');
         });
     };
 
@@ -109,7 +111,7 @@ APP.functions = (function() {
         if (getSessionUser() != null) {
             $htmlContent += '<ul class="navbar-nav mr-auto">';
             $htmlContent += '<li class="nav-item dropdown">';
-            $htmlContent += '<a class="nav-link dropdown-toggle" href="#" id="menuUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cuenta</a>';
+            $htmlContent += '<a class="nav-link dropdown-toggle" href="#" id="menuUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+$sessionUser.name+'</a>';
             $htmlContent += '<div class="dropdown-menu" aria-labelledby="menuUsuario">';
             $htmlContent += '<a class="dropdown-item" href="cambiar_password.html">Cambio de Contraseña</a>';
             $htmlContent += '<a class="dropdown-item logout-user" href="#">Logout</a>';
@@ -123,7 +125,6 @@ APP.functions = (function() {
             $htmlContent += '</li>';
             $htmlContent += '</ul>';
             $htmlContent += '<ul id="carrito" class="nav navbar-nav navbar-right">';
-            $htmlContent += '<li class="nav-item nav-link"><span class="glyphicon glyphicon-user text-white">Bienvenido(a) '+$sessionUser.name+'</span></li>';
             $htmlContent += '<li class="nav-item"><a href="Carrito.html" class="nav-link"><span class="glyphicon glyphicon-user"></span>Carrito</a></li>';
             $htmlContent += '</ul>';
         }        
