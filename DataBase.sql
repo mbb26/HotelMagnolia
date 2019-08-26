@@ -623,11 +623,6 @@ WHERE ID_ACTIVIDAD = @ID
 
 GO
 
-CREATE OR ALTER PROCEDURE InsertArticulo
-(
-   @Descripcion int,
-   
-)
 
 
 CREATE OR ALTER PROCEDURE InsertHabitacion
