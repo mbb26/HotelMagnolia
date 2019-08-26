@@ -1,6 +1,7 @@
 ﻿using Ulacit.Mandiola.Common.Abstract;
 using System.Web.Http.Cors;
 using System;
+using Ulacit.Mandiola.Model;
 
 namespace Ulacit.Mandiola.Biz.Abstract
 {
@@ -16,5 +17,7 @@ namespace Ulacit.Mandiola.Biz.Abstract
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         bool IsUsernameAvailable(string username);
+
+        USUARIO GetUserByEmail(string email);
     }
 }

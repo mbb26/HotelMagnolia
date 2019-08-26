@@ -4,6 +4,7 @@ using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
 using System.Web.Http.Cors;
+using Ulacit.Mandiola.Model;
 
 namespace Ulacit.Mandiola.Biz.Concrete
 {
@@ -30,6 +31,11 @@ namespace Ulacit.Mandiola.Biz.Concrete
         public bool IsUsernameAvailable(string username)
         {
             return _userContext.IsUsernameAvailable(username);
+        }
+
+        public USUARIO GetUserByEmail(string email)
+        {
+            return _userContext.GetUserByEmail(email);
         }
     }
 }

@@ -1,5 +1,5 @@
 var APP = window.APP || {};
-
+var auxFunction;
 APP.userFunctions = (function() {
 
     var $api_user = 'User';
@@ -26,6 +26,7 @@ APP.userFunctions = (function() {
             e.preventDefault();
             APP.functions.makeAPICall($api_user, 'availability', 'GET', $('#user_name').serialize(), alertAvailable, callFailed);
         });
+
     };
 
     var callFailed = function(response) {
@@ -41,7 +42,7 @@ APP.userFunctions = (function() {
         }
     };
 
-    var userLogged = function(response) {
+    var userLogged = auxFunction=function(response) {
         console.log(response);
         var $createdUser = response.result;
         console.log($createdUser);
@@ -72,6 +73,8 @@ APP.userFunctions = (function() {
         bindButtons();
     };
 
+
+
     return {
         init: init
     };
@@ -80,3 +83,38 @@ APP.userFunctions = (function() {
 $(window).on('load', function() {
     APP.userFunctions.init();
 });
+
+    
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '657287368113471',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v4.0'
+    });
+    FB.AppEvents.logPageView();   
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        console.log(response);
+        testAPI();
+    });
+  }
+
+function testAPI() {
+    FB.api('/me?fields=id,name,email', function(response) {
+        console.log('Good to see you, ' + response.name + '.' + ' Email: ' + response.email + ' Facebook ID: ' + response.id);
+        APP.functions.makeAPICall('User/'+'GetUserByEmail?email='+encodeURI(response.email), 'GET',null, auxFunction, function(response){
+            console.log(response);
+        });
+    });
+}

@@ -27,10 +27,9 @@
     <header class="header_area">
         <nav class="navbar navbar-expand-md">
             <a class="navbar-brand" href="index.html"><img src="../img/core-img/logo.png" alt="Hotel Mandiola Logo"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             </div>
@@ -76,7 +75,10 @@
                         <div class="hero-content">
                             <ul class="social_icons">
                                 <li>
-                                    <a href="https://www.facebook.com/"><img class="social_icon" src="../img/proyecto/facebook.jpg" alt="Facebook" /></a>
+                                    <fb:login-button 
+                                    scope="public_profile,email"
+                                    onlogin="checkLoginState();">
+                                  </fb:login-button>
                                 </li>
                                 <li>
                                     <a href="https://www.instagram.com/"><img class="social_icon" src="../img/proyecto/insta.png" alt="Facebook" /></a>
@@ -105,5 +107,4 @@
 
 
 </body>
-
 </html>
