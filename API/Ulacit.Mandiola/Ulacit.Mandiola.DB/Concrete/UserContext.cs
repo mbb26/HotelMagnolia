@@ -9,12 +9,9 @@ using Ulacit.Mandiola.DB.MandiolaDb;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
 using Ulacit.Mandiola.DB.Util;
-<<<<<<< HEAD
-=======
 using System.Web.Http.Cors;
 using Ulacit.Mandiola.Model;
 using USUARIO = Ulacit.Mandiola.DB.MandiolaDb.USUARIO;
->>>>>>> master
 
 namespace Ulacit.Mandiola.DB.Concrete
 {

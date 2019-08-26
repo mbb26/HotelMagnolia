@@ -941,7 +941,20 @@ WHERE ID_RESERVACION = @ID_Reservacion
 
 GO
 -------------------------------------------------------
-
+ALTER   PROCEDURE [dbo].[JoinReservacionHabitacion]
+(
+   @ID_Reservacion VARCHAR(200)
+ 
+)
+AS
+BEGIN
+	SELECT RESERVACION.ID_RESERVACION,RESERVACION.ID_CLIENTE,RESERVACION.FECHA_ENTRADA,RESERVACION.FECHA_SALIDA, HABITACION.ID_HABITACION
+	FROM HabitacionesEnReservacion
+	INNER JOIN HABITACION on HabitacionesEnReservacion.ID_HABITACION = HABITACION.ID_HABITACION
+	INNER JOIN RESERVACION on HabitacionesEnReservacion.ID_RESERVACION = RESERVACION.ID_RESERVACION
+	WHERE RESERVACION.ID_RESERVACION = @ID_Reservacion
+  
+END
 
 
 -------------------------------------------------------

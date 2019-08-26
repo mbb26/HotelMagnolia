@@ -24,6 +24,8 @@ namespace Ulacit.Mandiola.Biz.Concrete
             _roomContext = roomContext;
         }
 
+        /// <summary>Initialices getting all available rooms.</summary>
+        /// <param name="roomContext">All available rooms.</param>
         public List<T> GetAvailable<T>()
         {
             return _roomContext.GetAvailable<T>();

@@ -39,6 +39,10 @@ namespace Ulacit.Mandiola.DB.MandiolaDb
         /// <value>The habitacio ns.</value>
         public virtual DbSet<HABITACION> HABITACIONs { get; set; }
 
+        /// <summary>Gets or sets the Habitaciones En Reservacion.</summary>
+        /// <value>The Habitaciones En Reservacion.</value>
+        public virtual DbSet<HabitacionesEnReservacion> HabitacionesEnReservacions { get; set; }
+
         /// <summary>Gets or sets the preci operating system.</summary>
         /// <value>The preci operating system.</value>
         public virtual DbSet<PRECIO> PRECIOs { get; set; }
