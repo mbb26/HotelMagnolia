@@ -199,6 +199,19 @@ create table ARTICULO
 )
 go
 /*==============================================================*/
+/* Table: ArticuloEnReservacion                                             
+==============================================================*/
+
+CREATE TABLE ArticuloEnReservacion
+(
+   ID_ArtEnReserv int IDENTITY(1,1) not null,
+   ID_ARTICULO int not null,
+   ID_RESERVACION varchar(100) not null,
+   constraint PK_ARTICULO_RESERVACION primary key (ID_ArtEnReserv)
+)
+go
+
+/*==============================================================*/
 /* Table: Bitacora                                             
 ==============================================================*/
 create table BITACORA
@@ -280,7 +293,7 @@ CREATE TABLE HabitacionesEnReservacion
    ID_HabEnReserv int IDENTITY(1,1) not null,
    ID_HABITACION varchar (100) not null,
    ID_RESERVACION varchar(100) not null,
-   constraint PK_HABITACION primary key (ID_HabEnReserv)
+   constraint PK_HABITACION_RESERVACION primary key (ID_HabEnReserv)
 )
 go
 
@@ -385,6 +398,16 @@ alter table ARTICULO
    add constraint FK_ARTICULO_REFERENCE_PRECIO foreign key (ID_PRECIO)
       references PRECIO (ID_PRECIO)
 go
+
+alter table ArticuloEnReservacion
+   add constraint FK_ARTIENRESERV_REFERENCE_ARTICULO FOREIGN key (ID_ARTICULO)
+   references ARTICULO (ID_ARTICULO)
+GO
+
+alter table ArticuloEnReservacion
+   add constraint FK_ARTIENRESERV_REFERENCE_ARTICULO FOREIGN key (ID_RESERVACION)
+   references RESERVACION (ID_RESERVACION)
+GO
 
 alter table BITACORA
     add CONSTRAINT FK_BITACORA_REFERENCE_USER FOREIGN key (ID_USUARIO)
@@ -941,7 +964,7 @@ WHERE ID_RESERVACION = @ID_Reservacion
 
 GO
 -------------------------------------------------------
-ALTER   PROCEDURE [dbo].[JoinReservacionHabitacion]
+create or ALTER   PROCEDURE [dbo].[JoinReservacionHabitacion]
 (
    @ID_Reservacion VARCHAR(200)
  
@@ -955,9 +978,24 @@ BEGIN
 	WHERE RESERVACION.ID_RESERVACION = @ID_Reservacion
   
 END
-
+GO
 
 -------------------------------------------------------
+create or ALTER   PROCEDURE [dbo].[JoinReservacionArticulos]
+(
+   @ID_Reservacion VARCHAR(200)
+ 
+)
+AS
+BEGIN
+	SELECT RESERVACION.ID_RESERVACION,RESERVACION.ID_CLIENTE,RESERVACION.FECHA_ENTRADA,RESERVACION.FECHA_SALIDA, ARTICULO.DESCRIPCION
+	FROM ArticuloEnReservacion
+	INNER JOIN ARTICULO on ArticuloEnReservacion.ID_ARTICULO = ARTICULO.ID_ARTICULO
+	INNER JOIN RESERVACION on ArticuloEnReservacion.ID_RESERVACION = RESERVACION.ID_RESERVACION
+	WHERE RESERVACION.ID_RESERVACION = @ID_Reservacion
+  
+END
+GO
 
 -------------------------------------------------------
 
