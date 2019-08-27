@@ -51,6 +51,7 @@ APP.userFunctions = (function() {
         console.log($createdUser);
         if ($createdUser != null) {
             var $user = {
+                id: $createdUser.iD_USUARIO,
                 username: $createdUser.useR_NAME,
                 name: $createdUser.nombre
             };
