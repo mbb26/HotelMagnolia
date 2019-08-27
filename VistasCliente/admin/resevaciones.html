@@ -46,11 +46,12 @@
                         <form action="#" id="reservation-form" data-function="initialize">
                             <h2>Bienvenido</h2>
                             <h2>Haga su reservación aquí</h2>
-                            
+                            <input type="hidden" name="estadO_RESERVACION" value="0" />
+                            <input type="hidden" name="iD_CLIENTE" id="iD_CLIENTE" value="0" />
                             <div class="form-group">
                                 <label class="control-label col-md-6" for="tipo_habitacion_search">Seleccione su tipo de habitación</label>
                                 <div class="col-md-10">
-                                    <select class="form-control" id="tipo_habitacion_search" name="tipo_habitacion_search">
+                                    <select class="form-control" id="tipo_habitacion_search" name="tipO_HABITACION">
                                         <option value="1">Normal</option>
                                         <option value="2">Deluxe</option>
                                         <option value="3">Condominio</option>
@@ -81,7 +82,7 @@
                                 <label class="control-label col-md-6" for="fecha_ingreso">Fecha de ingreso:</label>
                                 <div class="col-md-10">
                                     <input class="form-control text-box single-line" data-function="noBlank"
-                                        id="fecha_ingreso" name="fecha_ingreso" type="text">
+                                        id="fecha_ingreso" name="fechA_ENTRADA" type="text">
                                     <span class="field-validation-valid text-danger" data-valmsg-for="fecha_ingreso"
                                         data-valmsg-replace="true"></span>
                                 </div>
@@ -90,7 +91,7 @@
                                 <label class="control-label col-md-6" for="fecha_salida">Fecha de salida:</label>
                                 <div class="col-md-10">
                                     <input class="form-control text-box single-line" data-function="noBlank"
-                                        id="fecha_salida" name="fecha_salida" type="text">
+                                        id="fecha_salida" name="fechA_SALIDA" type="text">
                                     <span class="field-validation-valid text-danger" data-valmsg-for="fecha_salida"
                                         data-valmsg-replace="true"></span>
                                 </div>

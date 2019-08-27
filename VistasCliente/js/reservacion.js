@@ -8,6 +8,7 @@ APP.reservacion = (function() {
     var $available_rooms = null;
     var $tipo_habitacion_selector = '#tipo_habitacion_search';
     var $available_rooms_selector = '#available-rooms';
+    var $id_cliente_selector = '#iD_CLIENTE';
     var $dateFormat = 'mm/dd/yy';
     var $from = null;
     var $to = null;
@@ -15,6 +16,7 @@ APP.reservacion = (function() {
     var $cantidad_ninos_selector = '#cantidad_ninos';
     var $cantidad_adultos;
     var $cantidad_ninos;
+    var $rooms_selected;
     var $errors;
 
     var bindButtons = function() {        
@@ -61,7 +63,7 @@ APP.reservacion = (function() {
                 return room.tipO_HABITACION == parseInt($tipo_habitacion);
             });
         }
-        console.log($available_rooms);
+        // console.log($available_rooms);
         createAvailableRoomsForm();
     };
 
@@ -99,28 +101,51 @@ APP.reservacion = (function() {
     };
 
     var bindAvailableRooms = function() {
+        $rooms_selected = 0;
         $($available_rooms_selector).find('input[type="checkbox"]').each(function () {
             var $this = $(this);
+            $this.on('click', function() {
+                toggleRoom(this.name, this.checked);
+            });
         });
     };
 
+    var toggleRoom = function(id, isChecked) {
+        // console.log('id: '+id+', checked: '+isChecked);
+        $available_rooms.forEach(function(room) {
+            if (room.iD_HABITACION == id) {
+                room.disponible = !isChecked;
+            }
+        });
+        if (isChecked) {
+            $rooms_selected += 1;
+        }
+        else {
+            $rooms_selected -= 1;
+        }
+    }
+
     var setAdultos = function() {
         $cantidad_adultos = parseInt($($cantidad_adultos_selector).val()) || 0;
-        console.log($cantidad_adultos);
     };
 
     var setNinos = function() {
         $cantidad_ninos = parseInt($($cantidad_ninos_selector).val()) || 0;
-        console.log($cantidad_ninos);
     };
 
     var validateReservationForm = function() {
-        
+        var $valid = APP.functions.validateForm($($reservation_form_selector));
+        if ($valid) {
+            var $total_huespedes = $cantidad_adultos + $cantidad_ninos;
+            var $rooms_needed = Math.ceil($total_huespedes / 4.0);
+            console.log('rooms needed: '+$rooms_needed+', rooms selected: '+$rooms_selected);
+        }
     };
     
     var init = function() {
         $cantidad_adultos = 0;
         $cantidad_ninos = 0;
+        $rooms_selected = 0;
         $errors = [];
         $from = $('#fecha_ingreso').datepicker({
             minDate: 0,
@@ -130,6 +155,10 @@ APP.reservacion = (function() {
             minDate: 1,
             changeMonth: true,
         });
+        var $sessionUser = APP.functions.getSessionUser();
+        if ($sessionUser) {
+            $($id_cliente_selector).val($sessionUser.id);
+        }
         bindButtons();
     };
 

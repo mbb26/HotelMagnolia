@@ -7,6 +7,10 @@ namespace Ulacit.Mandiola.Model
         /// <value>The descripcion.</value>
         public string DESCRIPCION { get; set; }
 
+        /// <summary>Gets or sets the disponible.</summary>
+        /// <value>True if disponible, false if not.</value>
+        public bool DISPONIBLE { get; set; }
+
         /// <summary>Gets or sets the foto.</summary>
         /// <value>The foto.</value>
         public string FOTO { get; set; }
