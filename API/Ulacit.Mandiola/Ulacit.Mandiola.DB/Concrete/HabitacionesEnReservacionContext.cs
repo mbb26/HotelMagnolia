@@ -84,6 +84,10 @@ namespace Ulacit.Mandiola.DB.Concrete
             return _mapper.Map<T>(aux);
         }
 
+        /// <summary>Returns the rooms asociated to a reservation.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="entity">The entity.</param>
+        /// <returns>A List<T></T>.</returns>
         public List<T> GetJoinHabsEnResv<T>(string ID_reservacion)
             => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HabitacionesEnReservacion>("exec JoinReservacionHabitacion @ID_Reservacion", ID_reservacion).ToList());
 

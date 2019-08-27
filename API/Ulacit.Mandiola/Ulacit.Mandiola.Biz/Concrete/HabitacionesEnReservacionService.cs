@@ -18,12 +18,15 @@ namespace Ulacit.Mandiola.Biz.Concrete
         /// <summary>Context for the habitacion en Reservaciones.</summary>
         private readonly IHabitacionesEnReservacionContext _HabitacionesEnReservacionContext;
 
-        /// <summary>Initializes a new instance of the Ulacit.Mandiola.Biz.Concrete.UserService class.</summary>
-        /// <param name="userContext">Context for the user.</param>
+        /// <summary>Initializes a new instance of the Ulacit.Mandiola.Biz.Concrete.HabitacionesEnReservacionService class.</summary>
+        /// <param name="HabitacionesEnReservacionContext">Context for the user.</param>
         public HabitacionesEnReservacionService(IHabitacionesEnReservacionContext HabitacionesEnReservacionContext) : base(HabitacionesEnReservacionContext)
         {
             _HabitacionesEnReservacionContext = HabitacionesEnReservacionContext;
         }
+
+        public IHabitacionesEnReservacionContext HabitacionesEnReservacionContext => _HabitacionesEnReservacionContext;
+
         public List<T> GetJoinHabsEnResv<T>(string IDReservacion)
         {
             throw new System.NotImplementedException();

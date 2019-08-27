@@ -13,7 +13,7 @@ namespace Ulacit.Mandiola.API.Controllers
 
     public class HabitacionesEnReservacionController : BaseApiController
     {
-        /// <summary>The user service.</summary>
+        /// <summary>The Room in reservation service.</summary>
         private readonly IHabitacionesEnReservacionService _HabitacionesEnReservacionService;
 
         /// <summary>Initializes a new instance of the Ulacit.Mandiola.API.Controllers.HabitacionesEnReservacionController class.</summary>
@@ -52,7 +52,13 @@ namespace Ulacit.Mandiola.API.Controllers
         [HttpPut]
         public ApiResultModel<HabitacionesEnReservacion> Update([FromBody]HabitacionesEnReservacion aux) => GetApiResultModel(() => _HabitacionesEnReservacionService.Update(aux));
 
-     
+        /// <summary>(An Action that handles HTTP GET requests) gets rooms by reservation ID.</summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The Rooms by reservation.</returns>
+        [HttpGet]
+        public ApiResultModel<List<HabitacionesEnReservacion>> GetJoinHabsEnResv([FromUri]string id) => GetApiResultModel(() => _HabitacionesEnReservacionService.GetJoinHabsEnResv<HabitacionesEnReservacion>(id));
+
+
 
     }
 }
