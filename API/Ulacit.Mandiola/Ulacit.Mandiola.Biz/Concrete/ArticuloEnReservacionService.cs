@@ -9,7 +9,10 @@ using System.Collections.Generic;
 
 namespace Ulacit.Mandiola.Biz.Concrete
 {
-    class ArticuloEnReservacionService :BasicService, IArticuloEnReservacionContext
+    /// <summary>A service for accessing users information.</summary>
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [Dependency(DependencyScope.Transient)]
+    public class ArticuloEnReservacionService :BasicService, IArticuloEnReservacionService
     {
         /// <summary>Context for the habitacion en Reservaciones.</summary>
         private readonly IArticuloEnReservacionContext _ArticuloEnReservacionContext;
