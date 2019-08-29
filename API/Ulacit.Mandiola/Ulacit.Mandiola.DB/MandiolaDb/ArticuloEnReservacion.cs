@@ -15,6 +15,7 @@
         /// <summary>Gets or sets the Ientifier on the article.</summary>
         /// <value>The identifier ID_ARTICULO.</value>
         [Required]
+        
         public int ID_ARTICULO { get; set; }
 
         /// <summary>Gets or sets the identifier on the reservation.</summary>
