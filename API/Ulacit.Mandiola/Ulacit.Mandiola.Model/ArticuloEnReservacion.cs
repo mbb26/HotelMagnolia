@@ -11,7 +11,7 @@ namespace Ulacit.Mandiola.Model
 
         /// <summary>Gets or sets the identifier on the room.</summary>
         /// <value>The identifier for the room.</value>
-        public string ID_ARTICULO { get; set; }
+        public int ID_ARTICULO { get; set; }
 
         /// <summary>Gets or sets the identifier on the Reservation.</summary>
         /// <value>The identifier for the reservation.</value>
