@@ -18,6 +18,12 @@ namespace HotelMagnolia.UI.Controllers
         public ActionResult Index()
         {
             var aRTICULOes = db.ARTICULOes.Include(a => a.PRECIO);
+            //List<ARTICULO> listaArticulos = db.ARTICULOes.ToList();
+            //foreach(ARTICULO i in listaArticulos)
+            //{
+            //    i.PRECIO.= Util.Cypher.Decrypt(i.ID_PRECIO);
+            //}
+            //return View(listaArticulos);
             return View(aRTICULOes.ToList());
         }
 
@@ -39,19 +45,19 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Articulo/Create
         public ActionResult Create()
         {
-            //ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
+            ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
 
-            var PrecioNuevo = new List<SelectListItem>();
-            List<PRECIO> Tipos = db.PRECIOs.ToList();
-            foreach (PRECIO i in Tipos)
-            {
-                var nuevo = new SelectListItem();
-                nuevo.Value = (i.ID_PRECIO);
-                nuevo.Text = Util.Cypher.Decrypt(i.TIPO_PRECIO);
-                PrecioNuevo.Add(nuevo);
-            }
+            //var PrecioNuevo = new List<SelectListItem>();
+            //List<PRECIO> Tipos = db.PRECIOs.ToList();
+            //foreach (PRECIO i in Tipos)
+            //{
+            //    var nuevo = new SelectListItem();
+            //    nuevo.Value = (i.PRECIO1.ToString());
+            //    nuevo.Text = Util.Cypher.Decrypt(i.TIPO_PRECIO);
+            //    PrecioNuevo.Add(nuevo);
+            //}
 
-            ViewBag.ID_PRECIO = PrecioNuevo;
+            //ViewBag.ID_PRECIO = PrecioNuevo;
             return View();
         }
 
@@ -66,7 +72,7 @@ namespace HotelMagnolia.UI.Controllers
             {
                 USUARIO usuarioSesion = (USUARIO)Session["Usuario"];
                 //db.ARTICULOes.Add(aRTICULO);
-                String LogDetalle = "Descripcion:" + aRTICULO.DESCRIPCION + "/Precio:" + aRTICULO.PRECIO.PRECIO1;
+                String LogDetalle = "Descripcion:" + aRTICULO.DESCRIPCION + "/Precio:" + aRTICULO.ID_PRECIO;
                 LogDetalle = Util.Cypher.Encrypt(LogDetalle);
                 db.InsertArticulo(aRTICULO.DESCRIPCION, aRTICULO.ID_PRECIO, aRTICULO.IMG, usuarioSesion.ID_USUARIO, 1, "Nuevo Articulo", LogDetalle);
                 db.SaveChanges();
