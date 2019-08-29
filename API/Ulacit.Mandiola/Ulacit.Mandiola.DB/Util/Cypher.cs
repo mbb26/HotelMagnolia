@@ -60,15 +60,9 @@ namespace Ulacit.Mandiola.DB.Util
             return new StreamReader(new CryptoStream(new MemoryStream(bytes), d, CryptoStreamMode.Read)).ReadToEnd();
         }
 
-        private static bool needsEncoding(string name)
+        private static Boolean needsEncoding(string name)
         {
-            string[] excludedNames = { "ID_" };
-            bool needs = true;
-            foreach (string excluded in excludedNames)
-            {
-                needs = needs && !name.Contains(excluded);
-            }
-            return needs;
+            return !name.Contains("ID_");
         }
 
         public static Object EncryptObject(Object myObject)

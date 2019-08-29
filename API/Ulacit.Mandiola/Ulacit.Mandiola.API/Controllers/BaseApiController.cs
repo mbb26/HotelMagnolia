@@ -4,8 +4,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using Ulacit.Mandiola.API.Models;
 using System.Web.Http.Cors;
+using Ulacit.Mandiola.API.Models;
 
 namespace Ulacit.Mandiola.API.Controllers
 {

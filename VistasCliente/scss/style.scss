@@ -90,10 +90,3 @@ footer {
 		color: inherit;
 	}
 }
-
-.ui-dialog-titlebar-close {
-	&::before {
-		content: 'x';
-		color: #fff;
-	}
-}

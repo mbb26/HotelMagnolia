@@ -48,6 +48,7 @@
     <Compile Include="CONSECUTIVO.cs" />
     <Compile Include="ESTADO_RESERVACION.cs" />
     <Compile Include="HABITACION.cs" />
+    <Compile Include="HabitacionesEnReservacion.cs" />
     <Compile Include="PaymentMethod.cs" />
     <Compile Include="PRECIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
