@@ -41,5 +41,9 @@ namespace Ulacit.Mandiola.DB.MandiolaDb
         /// <summary>Gets or sets the tipo habitacion.</summary>
         /// <value>The tipo habitacion.</value>
         public int TIPO_HABITACION { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether the room is available.</summary>
+        /// <value>True if available, false if not.</value>
+        public bool DISPONIBLE { get; set; }
     }
 }
