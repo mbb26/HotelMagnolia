@@ -29,7 +29,7 @@ namespace Ulacit.Mandiola.Biz.Concrete
 
         public List<T> GetJoinHabsEnResv<T>(string IDReservacion)
         {
-            throw new System.NotImplementedException();
+            return _HabitacionesEnReservacionContext.GetJoinHabsEnResv<T>(IDReservacion);
         }
     }
 }

@@ -2,8 +2,11 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("HabitacionesEnReservacion")]
     public partial class HabitacionesEnReservacion
     {
+        
         /// <summary>Gets or sets the identifier HabitacionesEnReservacion.</summary>
         /// <value>The identifier ID_ID_HabEnReserv.</value>
         [Key]

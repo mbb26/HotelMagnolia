@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using AutoMapper;
 using Ulacit.Mandiola.DB.Abstract;
@@ -34,7 +35,7 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Create<T>(T entity)
         {
             var aux = _mapper.Map<HabitacionesEnReservacion>(entity);
-            _mandiolaDbContext.HabitacionesEnReservacions.Add(aux);
+            _mandiolaDbContext.HabitacionesEnReservacion.Add(aux);
             _mandiolaDbContext.SaveChanges();
             return _mapper.Map<T>(aux);
         }
@@ -62,14 +63,14 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <returns>all.</returns>
         public List<T> GetAll<T>()
-            => _mapper.Map<List<T>>(_mandiolaDbContext.HabitacionesEnReservacions.ToList());
+            => _mapper.Map<List<T>>(_mandiolaDbContext.HabitacionesEnReservacion.ToList());
 
         /// <summary>Gets by identifier.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="id">The identifier.</param>
         /// <returns>The by identifier.</returns>
         public T GetById<T>(int id)
-             => _mapper.Map<T>(_mandiolaDbContext.HabitacionesEnReservacions.FirstOrDefault(x => x.ID_HabEnReserv == id));
+             => _mapper.Map<T>(_mandiolaDbContext.HabitacionesEnReservacion.FirstOrDefault(x => x.ID_HabEnReserv == id));
 
         /// <summary>Updates the given entity.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -78,7 +79,7 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Update<T>(T entity)
         {
             var aux = _mapper.Map<HabitacionesEnReservacion>(entity);
-            _mandiolaDbContext.HabitacionesEnReservacions.Attach(aux);
+            _mandiolaDbContext.HabitacionesEnReservacion.Attach(aux);
             _mandiolaDbContext.Entry(aux).State = EntityState.Modified;
             _mandiolaDbContext.SaveChanges();
             return _mapper.Map<T>(aux);
@@ -89,6 +90,14 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <param name="entity">The entity.</param>
         /// <returns>A List<T></T>.</returns>
         public List<T> GetJoinHabsEnResv<T>(string ID_reservacion)
-            => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HabitacionesEnReservacion>("exec JoinReservacionHabitacion @ID_Reservacion", ID_reservacion).ToList());
+        {
+            var pID_Reservacion = new SqlParameter
+            {
+                ParameterName = "@ID_Reservacion",
+                Value = ID_reservacion
+            };
+
+            return _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HabitacionesEnReservacion>("exec JoinReservacionHabitacion @ID_Reservacion", pID_Reservacion).ToList());
+        }   
     }
 }

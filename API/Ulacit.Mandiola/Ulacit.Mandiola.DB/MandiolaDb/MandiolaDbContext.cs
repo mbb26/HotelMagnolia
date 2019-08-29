@@ -41,7 +41,7 @@ namespace Ulacit.Mandiola.DB.MandiolaDb
 
         /// <summary>Gets or sets the Habitaciones En Reservacion.</summary>
         /// <value>The Habitaciones En Reservacion.</value>
-        public virtual DbSet<HabitacionesEnReservacion> HabitacionesEnReservacions { get; set; }
+        public virtual DbSet<HabitacionesEnReservacion> HabitacionesEnReservacion { get; set; }
 
         /// <summary>Gets or sets the preci operating system.</summary>
         /// <value>The preci operating system.</value>
