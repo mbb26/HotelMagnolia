@@ -73,10 +73,12 @@
   <ItemGroup>
     <Compile Include="Abstract\IActivityContext.cs" />
     <Compile Include="Abstract\IArticleContext.cs" />
+    <Compile Include="Abstract\IArticuloEnReservacionContext.cs" />
     <Compile Include="Abstract\IBinacleTypeContext.cs" />
     <Compile Include="Abstract\IBinnacleContext.cs" />
     <Compile Include="Abstract\IClientContext.cs" />
     <Compile Include="Abstract\IConsecutiveContext.cs" />
+    <Compile Include="Abstract\IHabitacionesEnReservacionContext.cs" />
     <Compile Include="Abstract\IPriceContext.cs" />
     <Compile Include="Abstract\IReservationContext.cs" />
     <Compile Include="Abstract\IReservationStateContext.cs" />
@@ -86,6 +88,8 @@
     <Compile Include="Abstract\IPaymentMethodContext.cs" />
     <Compile Include="Abstract\IUserEasyPayContext.cs" />
     <Compile Include="Abstract\IUserContext.cs" />
+    <Compile Include="Concrete\ArticuloEnReservacionContext.cs" />
+    <Compile Include="Concrete\HabitacionesEnReservacionContext.cs" />
     <Compile Include="Concrete\PaymentMethod.cs" />
     <Compile Include="Concrete\UserEasyPayContext.cs" />
     <Compile Include="Concrete\UserContext.cs" />
@@ -106,11 +110,13 @@
     <Compile Include="EasyPayDb\User.cs" />
     <Compile Include="MandiolaDb\ACTIVIDAD.cs" />
     <Compile Include="MandiolaDb\ARTICULO.cs" />
+    <Compile Include="MandiolaDb\ArticuloEnReservacion.cs" />
     <Compile Include="MandiolaDb\BITACORA.cs" />
     <Compile Include="MandiolaDb\CLIENTE.cs" />
     <Compile Include="MandiolaDb\CONSECUTIVO.cs" />
     <Compile Include="MandiolaDb\ESTADO_RESERVACION.cs" />
     <Compile Include="MandiolaDb\HABITACION.cs" />
+    <Compile Include="MandiolaDb\HabitacionesEnReservacion.cs" />
     <Compile Include="MandiolaDb\MandiolaDbContext.cs" />
     <Compile Include="MandiolaDb\PRECIO.cs" />
     <Compile Include="MandiolaDb\RESERVACION.cs" />

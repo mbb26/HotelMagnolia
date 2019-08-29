@@ -5,7 +5,7 @@ namespace Ulacit.Mandiola.Model
     {
         /// <summary>Gets or sets the descripcion.</summary>
         /// <value>The descripcion.</value>
-        public string DESCRIPCION_ { get; set; }
+        public string DESCRIPCION { get; set; }
 
         /// <summary>Gets or sets the identifier articulo.</summary>
         /// <value>The identifier articulo.</value>

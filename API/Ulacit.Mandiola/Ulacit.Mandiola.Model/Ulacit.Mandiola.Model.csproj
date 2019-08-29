@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ACTIVIDAD.cs" />
     <Compile Include="ARTICULO.cs" />
+    <Compile Include="ArticuloEnReservacion.cs" />
     <Compile Include="BITACORA.cs" />
     <Compile Include="CLIENTE.cs" />
     <Compile Include="CONSECUTIVO.cs" />
