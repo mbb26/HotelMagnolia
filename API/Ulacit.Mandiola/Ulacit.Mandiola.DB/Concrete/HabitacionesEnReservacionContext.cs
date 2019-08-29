@@ -10,9 +10,9 @@ using Ulacit.Mandiola.IoC.Enum;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
-    class HabitacionesEnReservacionContext : IHabitacionesEnReservacionContext
+    [Dependency(DependencyScope.Transient)]
+    public class HabitacionesEnReservacionContext : IHabitacionesEnReservacionContext
     {
-
         /// <summary>Context for the mandiola database.</summary>
         private readonly MandiolaDbContext _mandiolaDbContext;
 
@@ -90,6 +90,5 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <returns>A List<T></T>.</returns>
         public List<T> GetJoinHabsEnResv<T>(string ID_reservacion)
             => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HabitacionesEnReservacion>("exec JoinReservacionHabitacion @ID_Reservacion", ID_reservacion).ToList());
-
     }
 }
