@@ -19,6 +19,10 @@ namespace Ulacit.Mandiola.DB.MandiolaDb
         /// <value>The articul oes.</value>
         public virtual DbSet<ARTICULO> ARTICULOes { get; set; }
 
+        /// <summary>Gets or sets the articululoEnReservacion.</summary>
+        /// <value>The articululoEnReservacion.</value>
+        public virtual DbSet<ArticuloEnReservacion> ArticuloEnReservacion { get; set; }
+
         /// <summary>Gets or sets the bitacor as.</summary>
         /// <value>The bitacor as.</value>
         public virtual DbSet<BITACORA> BITACORAs { get; set; }
