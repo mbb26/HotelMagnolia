@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="google-signin-client_id" content="625037653561-t38eok4ricm4cc398kkfk229v3b714gc.apps.googleusercontent.com">
     <title>Hotel Mandiola | Admin | Ingresar</title>
 
     <link rel="icon" href="../img/core-img/favicon.png">
@@ -20,7 +20,7 @@
     <script src="../js/functions.js"></script>
     <script src="../js/jquery.cookie.js"></script>
     <script src="../js/user-functions.js"></script>
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -81,7 +81,7 @@
                                   </fb:login-button>
                                 </li>
                                 <li>
-                                    <a href="https://www.instagram.com/"><img class="social_icon" src="../img/proyecto/insta.png" alt="Facebook" /></a>
+                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                                 </li>
                             </ul>
                         </div>

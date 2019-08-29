@@ -114,9 +114,14 @@ window.fbAsyncInit = function() {
 
 function testAPI() {
     FB.api('/me?fields=id,name,email', function(response) {
-        console.log('Good to see you, ' + response.name + '.' + ' Email: ' + response.email + ' Facebook ID: ' + response.id);
         APP.functions.makeAPICall('User/'+'GetUserByEmail?email='+encodeURI(response.email), 'GET',null, auxFunction, function(response){
             console.log(response);
         });
     });
+}
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    APP.functions.makeAPICall('User/'+'GetUserByEmail?email='+encodeURI(profile.getEmail()), 'GET',null, auxFunction, function(response){
+        console.log(response);
+    });  
 }
