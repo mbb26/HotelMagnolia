@@ -54,12 +54,12 @@ namespace HotelMagnolia.UI.Util
         {
             string keyString = "password";
             Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(keyString, salt);
-
-            ICryptoTransform d = new RijndaelManaged().CreateDecryptor(key.GetBytes(32), key.GetBytes(16));
-            byte[] bytes = Convert.FromBase64String(base64Text);
             string value = "Error al desencriptar el dato";
+
             try
             {
+                ICryptoTransform d = new RijndaelManaged().CreateDecryptor(key.GetBytes(32), key.GetBytes(16));
+                byte[] bytes = Convert.FromBase64String(base64Text);
                 value = new StreamReader(new CryptoStream(new MemoryStream(bytes), d, CryptoStreamMode.Read)).ReadToEnd();
             }
             catch (Exception e) { } //ignore

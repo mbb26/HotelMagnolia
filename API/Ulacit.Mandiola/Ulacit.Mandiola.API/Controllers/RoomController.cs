@@ -52,7 +52,7 @@ namespace Ulacit.Mandiola.API.Controllers
         /// <summary>(An Action that handles HTTP PUT requests) updates the given aux.</summary>
         /// <param name="aux">The auxiliary.</param>
         /// <returns>An ApiResultModel&lt;HABITACION&gt;</returns>
-        [HttpPut]
+        [HttpPost]
         public ApiResultModel<HABITACION> Update([FromBody]HABITACION aux) => GetApiResultModel(() => _roomService.Update(aux));
     }
 }

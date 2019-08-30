@@ -74,6 +74,34 @@ alter table RESERVACION
    drop constraint FK_RESERVAC_REFERENCE_CLIENTE
 go
 
+if exists (select 1
+from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+where r.fkeyid = object_id('ArticuloEnReservacion') and o.name = 'FK_ARTIENRESERV_REFERENCE_RESERVACION')
+alter table ArticuloEnReservacion
+   drop constraint FK_ARTIENRESERV_REFERENCE_RESERVACION
+go
+
+if exists (select 1
+from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+where r.fkeyid = object_id('ArticuloEnReservacion') and o.name = 'FK_ARTIENRESERV_REFERENCE_ARTICULO')
+alter table ArticuloEnReservacion
+   drop constraint FK_ARTIENRESERV_REFERENCE_ARTICULO
+go
+
+if exists (select 1
+from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+where r.fkeyid = object_id('HabitacionesEnReservacion') and o.name = 'FK_HABITENRESERV_REFERENCE_RESERVACION')
+alter table HabitacionesEnReservacion
+   drop constraint FK_HABITENRESERV_REFERENCE_RESERVACION
+go
+
+if exists (select 1
+from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+where r.fkeyid = object_id('HabitacionesEnReservacion') and o.name = 'FK_HABITENRESERV_REFERENCE_HABITACION')
+alter table HabitacionesEnReservacion
+   drop constraint FK_HABITENRESERV_REFERENCE_HABITACION
+go
+
 
 
 if exists (select 1
@@ -81,6 +109,13 @@ from sysobjects
 where  id = object_id('ACTIVIDAD')
    and type = 'U')
    drop table ACTIVIDAD
+go
+
+if exists (select 1
+from sysobjects
+where  id = object_id('ArticuloEnReservacion')
+   and type = 'U')
+   drop table ArticuloEnReservacion
 go
 
 if exists (select 1
@@ -191,7 +226,7 @@ go
 ==============================================================*/
 create table ARTICULO
 (
-   ID_ARTICULO int not null,
+   ID_ARTICULO varchar(200) not null,
    DESCRIPCION varchar(200) not null,
    ID_PRECIO varchar(100) not null,
    IMG Varchar(Max) null,
@@ -318,7 +353,7 @@ go
 create table RESERVACION
 (
    ID_RESERVACION varchar(100) not null,
-   ID_CLIENTE int not null,
+   ID_CLIENTE varchar(100) not null,
    FECHA_ENTRADA date not null,
    FECHA_SALIDA date not null,
    TIPO_HABITACION int not null,
@@ -405,7 +440,7 @@ alter table ArticuloEnReservacion
 GO
 
 alter table ArticuloEnReservacion
-   add constraint FK_ARTIENRESERV_REFERENCE_ARTICULO FOREIGN key (ID_RESERVACION)
+   add constraint FK_ARTIENRESERV_REFERENCE_RESERVACION FOREIGN key (ID_RESERVACION)
    references RESERVACION (ID_RESERVACION)
 GO
 
@@ -447,7 +482,7 @@ go
 
 alter table RESERVACION
    add constraint FK_RESERVAC_REFERENCE_CLIENTE foreign key (ID_CLIENTE)
-      references CLIENTE (ID_CLIENTE)
+      references USUARIO (ID_USUARIO)
 go
 
 alter table RESERVACION
@@ -721,7 +756,7 @@ UPDATE [dbo].[CONSECUTIVO]
 
 CREATE OR ALTER PROCEDURE InsertReservacion
    (
-   @ID_Cliente int,
+   @ID_Cliente varchar(200),
    @Fecha_Entrada date,
    @Fecha_Salida date,
    @Tipo_Habitacion int,
@@ -906,12 +941,11 @@ GO
 -------------------------------------------------------
 CREATE OR ALTER PROCEDURE InsertReservacionAPI
    (
-   @ID_Cliente int,
+   @ID_Cliente varchar(200),
    @Fecha_Entrada date,
    @Fecha_Salida date,
    @Tipo_Habitacion int,
-   @Estado int,
-   @ID_Habitacion varchar(100)
+   @Estado int
 )
 AS
 DECLARE @ID varchar(200)
@@ -1008,7 +1042,23 @@ FROM [dbo].[HABITACION]
 WHERE DISPONIBLE != 0
 GO
 
+--
+CREATE OR ALTER PROCEDURE InsertHabitacionEnReservacionAPI
+(
+   @ID_Reservacion varchar(200),
+   @ID_Habitacion varchar(200)
+)
+AS
 
+DECLARE @new_identity int;
+
+INSERT INTO [dbo].[HabitacionesEnReservacion] ([ID_RESERVACION], [ID_HABITACION])
+VALUES (@ID_Reservacion, @ID_Habitacion);
+
+SELECT * FROM [dbo].[HabitacionesEnReservacion] 
+WHERE ID_HabEnReserv = SCOPE_IDENTITY()
+
+GO
 
 
 -- INSERT BASE USERS

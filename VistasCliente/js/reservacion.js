@@ -4,7 +4,10 @@ APP.reservacion = (function() {
 
     var $api_reservation = 'Reservation/';
     var $api_room = 'Room/';
+    var $api_room_reservation = 'HabitacionesEnReservacion/';
     var $reservation_form_selector = '#reservation-form';
+    var $room_form_selector = '#room-form';
+    var $room_reservation_form_selector = '#room-reservation-form';
     var $available_rooms = null;
     var $tipo_habitacion_selector = '#tipo_habitacion_search';
     var $available_rooms_selector = '#available-rooms';
@@ -65,7 +68,7 @@ APP.reservacion = (function() {
                 return room.tipO_HABITACION == parseInt($tipo_habitacion);
             });
         }
-        // console.log($available_rooms);
+        console.log($available_rooms);
         createAvailableRoomsForm();
     };
 
@@ -156,18 +159,59 @@ APP.reservacion = (function() {
     };
 
     var createReservacion = function() {
+        $available_rooms = $available_rooms.filter(function(room) {
+            return !room.disponible;
+        })
+        console.log($available_rooms);
         APP.functions.makeAPICall($api_reservation+'Create', 'POST', $($reservation_form_selector).serialize(), reservationCreated, callFailed);
     };
 
     var reservationCreated = function(response) {
         var $reservation = response.result;
-        if ($reservation) {
+        if ($reservation && $reservation.iD_RESERVACION) {
             console.log($reservation);
+            $available_rooms.forEach(function(room) {
+                $('#rrform-reservacion').val($reservation.iD_RESERVACION);
+                $('#rrform-habitacion').val(room.iD_HABITACION);
+                APP.functions.makeAPICall($api_room_reservation+'Create', 'POST', $($room_reservation_form_selector).serialize(), rrCreated, callFailed);                
+                
+                $('#ID_HABITACION_ROOM').val(room.iD_HABITACION);
+                $('#NUMERO').val(room.numero);
+                $('#NOMBRE').val(room.nombre);
+                $('#DESCRIPCION').val(room.descripcion);
+                $('#FOTO').val(room.foto);
+                $('#TIPO_HABITACION').val(room.tipO_HABITACION);
+                $('#ID_PRECIO').val(room.iD_PRECIO);
+                $('#DISPONIBLE').val(room.disponible);
+                APP.functions.makeAPICall($api_room+'Update', 'POST', $($room_form_selector).serialize(), roomModified, callFailed);
+            });
         }
         else {
             APP.functions.customAlert('Se ha producido un error al crear la reservación. Favor inténtelo de nuevo.', 'Error');
         }
-    }
+    };
+
+    var rrCreated = function(response) {
+        var $rr = response.result;
+        if ($rr) {
+            console.log('rr created: ');
+            console.log($rr);
+        }
+        else {
+            APP.functions.customAlert('Se ha producido un error al crear la RR. Favor inténtelo de nuevo.', 'Error');
+        }
+    };
+
+    var roomModified = function(response) {
+        var $mr = response.result;
+        if ($mr) {
+            console.log('room modified: ');
+            console.log($mr);
+        }
+        else {
+            APP.functions.customAlert('Se ha producido un error al modificar la habitacion. Favor inténtelo de nuevo.', 'Error');
+        }
+    };
 
     var validateRoomsSelected = function() {
         $errors.length = 0;

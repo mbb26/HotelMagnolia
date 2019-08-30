@@ -95,9 +95,13 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Update<T>(T entity)
         {
             var aux = _mapper.Map<HABITACION>(entity);
+            aux.NOMBRE = Cypher.Encrypt(aux.NOMBRE);
+            aux.DESCRIPCION = Cypher.Encrypt(aux.DESCRIPCION);
             _mandiolaDbContext.HABITACIONs.Attach(aux);
             _mandiolaDbContext.Entry(aux).State = EntityState.Modified;
             _mandiolaDbContext.SaveChanges();
+            aux.NOMBRE = Cypher.Decrypt(aux.NOMBRE);
+            aux.DESCRIPCION = Cypher.Decrypt(aux.DESCRIPCION);
             return _mapper.Map<T>(aux);
         }
 

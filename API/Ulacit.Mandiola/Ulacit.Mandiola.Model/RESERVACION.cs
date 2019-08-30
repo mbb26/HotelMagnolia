@@ -19,7 +19,7 @@ namespace Ulacit.Mandiola.Model
 
         /// <summary>Gets or sets the identifier cliente.</summary>
         /// <value>The identifier cliente.</value>
-        public int ID_CLIENTE { get; set; }
+        public string ID_CLIENTE { get; set; }
 
         /// <summary>Gets or sets the identifier reservacion.</summary>
         /// <value>The identifier reservacion.</value>

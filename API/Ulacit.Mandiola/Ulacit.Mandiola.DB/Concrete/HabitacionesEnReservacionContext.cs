@@ -8,6 +8,7 @@ using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.DB.MandiolaDb;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
+using Ulacit.Mandiola.DB.Util;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
@@ -34,9 +35,30 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <returns>A T.</returns>
         public T Create<T>(T entity)
         {
+            //NEED HOW TO GET USER
             var aux = _mapper.Map<HabitacionesEnReservacion>(entity);
-            _mandiolaDbContext.HabitacionesEnReservacion.Add(aux);
-            _mandiolaDbContext.SaveChanges();
+            //_mandiolaDbContext.RESERVACIONs.Add(aux);
+            //_mandiolaDbContext.SaveChanges();
+            //return _mapper.Map<T>(aux);
+
+            aux = Cypher.EncryptObject(aux) as HabitacionesEnReservacion;
+
+
+            var pIDReservacion = new SqlParameter
+            {
+                ParameterName = "ID_Reservacion",
+                Value = aux.ID_RESERVACION
+            };
+
+            var pIDHabitacion = new SqlParameter
+            {
+                ParameterName = "ID_Habitacion",
+                Value = aux.ID_HABITACION
+            };
+
+            aux = _mandiolaDbContext.Database.SqlQuery<HabitacionesEnReservacion>("exec InsertHabitacionEnReservacionAPI @ID_Reservacion, @ID_Habitacion", pIDReservacion, pIDHabitacion).FirstOrDefault();
+            aux = Cypher.DecryptObject(aux) as HabitacionesEnReservacion;
+
             return _mapper.Map<T>(aux);
         }
 
