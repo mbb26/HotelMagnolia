@@ -57,7 +57,13 @@ namespace HotelMagnolia.UI.Util
 
             ICryptoTransform d = new RijndaelManaged().CreateDecryptor(key.GetBytes(32), key.GetBytes(16));
             byte[] bytes = Convert.FromBase64String(base64Text);
-            return new StreamReader(new CryptoStream(new MemoryStream(bytes), d, CryptoStreamMode.Read)).ReadToEnd();
+            string value = "Error al desencriptar el dato";
+            try
+            {
+                value = new StreamReader(new CryptoStream(new MemoryStream(bytes), d, CryptoStreamMode.Read)).ReadToEnd();
+            }
+            catch (Exception e) { } //ignore
+            return value;
         }
 
         private static bool needsEncoding(string name)
