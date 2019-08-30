@@ -1,8 +1,8 @@
 {
 "liveServer.settings.https": {
 "enable": true, //set it true to enable the feature.
-"cert": "C:\\projects\\HotelMagnolia\\Certificado\\server.crt", //full path of the certificate
-"key": "C:\\projects\\HotelMagnolia\\Certificado\\server.key", //full path of the private key
+"cert": "D:\\U\\2019-IICO\\DisenoWeb\\HotelMagnolia\\Certificado\\server.crt", //full path of the certificate
+"key": "D:\\U\\2019-IICO\\DisenoWeb\\HotelMagnolia\\Certificado\\server.key", //full path of the private key
 "passphrase": "1234"
 }
 }

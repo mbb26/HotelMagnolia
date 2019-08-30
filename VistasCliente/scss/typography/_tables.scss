@@ -11,10 +11,10 @@ table {
     tr {
         border-bottom: 1px solid lighten($color-border, 15%);
 		margin-bottom: .5em;
-		
-		&:first-child {
-			border: none;
-		}
+    }
+
+    thead tr {
+        border: none;
     }
 
     &.alternating {

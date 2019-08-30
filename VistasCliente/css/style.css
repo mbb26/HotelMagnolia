@@ -455,8 +455,8 @@ table {
   table tr {
     border-bottom: 1px solid #8ca593;
     margin-bottom: .5em; }
-    table tr:first-child {
-      border: none; }
+  table thead tr {
+    border: none; }
   table.alternating tr:nth-child(even) {
     background-color: #f2f2f2; }
   table th {
@@ -839,7 +839,32 @@ footer {
 .table-wrapper-scroll-y {
   display: block; }
 
-    .hidden {
-     visibility: hidden; 
-    }   
+input.credit-card {
+  background: url(../img/cc/default.svg);
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position: 3px;
+  padding-left: 60px; }
+  input.credit-card.visa {
+    background: url(../img/cc/visa.svg);
+    background-repeat: no-repeat;
+    background-size: 50px;
+    background-position: 3px;
+    padding-left: 60px; }
+  input.credit-card.mastercard {
+    background: url(../img/cc/mastercard.svg);
+    background-repeat: no-repeat;
+    background-size: 50px;
+    background-position: 3px;
+    padding-left: 60px; }
+  input.credit-card.amex {
+    background: url(../img/cc/amex.svg);
+    background-repeat: no-repeat;
+    background-size: 50px;
+    background-position: 3px;
+    padding-left: 60px; }
+
+.favorite-cards {
+  margin: 20px 0; }
+
 /*# sourceMappingURL=style.css.map */

@@ -19,6 +19,8 @@
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/functions.js"></script>
     <script src="../js/jquery.cookie.js"></script>
+    <script src="../js/jquery.creditCardValidator.js"></script>
+    <script src="../js/payment-functions.js"></script>
 
 </head>
 
@@ -42,28 +44,80 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="hero-content">
-                        <form action="#">
+                        <form id="payment-method-form" action="#" data-function="initialize">
                             <h2>Pantalla de Pago</h2>
                             <h3>Seleccione su tipo de tarjeta</h3>
-                            <a href="tarjetas_favoritas.html" class="btn essence-btn">Seleccionar una tarjeta favorita</a>
-                            <br/>
-                            <br/>
-                        <select name="tipo" id="tipo">
-							<option value="agregar">Visa</option>
-							<option value="eliminar">MasterCard</option>
-							<option value="modificar">American Express</option>
-                        </select>
-                            <h4>Nombre Completo de la tarjeta:</h4>
-                            <input class="input" type="text" name="nombreTarejeta" id="nombreTarejeta"><br>
-                            <h4>Fecha de vencimiento:</h4>
-                            <input class="input" type="date" name="date" id="date"><br>
-                            <h4>CVC:</h4>
-                            <input class="input" type="number" name="cvc" id="cvc"><br>
-                            <label><input type="checkbox" id="addFavoritos" value="addFavoritos"> Agregar a favoritos</label>
-                            <br/>
-                            <br/>
-                            <a href="lista_usuarios.html" class="btn essence-btn">Pagar</a>
-                            
+                            <button class="btn essence-btn" id="view-favorite-cards">Seleccionar una tarjeta favorita</button>
+                            <div class="favorite-cards" id="favorite-cards">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input type="radio" name="useFavorite" id="use-favorite-new" value="new" checked><label class="control-label col-md-6" for="use-favorite-new">Ingresar tarjeta nueva</label>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="useFavorite"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="ID" id="id-payment-method" value="0" />
+                            <input type="hidden" name="Email" id="Email" value="" />
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="CardNumber">Numero de la tarjeta:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line credit-card" data-function="noBlank"
+                                        id="CardNumber" name="CardNumber" type="number">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="CardNumber"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="ExpiredDate">Fecha de expiración:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="ExpiredDate" name="ExpiredDate" type="text" maxlength="5" placeholder="mm/aa">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="ExpiredDate"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="Cvv">CVV:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="Cvv" name="Cvv" type="number" max="999" maxlength="3" pattern="\d{3}" placeholder="123" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Cvv"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="Nombre">Nombre en la tarjeta:</label>
+                                <div class="col-md-10">
+                                    <input class="form-control text-box single-line" data-function="noBlank"
+                                        id="Nombre" name="Nombre" type="text">
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Nombre"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                
+                                <div class="col-md-10">
+                                    <input class="checkbox"
+                                        id="AgregarAFavoritas" name="AgregarAFavoritas" type="checkbox" />
+                                    <label class="control-label col-md-6" for="AgregarAFavoritas">Agregar a favoritas</label>
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="AgregarAFavoritas"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit">Pagar</button>
+                                </div>
+                            </div>                            
+                        </form>
+                        <form id="reservation-payment-form" class="hidden">
+                            <input type="hidden" name="ESTADO_RESERVACION" id="estadO_RESERVACION">
+                            <input type="hidden" name="FECHA_ENTRADA" id="fechA_ENTRADA">
+                            <input type="hidden" name="FECHA_SALIDA" id="fechA_SALIDA">
+                            <input type="hidden" name="ID_CLIENTE" id="iD_CLIENTE">
+                            <input type="hidden" name="ID_RESERVACION" id="iD_RESERVACION">
+                            <input type="hidden" name="TIPO_HABITACION" id="tipO_HABITACION">
                         </form>
                     </div>
                 </div>

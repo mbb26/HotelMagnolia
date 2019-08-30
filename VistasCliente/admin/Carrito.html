@@ -55,24 +55,18 @@
                                     <th>Habitacion tipo</th>
                                     <th>Fecha de Ingreso</th>
                                     <th>Fecha de Salida</th>
+                                    <th>¿Pagar?</th>
                                 </tr>
                             </thead>
                             <tbody id="cart-reservations">
-                                <tr>
-                                    <td>Premium</td>
-                                    <td>20/05/2020</td>
-                                    <td>23/05/2020</td>
-                                    <td>2</td>
-                                    <td>0</td>
-                                </tr>
                             </tbody>
                         </table>
                        
                         <h3>Total:</h3>
-                       <label type="text" name="Total">¢</label>
+                       <label type="text" name="Total">¢<span id="cart-grand-total">0</span></label>
                        <br>
                        <br>
-                        <a href="pantalla_pago.html" class="btn essence-btn">Pagar</a>
+                        <button class="btn essence-btn" id="cart-button-pay">Pagar</button>
                     </div>
                 </div>
             </div>
