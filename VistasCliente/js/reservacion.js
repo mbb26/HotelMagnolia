@@ -54,6 +54,7 @@ APP.reservacion = (function() {
     };
 
     var callFailed = function(response) {
+        console.log('Ugly error:');
         console.log(response);
     };
 
