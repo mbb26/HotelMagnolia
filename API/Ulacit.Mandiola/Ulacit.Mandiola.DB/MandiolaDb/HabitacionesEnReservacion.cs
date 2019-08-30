@@ -1,4 +1,4 @@
-﻿namespace Ulacit.Mandiola.DB.MandiolaDb
+namespace Ulacit.Mandiola.DB.MandiolaDb
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;

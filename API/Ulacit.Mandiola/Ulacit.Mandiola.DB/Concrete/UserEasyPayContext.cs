@@ -7,12 +7,10 @@ using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
 using Ulacit.Mandiola.DB.EasyPayDb;
-using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
     /// <summary>A UserEasyPayContext context.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Dependency(DependencyScope.Transient)]
     public class UserEasyPayContext : IUserEasyPayContext
     {

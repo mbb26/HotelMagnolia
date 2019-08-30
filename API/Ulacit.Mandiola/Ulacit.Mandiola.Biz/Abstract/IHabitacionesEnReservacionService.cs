@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Ulacit.Mandiola.Common.Abstract;
 
 namespace Ulacit.Mandiola.Biz.Abstract

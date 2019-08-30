@@ -199,6 +199,19 @@ create table ARTICULO
 )
 go
 /*==============================================================*/
+/* Table: ArticuloEnReservacion                                             
+==============================================================*/
+
+CREATE TABLE ArticuloEnReservacion
+(
+   ID_ArtEnReserv int IDENTITY(1,1) not null,
+   ID_ARTICULO int not null,
+   ID_RESERVACION varchar(100) not null,
+   constraint PK_ARTICULO_RESERVACION primary key (ID_ArtEnReserv)
+)
+go
+
+/*==============================================================*/
 /* Table: Bitacora                                             
 ==============================================================*/
 create table BITACORA
@@ -267,8 +280,20 @@ create table HABITACION
    FOTO varchar(max) not null,
    TIPO_HABITACION int not null,
    ID_PRECIO varchar(100) not null,
-   DISPONIBLE bit not null,
+   DISPONIBLE bit null,
    constraint PK_HABITACION primary key (ID_HABITACION)
+)
+go
+
+/*==============================================================*/
+/* Table: Habitaciones En Reservacion                                             
+==============================================================*/
+CREATE TABLE HabitacionesEnReservacion
+(
+   ID_HabEnReserv int IDENTITY(1,1) not null,
+   ID_HABITACION varchar (100) not null,
+   ID_RESERVACION varchar(100) not null,
+   constraint PK_HABITACION_RESERVACION primary key (ID_HabEnReserv)
 )
 go
 
@@ -374,6 +399,16 @@ alter table ARTICULO
       references PRECIO (ID_PRECIO)
 go
 
+alter table ArticuloEnReservacion
+   add constraint FK_ARTIENRESERV_REFERENCE_ARTICULO FOREIGN key (ID_ARTICULO)
+   references ARTICULO (ID_ARTICULO)
+GO
+
+alter table ArticuloEnReservacion
+   add constraint FK_ARTIENRESERV_REFERENCE_ARTICULO FOREIGN key (ID_RESERVACION)
+   references RESERVACION (ID_RESERVACION)
+GO
+
 alter table BITACORA
     add CONSTRAINT FK_BITACORA_REFERENCE_USER FOREIGN key (ID_USUARIO)
     references USUARIO (ID_USUARIO)
@@ -400,6 +435,15 @@ alter table HABITACION
       references TIPO_HABITACION (ID_TIPO_HABITACION)
 go
 
+alter table HabitacionesEnReservacion
+   add CONSTRAINT FK_HABITENRESERV_REFERENCE_HABITACION FOREIGN KEY (ID_HABITACION)
+   references HABITACION(ID_HABITACION)
+go
+
+alter table HabitacionesEnReservacion
+   add CONSTRAINT FK_HABITENRESERV_REFERENCE_RESERVACION FOREIGN KEY (ID_RESERVACION)
+   references RESERVACION(ID_RESERVACION)
+go
 
 alter table RESERVACION
    add constraint FK_RESERVAC_REFERENCE_CLIENTE foreign key (ID_CLIENTE)
@@ -602,6 +646,8 @@ WHERE ID_ACTIVIDAD = @ID
 
 GO
 
+
+
 CREATE OR ALTER PROCEDURE InsertHabitacion
    (
    @Numero int,
@@ -626,9 +672,9 @@ FROM [dbo].[CONSECUTIVO]
 WHERE Nombre = 'Habitacion'
 
 INSERT INTO [dbo].[HABITACION]
-   ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[DISPONIBLE],[TIPO_HABITACION],[ID_PRECIO])
+   ([ID_HABITACION],[NUMERO],[NOMBRE],[DESCRIPCION],[FOTO],[TIPO_HABITACION],[ID_PRECIO])
 VALUES
-   (@ID, @Numero, @Nombre, @descripcion, @foto, @Disponible, @Tipo_Habitacion, @ID_Precio)
+   (@ID, @Numero, @Nombre, @descripcion, @foto, @Tipo_Habitacion, @ID_Precio)
 
 
 EXEC InsertBitacora @LOG_UserID, @LOG_Tipo, @LOG_Desc, @LOG_detalle, @ID
@@ -864,7 +910,8 @@ CREATE OR ALTER PROCEDURE InsertReservacionAPI
    @Fecha_Entrada date,
    @Fecha_Salida date,
    @Tipo_Habitacion int,
-   @Estado int
+   @Estado int,
+   @ID_Habitacion varchar(100)
 )
 AS
 DECLARE @ID varchar(200)
@@ -917,10 +964,38 @@ WHERE ID_RESERVACION = @ID_Reservacion
 
 GO
 -------------------------------------------------------
-
-
+create or ALTER   PROCEDURE [dbo].[JoinReservacionHabitacion]
+(
+   @ID_Reservacion VARCHAR(200)
+ 
+)
+AS
+BEGIN
+	SELECT RESERVACION.ID_RESERVACION,RESERVACION.ID_CLIENTE,RESERVACION.FECHA_ENTRADA,RESERVACION.FECHA_SALIDA, HABITACION.ID_HABITACION,HabitacionesEnReservacion.ID_HabEnReserv
+	FROM HabitacionesEnReservacion
+	INNER JOIN HABITACION on HabitacionesEnReservacion.ID_HABITACION = HABITACION.ID_HABITACION
+	INNER JOIN RESERVACION on HabitacionesEnReservacion.ID_RESERVACION = RESERVACION.ID_RESERVACION
+	WHERE RESERVACION.ID_RESERVACION = @ID_Reservacion
+  
+END
+GO
 
 -------------------------------------------------------
+create or ALTER   PROCEDURE [dbo].[JoinReservacionArticulos]
+(
+   @ID_Reservacion VARCHAR(200)
+ 
+)
+AS
+BEGIN
+	SELECT RESERVACION.ID_RESERVACION,RESERVACION.ID_CLIENTE,RESERVACION.FECHA_ENTRADA,RESERVACION.FECHA_SALIDA, ARTICULO.DESCRIPCION
+	FROM ArticuloEnReservacion
+	INNER JOIN ARTICULO on ArticuloEnReservacion.ID_ARTICULO = ARTICULO.ID_ARTICULO
+	INNER JOIN RESERVACION on ArticuloEnReservacion.ID_RESERVACION = RESERVACION.ID_RESERVACION
+	WHERE RESERVACION.ID_RESERVACION = @ID_Reservacion
+  
+END
+GO
 
 -------------------------------------------------------
 
@@ -928,7 +1003,7 @@ GO
 -------------------------------------------------------
 CREATE OR ALTER PROCEDURE GetDisponibles
 AS
-SELECT *
+SELECT NOMBRE,ID_PRECIO,TIPO_HABITACION
 FROM [dbo].[HABITACION]
 WHERE DISPONIBLE != 0
 GO

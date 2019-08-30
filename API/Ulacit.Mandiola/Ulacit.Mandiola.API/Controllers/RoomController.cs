@@ -3,12 +3,10 @@ using System.Web.Http;
 using Ulacit.Mandiola.API.Models;
 using Ulacit.Mandiola.Biz.Abstract;
 using Ulacit.Mandiola.Model;
-using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.API.Controllers
 {
     /// <summary>A controller for handling rooms.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RoomController : BaseApiController
     {
         /// <summary>The room service.</summary>
@@ -44,8 +42,8 @@ namespace Ulacit.Mandiola.API.Controllers
         [HttpGet]
         public ApiResultModel<HABITACION> GetById([FromUri]int id) => GetApiResultModel(() => _roomService.GetById<HABITACION>(id));
 
-        /// <summary>(An Action that handles HTTP GET requests) gets list of available Rooms.</summary>
-        /// <returns>The list of available rooms.</returns>
+        /// <summary>(An Action that handles HTTP GET requests) gets Available Rooms.</summary>
+        /// <returns>The by the availability of a room.</returns>
         [HttpGet]
         public ApiResultModel<List<HABITACION>> GetAvailable() => GetApiResultModel(() => _roomService.GetAvailable<HABITACION>());
 
