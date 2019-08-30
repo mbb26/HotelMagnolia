@@ -3,6 +3,7 @@ using Ulacit.Mandiola.Common.Concrete;
 using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
+using Ulacit.Mandiola.Model;
 
 namespace Ulacit.Mandiola.Biz.Concrete
 {
@@ -18,6 +19,11 @@ namespace Ulacit.Mandiola.Biz.Concrete
         public UserEasyPayService(IUserEasyPayContext userEasyPayService) : base(userEasyPayService)
         {
             _userEasyPayService = userEasyPayService;
+        }
+
+        public User GetByEmail(string id)
+        {
+            return _userEasyPayService.getByEmail(id);
         }
     }
 }

@@ -41,8 +41,8 @@ namespace Ulacit.Mandiola.API.Controllers
         /// <summary>(An Action that handles HTTP GET requests) gets by identifier.</summary>
         /// <param name="id">The identifier.</param>
         /// <returns>The by identifier.</returns>
-        [HttpGet]
-        public ApiResultModel<User> GetById([FromUri]int id) => GetApiResultModel(() => _userEasyPayService.GetById<User>(id));
+        [HttpPost]
+        public ApiResultModel<User> GetById([FromBody]KeyValuePair<string, string> id) => GetApiResultModel(() => _userEasyPayService.GetByEmail(id.Value));
 
         /// <summary>(An Action that handles HTTP PUT requests) updates the given aux.</summary>
         /// <param name="aux">The auxiliary.</param>

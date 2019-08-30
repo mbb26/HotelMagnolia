@@ -8,6 +8,8 @@ using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
 using Ulacit.Mandiola.DB.EasyPayDb;
 using System.Web.Http.Cors;
+using Ulacit.Mandiola.Model;
+using User = Ulacit.Mandiola.DB.EasyPayDb.User;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
@@ -66,6 +68,9 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <returns>all.</returns>
         public List<T> GetAll<T>()
             => _mapper.Map<List<T>>(_easyPayDbContext.Users.ToList());
+
+        public Model.User getByEmail(string id)
+        => _mapper.Map<Model.User>(_easyPayDbContext.Users.FirstOrDefault(x => x.Email == id));
 
         /// <summary>Gets by identifier.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
