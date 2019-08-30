@@ -280,7 +280,7 @@ create table HABITACION
    FOTO varchar(max) not null,
    TIPO_HABITACION int not null,
    ID_PRECIO varchar(100) not null,
-   DISPONIBLE bit null,
+   DISPONIBLE bit not null,
    constraint PK_HABITACION primary key (ID_HABITACION)
 )
 go
