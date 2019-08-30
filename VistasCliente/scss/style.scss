@@ -114,3 +114,39 @@ footer {
 .table-wrapper-scroll-y {
 	display: block;
 }
+
+input.credit-card {
+	background: url(../img/cc/default.svg);
+	background-repeat: no-repeat;
+	background-size: 50px;
+	background-position: 3px;
+	padding-left: 60px;
+
+	&.visa {
+		background: url(../img/cc/visa.svg);
+		background-repeat: no-repeat;
+		background-size: 50px;
+		background-position: 3px;
+		padding-left: 60px;
+	}
+
+	&.mastercard {
+		background: url(../img/cc/mastercard.svg);
+		background-repeat: no-repeat;
+		background-size: 50px;
+		background-position: 3px;
+		padding-left: 60px;
+	}
+
+	&.amex {
+		background: url(../img/cc/amex.svg);
+		background-repeat: no-repeat;
+		background-size: 50px;
+		background-position: 3px;
+		padding-left: 60px;
+	}
+}
+
+.favorite-cards {
+	margin: 20px 0;
+}

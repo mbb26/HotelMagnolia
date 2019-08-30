@@ -13,14 +13,21 @@ namespace Ulacit.Mandiola.DB.EasyPayDb
         [StringLength(1000)]
         public string CardNumber { get; set; }
 
-        public DateTime ExpiredDate { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(1000)]
+        public string ExpiredDate { get; set; }
+
+        [Required]
+        [StringLength(1000)]
         public string Cvv { get; set; }
 
         [Required]
         [StringLength(1000)]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(1000)]
+        public string Nombre { get; set; }
     }
 }

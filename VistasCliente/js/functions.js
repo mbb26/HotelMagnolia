@@ -53,6 +53,18 @@ APP.functions = (function() {
         $.removeCookie($reservations_cookie);
     };
 
+    var getCookie = function(name) {
+        return JSON.parse($.cookie(name) || null);
+    };
+
+    var setCookie = function(name, value) {
+        $.cookie(name, JSON.stringify(value));
+    };
+
+    var removeCookie = function(name) {
+        $.removeCookie(name);
+    };
+
     var customAlert = function (message, title, redirectURL) {
         if ( !title )
             title = 'Alert';
@@ -195,6 +207,19 @@ APP.functions = (function() {
         return $valid;
     };
 
+    var resetFormAlerts = function (form) {
+        var $form = $(form);
+        $form.find('[data-function="noBlank"]').each(function () {
+            resetAlerts(this);
+        });
+    };
+
+    var resetAlerts = function(field) {
+        var $field = $(field);
+        var $message = $($field.siblings('.text-danger')[0]);
+        $message.html('');
+    };
+
     var validateFormAndSubmit = function (form, e) {
         var $valid = validateForm(form);
         if ($valid) {
@@ -246,7 +271,11 @@ APP.functions = (function() {
         getReservations: getReservations,
         setReservations: setReservations,
         removeReservations: removeReservations,
-        customAlert: customAlert
+        getCookie: getCookie,
+        setCookie: setCookie,
+        removeCookie: removeCookie,
+        customAlert: customAlert,
+        resetFormAlerts: resetFormAlerts
     };
 }());
 

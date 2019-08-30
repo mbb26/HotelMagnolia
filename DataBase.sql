@@ -986,6 +986,10 @@ UPDATE [dbo].[RESERVACION] SET
       ESTADO_RESERVACION = @Estado
 WHERE ID_RESERVACION = @ID_Reservacion
 
+SELECT *
+FROM [dbo].[RESERVACION]
+WHERE ID_RESERVACION = @ID_Reservacion
+
 GO
 -------------------------------------------------------
 CREATE OR ALTER PROCEDURE DeleteReservacionAPI
@@ -1000,8 +1004,7 @@ GO
 -------------------------------------------------------
 create or ALTER   PROCEDURE [dbo].[JoinReservacionHabitacion]
 (
-   @ID_Reservacion VARCHAR(200)
- 
+   @ID_Reservacion VARCHAR(200) 
 )
 AS
 BEGIN

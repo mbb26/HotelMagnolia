@@ -37,8 +37,10 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Create<T>(T entity)
         {
             var aux = _mapper.Map<EasyPayDb.PaymentMethod>(entity);
+            aux = Util.Cypher.EncryptObject(aux) as EasyPayDb.PaymentMethod;
             _easyPayDbContext.PaymentMethods.Add(aux);
             _easyPayDbContext.SaveChanges();
+            aux = Util.Cypher.DecryptObject(aux) as EasyPayDb.PaymentMethod;
             return _mapper.Map<T>(aux);
         }
 
@@ -65,7 +67,16 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <returns>all.</returns>
         public List<T> GetAll<T>()
-            => _mapper.Map<List<T>>(_easyPayDbContext.PaymentMethods.ToList());
+        {
+            var auxList = _easyPayDbContext.PaymentMethods.ToList();
+            List< EasyPayDb.PaymentMethod> decrypted = new System.Collections.Generic.List<EasyPayDb.PaymentMethod>();
+            foreach (EasyPayDb.PaymentMethod pm in auxList)
+            {
+                EasyPayDb.PaymentMethod auxPM = Util.Cypher.DecryptObject(pm) as EasyPayDb.PaymentMethod;
+                decrypted.Add(auxPM);
+            }
+            return _mapper.Map<List<T>>(decrypted);
+        }
 
         /// <summary>Gets by identifier.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>

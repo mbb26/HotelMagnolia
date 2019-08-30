@@ -8,10 +8,12 @@ namespace Ulacit.Mandiola.Model
 
         public string CardNumber { get; set; }
 
-        public DateTime ExpiredDate { get; set; }
+        public string ExpiredDate { get; set; }
 
         public string Cvv { get; set; }
 
         public string Email { get; set; }
+
+        public string Nombre { get; set; }
     }
 }

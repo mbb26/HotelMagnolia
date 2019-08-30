@@ -37,8 +37,10 @@ namespace Ulacit.Mandiola.DB.Concrete
         public T Create<T>(T entity)
         {
             var aux = _mapper.Map<User>(entity);
-            _easyPayDbContext.Users.Add(aux);
+            aux = Util.Cypher.EncryptObject(aux) as User;
+        _easyPayDbContext.Users.Add(aux);
             _easyPayDbContext.SaveChanges();
+            aux = Util.Cypher.DecryptObject(aux) as User;
             return _mapper.Map<T>(aux);
         }
 

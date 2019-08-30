@@ -47,7 +47,7 @@ namespace Ulacit.Mandiola.API.Controllers
         /// <summary>(An Action that handles HTTP PUT requests) updates the given aux.</summary>
         /// <param name="aux">The auxiliary.</param>
         /// <returns>An ApiResultModel&lt;RESERVACION&gt;</returns>
-        [HttpPut]
+        [HttpPost]
         public ApiResultModel<RESERVACION> Update([FromBody]RESERVACION aux) => GetApiResultModel(() => _reservationService.Update(aux));
     }
 }

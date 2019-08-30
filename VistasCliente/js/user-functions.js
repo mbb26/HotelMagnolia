@@ -53,7 +53,8 @@ APP.userFunctions = (function() {
             var $user = {
                 id: $createdUser.iD_USUARIO,
                 username: $createdUser.useR_NAME,
-                name: $createdUser.nombre
+                name: $createdUser.nombre,
+                email: $createdUser.correo
             };
             APP.functions.setSessionUser($user);
             var sessionUser = APP.functions.getSessionUser();
