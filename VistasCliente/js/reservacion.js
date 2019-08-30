@@ -17,6 +17,7 @@ APP.reservacion = (function() {
     var $cantidad_adultos;
     var $cantidad_ninos;
     var $rooms_selected;
+    var $rooms_needed;
     var $errors;
 
     var bindButtons = function() {        
@@ -71,6 +72,7 @@ APP.reservacion = (function() {
         var $htmlContent = '';
         
         if ($available_rooms && $available_rooms.length > 0) {
+            $htmlContent += '<div class="table-wrapper-scroll-y my-custom-scrollbar">'
             $htmlContent += '<table class="table">';
             $htmlContent += '<thead>';
             $htmlContent += '<tr>';
@@ -91,6 +93,7 @@ APP.reservacion = (function() {
 
             $htmlContent += '</tbody>';
             $htmlContent += '</table>';
+            $htmlContent += '</div>';
         }
         else {
             $htmlContent += '<h5>No hay habitaciones disponibles con los parámetros requeridos</h5>';
@@ -137,15 +140,33 @@ APP.reservacion = (function() {
         var $valid = APP.functions.validateForm($($reservation_form_selector));
         if ($valid) {
             var $total_huespedes = $cantidad_adultos + $cantidad_ninos;
-            var $rooms_needed = Math.ceil($total_huespedes / 4.0);
+            $rooms_needed = Math.ceil($total_huespedes / 4.0);
             console.log('rooms needed: '+$rooms_needed+', rooms selected: '+$rooms_selected);
+            $valid = validateRoomsSelected();
+            console.log($errors);
+            if (!$valid) {
+                console.log($errors);
+                APP.functions.customAlert('Por favor revise los siguientes errores: <br/><ul>'+$errors.join('<br/>')+'</ul>', 'Error');
+            }
         }
+    };
+
+    var validateRoomsSelected = function() {
+        $errors.length = 0;
+        if ($rooms_selected < $rooms_needed) {
+            $errors.push('<li>Necesita seleccionar al menos '+$rooms_needed+' habitaci'+($rooms_needed > 1 ? 'ones' : 'ón')+'.</li>');
+        }
+        if ($rooms_selected > $cantidad_adultos) {
+            $errors.push('<li>Se le permite seleccionar máximo una habitación por cada adulto que ingrese.</li>');
+        }
+        return $errors.length === 0;
     };
     
     var init = function() {
         $cantidad_adultos = 0;
         $cantidad_ninos = 0;
         $rooms_selected = 0;
+        $rooms_needed = 0;
         $errors = [];
         $from = $('#fecha_ingreso').datepicker({
             minDate: 0,
