@@ -39,6 +39,10 @@ namespace Ulacit.Mandiola.DB.MandiolaDb
         /// <value>The estado reservacion.</value>
         public virtual DbSet<ESTADO_RESERVACION> ESTADO_RESERVACION { get; set; }
 
+        /// <summary>Gets or sets the Habitaciones En Reservacion.</summary>
+        /// <value>The Habitaciones En Reservacion.</value>
+        public virtual DbSet<HabitacionesEnReservacion> HabitacionesEnReservacion { get; set; }
+
         /// <summary>Gets or sets the habitacio ns.</summary>
         /// <value>The habitacio ns.</value>
         public virtual DbSet<HABITACION> HABITACIONs { get; set; }

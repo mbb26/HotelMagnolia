@@ -141,15 +141,32 @@ APP.reservacion = (function() {
         if ($valid) {
             var $total_huespedes = $cantidad_adultos + $cantidad_ninos;
             $rooms_needed = Math.ceil($total_huespedes / 4.0);
-            console.log('rooms needed: '+$rooms_needed+', rooms selected: '+$rooms_selected);
+            // console.log('rooms needed: '+$rooms_needed+', rooms selected: '+$rooms_selected);
             $valid = validateRoomsSelected();
-            console.log($errors);
+            // console.log($errors);
             if (!$valid) {
-                console.log($errors);
+                // console.log($errors);
                 APP.functions.customAlert('Por favor revise los siguientes errores: <br/><ul>'+$errors.join('<br/>')+'</ul>', 'Error');
+            }
+            else {
+                createReservacion();
             }
         }
     };
+
+    var createReservacion = function() {
+        APP.functions.makeAPICall($api_reservation+'Create', 'POST', $($reservation_form_selector).serialize(), reservationCreated, callFailed);
+    };
+
+    var reservationCreated = function(response) {
+        var $reservation = response.result;
+        if ($reservation) {
+            console.log($reservation);
+        }
+        else {
+            APP.functions.customAlert('Se ha producido un error al crear la reservación. Favor inténtelo de nuevo.', 'Error');
+        }
+    }
 
     var validateRoomsSelected = function() {
         $errors.length = 0;
