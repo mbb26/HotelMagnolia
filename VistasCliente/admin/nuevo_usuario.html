@@ -11,6 +11,7 @@
 
     <link rel="icon" href="../img/core-img/favicon.png">
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/jquery-ui.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
@@ -109,13 +110,22 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                    <form action="?" method="POST">
+                                            <div class="g-recaptcha"
+                                             data-sitekey="6LenvbUUAAAAACtw4jIkJR-hWMuEzeJ3jfoIFmze" id="reCaptchaId"
+                                             data-callback="recaptchaOkay"></div>
+                                           
+                                          </form>
+                                          <br>
                                 <div class="col-md-offset-2 col-md-10">
-                                    <a class="btn essence-btn create-user" href="#">Crear</a>
+                                    <a class="btn essence-btn create-user hidden"  id="btnCrear" href="#">Crear</a>
                                     <a class="btn btn-primary login-user" href="/">Cancelar</a>
                                 </div>
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="reset" value="Restablecer" class="reset-form">
                                 </div>
+                                <br>
+                               
                             </div>
                         </form>
                     </div>
@@ -140,5 +150,4 @@
 
 
 </body>
-
 </html>

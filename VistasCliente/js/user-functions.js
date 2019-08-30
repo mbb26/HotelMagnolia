@@ -126,3 +126,7 @@ function onSignIn(googleUser) {
         console.log(response);
     });  
 }
+
+function recaptchaOkay(){
+    $("#btnCrear").removeClass("hidden");
+}
