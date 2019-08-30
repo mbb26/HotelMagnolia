@@ -6,19 +6,16 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DESCRIPCION)
+            Descripcion
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IMG)
+            Imagen
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PRECIO.PRECIO1)
+            Precio
         </th>
         <th></th>
     </tr>
@@ -43,3 +40,7 @@
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Crear Nueva", "Create", null, new { @class = "btn btn-primary" })
+</p>

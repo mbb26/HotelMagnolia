@@ -45,19 +45,19 @@ namespace HotelMagnolia.UI.Controllers
         // GET: Articulo/Create
         public ActionResult Create()
         {
-            ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
+            //ViewBag.ID_PRECIO = new SelectList(db.PRECIOs, "ID_PRECIO", "TIPO_PRECIO");
 
-            //var PrecioNuevo = new List<SelectListItem>();
-            //List<PRECIO> Tipos = db.PRECIOs.ToList();
-            //foreach (PRECIO i in Tipos)
-            //{
-            //    var nuevo = new SelectListItem();
-            //    nuevo.Value = (i.PRECIO1.ToString());
-            //    nuevo.Text = Util.Cypher.Decrypt(i.TIPO_PRECIO);
-            //    PrecioNuevo.Add(nuevo);
-            //}
+            var PrecioNuevo = new List<SelectListItem>();
+            List<PRECIO> Tipos = db.PRECIOs.ToList();
+            foreach (PRECIO i in Tipos)
+            {
+                var nuevo = new SelectListItem();
+                nuevo.Value = (i.ID_PRECIO);
+                nuevo.Text = i.PRECIO1.ToString();
+                PrecioNuevo.Add(nuevo);
+            }
 
-            //ViewBag.ID_PRECIO = PrecioNuevo;
+            ViewBag.ID_PRECIO = PrecioNuevo;
             return View();
         }
 
