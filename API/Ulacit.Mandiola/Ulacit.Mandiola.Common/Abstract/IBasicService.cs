@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.Common.Abstract
 {

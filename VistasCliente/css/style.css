@@ -839,4 +839,7 @@ footer {
 .table-wrapper-scroll-y {
   display: block; }
 
+    .hidden {
+     visibility: hidden; 
+    }   
 /*# sourceMappingURL=style.css.map */

@@ -16,7 +16,6 @@ using USUARIO = Ulacit.Mandiola.DB.MandiolaDb.USUARIO;
 namespace Ulacit.Mandiola.DB.Concrete
 {
     /// <summary>A consecutive context.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Dependency(DependencyScope.Transient)]
     public class UserContext : IUserContext
     {

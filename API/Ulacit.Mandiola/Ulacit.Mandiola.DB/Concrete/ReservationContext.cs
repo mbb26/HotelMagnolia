@@ -9,12 +9,10 @@ using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
 using Ulacit.Mandiola.DB.Util;
 using System.Data.SqlClient;
-using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
     /// <summary>A consecutive context.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Dependency(DependencyScope.Transient)]
     public class ReservationContext : IReservationContext
     {

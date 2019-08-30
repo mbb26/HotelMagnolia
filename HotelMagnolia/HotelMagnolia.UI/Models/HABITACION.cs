@@ -21,7 +21,7 @@ namespace HotelMagnolia.UI.Models
         public string FOTO { get; set; }
         public int TIPO_HABITACION { get; set; }
         public string ID_PRECIO { get; set; }
-        public bool DISPONIBLE { get; set; }
+        public Nullable<bool> DISPONIBLE { get; set; }
     
         public virtual PRECIO PRECIO { get; set; }
         public virtual TIPO_HABITACION TIPO_HABITACION1 { get; set; }

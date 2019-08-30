@@ -3,12 +3,10 @@ using System.Web.Http;
 using Ulacit.Mandiola.API.Models;
 using Ulacit.Mandiola.Biz.Abstract;
 using Ulacit.Mandiola.Model;
-using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.API.Controllers
 {
     /// <summary>A controller for handling binacle types.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BinacleTypeController : BaseApiController
     {
         /// <summary>The binacle type service.</summary>

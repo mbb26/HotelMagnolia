@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using Ulacit.Mandiola.Common.Abstract;
-using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.Common.Concrete
 {
     /// <summary>A service for accessing basics information.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BasicService : IBasicService
     {
         /// <summary>The context.</summary>

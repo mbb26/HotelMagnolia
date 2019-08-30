@@ -7,13 +7,10 @@ using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.DB.MandiolaDb;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
-using System.Web.Http.Cors;
-using Ulacit.Mandiola.DB.Util;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
     /// <summary>A consecutive context.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Dependency(DependencyScope.Transient)]
     public class RoomContext : IRoomContext
     {
@@ -62,18 +59,10 @@ namespace Ulacit.Mandiola.DB.Concrete
             }
         }
 
+        /// <summary>(An Action that handles HTTP GET requests) gets Available Rooms.</summary>
+        /// <returns>The by the availability of a room.</returns>
         public List<T> GetAvailable<T>()
-        {
-
-            List<HABITACION> aux = _mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").ToList<HABITACION>();
-            foreach (HABITACION hab in aux)
-            {
-                hab.NOMBRE = Cypher.Decrypt(hab.NOMBRE);
-                hab.DESCRIPCION = Cypher.Decrypt(hab.DESCRIPCION);
-            }
-
-            return _mapper.Map<List<T>>(aux);
-        }
+            => _mapper.Map<List<T>>(_mandiolaDbContext.Database.SqlQuery<HABITACION>("exec GetDisponibles").ToList());
 
         /// <summary>Gets all.</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>

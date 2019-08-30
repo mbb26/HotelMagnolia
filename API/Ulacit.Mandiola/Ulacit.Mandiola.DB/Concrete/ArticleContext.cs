@@ -7,12 +7,10 @@ using Ulacit.Mandiola.DB.Abstract;
 using Ulacit.Mandiola.DB.MandiolaDb;
 using Ulacit.Mandiola.IoC.Concrete;
 using Ulacit.Mandiola.IoC.Enum;
-using System.Web.Http.Cors;
 
 namespace Ulacit.Mandiola.DB.Concrete
 {
     /// <summary>A consecutive context.</summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Dependency(DependencyScope.Transient)]
     public class ArticleContext : IArticleContext
     {

@@ -2,7 +2,7 @@ var APP = window.APP || {};
 var auxFunction;
 APP.userFunctions = (function() {
 
-    var $api_user = 'User/';
+    var $api_user = 'User';
     var $create_user_form_selector = '#create-user-form';
     var $create_user_form = null;
     var $login_form_selector = '#login-form';
@@ -13,20 +13,18 @@ APP.userFunctions = (function() {
             e.preventDefault();
             if (APP.functions.validateForm($create_user_form)) {
                 $('input[name="id_usuario"]').val(''+(Math.floor(Math.random() * 1000000)+9000000));
-                APP.functions.makeAPICall($api_user+'Create', 'POST', $create_user_form.serialize(), userCreated, callFailed);
+                APP.functions.makeAPICall($api_user, 'create', 'POST', $create_user_form.serialize(), userCreated, callFailed);
             }
         });
         
-        $('#login-form').on('submit', function(e) {
+        $('.login-user').on('click', function(e) {
             e.preventDefault();
-            if (APP.functions.validateForm(this)) {
-                APP.functions.makeAPICall($api_user+'Login', 'POST', $login_form.serialize(), userLogged, callFailed);
-            }
+            APP.functions.makeAPICall($api_user, 'login', 'POST', $login_form.serialize(), userLogged, callFailed);
         });
         
         $('.check-availability').on('click', function(e) {
             e.preventDefault();
-            APP.functions.makeAPICall($api_user+'IsUsernameAvailable', 'GET', $('#user_name').serialize(), alertAvailable, callFailed);
+            APP.functions.makeAPICall($api_user, 'availability', 'GET', $('#user_name').serialize(), alertAvailable, callFailed);
         });
 
     };
@@ -37,12 +35,11 @@ APP.userFunctions = (function() {
 
     var userCreated = function(response) {
         console.log(response);
+        alert('El usuario '+response.result.useR_NAME+' se ha creado con éxito');
 
         if ($create_user_form.length > 0) {
             $create_user_form[0].reset();
         }
-
-        APP.functions.customAlert('El usuario '+response.result.useR_NAME+' se ha creado con éxito', 'Usuario', './index.html');
     };
 
     var userLogged = auxFunction=function(response) {
@@ -57,17 +54,18 @@ APP.userFunctions = (function() {
             };
             APP.functions.setSessionUser($user);
             var sessionUser = APP.functions.getSessionUser();
-            APP.functions.customAlert('El usuario '+sessionUser.username+' se ha logueado correctamente.', 'Login', './index.html');
+            alert('El usuario '+sessionUser.username+' se ha logueado correctamente.');
+            $(location).attr('href','./index.html');
         }
         else {
-            APP.functions.customAlert('Usuario o contraseña incorrectos');
+            alert('Usuario o contraseña incorrectos');
         }
     };
 
     var alertAvailable = function(response) {
         console.log(response);
         var $available = response.result;
-        APP.functions.customAlert('El nombre de usuario '+($available?' ':'NO ')+'se encuentra disponible');
+        alert('El nombre de usuario '+($available?' ':'NO ')+'se encuentra disponible');
     };
     
     var init = function() {
@@ -115,9 +113,18 @@ window.fbAsyncInit = function() {
 
 function testAPI() {
     FB.api('/me?fields=id,name,email', function(response) {
-        console.log('Good to see you, ' + response.name + '.' + ' Email: ' + response.email + ' Facebook ID: ' + response.id);
         APP.functions.makeAPICall('User/'+'GetUserByEmail?email='+encodeURI(response.email), 'GET',null, auxFunction, function(response){
             console.log(response);
         });
     });
+}
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    APP.functions.makeAPICall('User/'+'GetUserByEmail?email='+encodeURI(profile.getEmail()), 'GET',null, auxFunction, function(response){
+        console.log(response);
+    });  
+}
+
+function recaptchaOkay(){
+    $("#btnCrear").removeClass("hidden");
 }
