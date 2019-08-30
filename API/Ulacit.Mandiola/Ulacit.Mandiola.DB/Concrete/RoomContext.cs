@@ -85,7 +85,7 @@ namespace Ulacit.Mandiola.DB.Concrete
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="id">The identifier.</param>
         /// <returns>The by identifier.</returns>
-        public T GetById<T>(int id)
+        public T GetById<T>(string id)
             => _mapper.Map<T>(_mandiolaDbContext.HABITACIONs.FirstOrDefault(x => x.ID_HABITACION == id.ToString()));
 
         /// <summary>Updates the given entity.</summary>
@@ -105,6 +105,9 @@ namespace Ulacit.Mandiola.DB.Concrete
             return _mapper.Map<T>(aux);
         }
 
-        
+        public T GetById<T>(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

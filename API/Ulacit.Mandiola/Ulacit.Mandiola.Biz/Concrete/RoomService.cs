@@ -22,6 +22,11 @@ namespace Ulacit.Mandiola.Biz.Concrete
             _roomContext = roomContext;
         }
 
+        public T GetById<T>(string id)
+        {
+            return _roomContext.GetById<T>(id);
+        }
+
         public List<T> GetAvailable<T>()
         {
             return _roomContext.GetAvailable<T>();

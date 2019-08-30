@@ -42,7 +42,7 @@ namespace Ulacit.Mandiola.API.Controllers
         /// <param name="id">The identifier.</param>
         /// <returns>The by identifier.</returns>
         [HttpGet]
-        public ApiResultModel<HABITACION> GetById([FromUri]int id) => GetApiResultModel(() => _roomService.GetById<HABITACION>(id));
+        public ApiResultModel<HABITACION> GetById([FromUri]string id) => GetApiResultModel(() => _roomService.GetById<HABITACION>(id));
 
         /// <summary>(An Action that handles HTTP GET requests) gets list of available Rooms.</summary>
         /// <returns>The list of available rooms.</returns>

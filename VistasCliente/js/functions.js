@@ -6,6 +6,7 @@ APP.functions = (function() {
         root: 'http://localhost:44364/API/'
     };
     var $user_in_session = 'userInSession';
+    var $reservations_cookie = 'reservationsCookie';
 
     var makeAPICall = function(apiRequest, method, params, onSuccess, onError) {
         $.ajax({
@@ -38,6 +39,18 @@ APP.functions = (function() {
     var removeSessionUser = function() {
         $.removeCookie($user_in_session);
         loadMenu();
+    };
+
+    var getReservations = function() {
+        return JSON.parse($.cookie($reservations_cookie) || null);
+    };
+
+    var setReservations = function(reservations) {
+        $.cookie($reservations_cookie, JSON.stringify(reservations));
+    };
+
+    var removeReservations = function() {
+        $.removeCookie($reservations_cookie);
     };
 
     var customAlert = function (message, title, redirectURL) {
@@ -119,7 +132,7 @@ APP.functions = (function() {
             $htmlContent += '</li>';
             $htmlContent += '</ul>';
             $htmlContent += '<ul id="carrito" class="nav navbar-nav navbar-right">';
-            $htmlContent += '<li class="nav-item"><a href="Carrito.html" class="nav-link"><span class="glyphicon glyphicon-user"></span>Carrito</a></li>';
+            $htmlContent += '<li class="nav-item"><a href="carrito.html" class="nav-link"><span class="glyphicon glyphicon-user"></span>Carrito</a></li>';
             $htmlContent += '</ul>';
         }        
         else {
@@ -138,7 +151,7 @@ APP.functions = (function() {
             $htmlContent += '</li>';
             $htmlContent += '</ul>';
             $htmlContent += '<ul id="carrito" class="nav navbar-nav navbar-right">';
-            $htmlContent += '<li><a href="Carrito.html"><span class="glyphicon glyphicon-user"></span>Carrito</a></li>';
+            $htmlContent += '<li><a href="carrito.html"><span class="glyphicon glyphicon-user"></span>Carrito</a></li>';
             $htmlContent += '</ul>';
         }
         $navContent.html($htmlContent);
@@ -230,6 +243,9 @@ APP.functions = (function() {
         getSessionUser: getSessionUser,
         setSessionUser: setSessionUser,
         removeSessionUser: removeSessionUser,
+        getReservations: getReservations,
+        setReservations: setReservations,
+        removeReservations: removeReservations,
         customAlert: customAlert
     };
 }());

@@ -68,7 +68,7 @@ APP.reservacion = (function() {
                 return room.tipO_HABITACION == parseInt($tipo_habitacion);
             });
         }
-        console.log($available_rooms);
+        // console.log($available_rooms);
         createAvailableRoomsForm();
     };
 
@@ -162,14 +162,14 @@ APP.reservacion = (function() {
         $available_rooms = $available_rooms.filter(function(room) {
             return !room.disponible;
         })
-        console.log($available_rooms);
+        // console.log($available_rooms);
         APP.functions.makeAPICall($api_reservation+'Create', 'POST', $($reservation_form_selector).serialize(), reservationCreated, callFailed);
     };
 
     var reservationCreated = function(response) {
         var $reservation = response.result;
         if ($reservation && $reservation.iD_RESERVACION) {
-            console.log($reservation);
+            // console.log($reservation);
             $available_rooms.forEach(function(room) {
                 $('#rrform-reservacion').val($reservation.iD_RESERVACION);
                 $('#rrform-habitacion').val(room.iD_HABITACION);
@@ -185,6 +185,12 @@ APP.reservacion = (function() {
                 $('#DISPONIBLE').val(room.disponible);
                 APP.functions.makeAPICall($api_room+'Update', 'POST', $($room_form_selector).serialize(), roomModified, callFailed);
             });
+            APP.functions.customAlert('Su reservación se ha creado con éxito', 'Reservación');
+            $($reservation_form_selector)[0].reset();
+            $($available_rooms_selector).html('');
+            var $reservations = APP.functions.getReservations() || [];
+            $reservations.push($reservation);
+            APP.functions.setReservations($reservations);
         }
         else {
             APP.functions.customAlert('Se ha producido un error al crear la reservación. Favor inténtelo de nuevo.', 'Error');
@@ -194,8 +200,8 @@ APP.reservacion = (function() {
     var rrCreated = function(response) {
         var $rr = response.result;
         if ($rr) {
-            console.log('rr created: ');
-            console.log($rr);
+            // console.log('rr created: ');
+            // console.log($rr);
         }
         else {
             APP.functions.customAlert('Se ha producido un error al crear la RR. Favor inténtelo de nuevo.', 'Error');
@@ -205,8 +211,8 @@ APP.reservacion = (function() {
     var roomModified = function(response) {
         var $mr = response.result;
         if ($mr) {
-            console.log('room modified: ');
-            console.log($mr);
+            // console.log('room modified: ');
+            // console.log($mr);
         }
         else {
             APP.functions.customAlert('Se ha producido un error al modificar la habitacion. Favor inténtelo de nuevo.', 'Error');

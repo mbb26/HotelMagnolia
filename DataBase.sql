@@ -1037,7 +1037,7 @@ GO
 -------------------------------------------------------
 CREATE OR ALTER PROCEDURE GetDisponibles
 AS
-SELECT NOMBRE,ID_PRECIO,TIPO_HABITACION
+SELECT *
 FROM [dbo].[HABITACION]
 WHERE DISPONIBLE != 0
 GO

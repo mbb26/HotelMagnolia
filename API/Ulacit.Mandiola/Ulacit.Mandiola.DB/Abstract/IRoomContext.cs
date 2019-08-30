@@ -7,6 +7,7 @@ namespace Ulacit.Mandiola.DB.Abstract
     /// <summary>Interface for room context.</summary>
     public interface IRoomContext : IBasicService
     {
+        T GetById<T>(string id);
         List<T> GetAvailable<T>();
     }
 }

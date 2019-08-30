@@ -19,7 +19,7 @@
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/functions.js"></script>
     <script src="../js/jquery.cookie.js"></script>
-
+    <script src="../js/carrito.js"></script>
 </head>
 
 <body>
@@ -49,33 +49,30 @@
                         <br>
                         <br>
                         <table align="justify-content-end,align-items-center">
-                            <tr>
-                                <th>Habitacion tipo</th>
-                                <th>Fecha de Ingreso</th>
-                                <th>Fecha de Salida</th>
-                                <th>Personas Adultos</th>
-                                <th>Personas Niños</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td>Premium</td>
-                                <td>20/05/2020</td>
-                                <td>23/05/2020</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td><a href="editar_actividad.html">Editar</a></td>
-                            </tr>
-                           
+                            <thead>
+                                <tr>
+                                    <th>ID Reservación</th>
+                                    <th>Habitacion tipo</th>
+                                    <th>Fecha de Ingreso</th>
+                                    <th>Fecha de Salida</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart-reservations">
+                                <tr>
+                                    <td>Premium</td>
+                                    <td>20/05/2020</td>
+                                    <td>23/05/2020</td>
+                                    <td>2</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
                         </table>
                        
-                        <h3>Codigo Promocional:</h3>
-                        <input type="text" name="promCode" >
                         <h3>Total:</h3>
                        <label type="text" name="Total">¢</label>
                        <br>
                        <br>
                         <a href="pantalla_pago.html" class="btn essence-btn">Pagar</a>
-
                     </div>
                 </div>
             </div>
